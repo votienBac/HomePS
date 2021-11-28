@@ -13,6 +13,9 @@ public class OrderESService {
     private final OrderServiceRepository orderServiceRepository;
 
     public OrderService create(OrderService orderService){
+        if(orderServiceRepository.existsById(orderService.getPk())){
+            orderService.setQuantity(orderService.getQuantity()+orderServiceRepository.findById(orderService.getPk()).get().getQuantity());
+        }
         return orderServiceRepository.save(orderService);
     }
 }

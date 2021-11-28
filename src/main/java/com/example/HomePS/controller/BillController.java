@@ -37,13 +37,17 @@ public class BillController {
     public Bill addExtraService(@RequestBody OrderForm form, @PathVariable Long billId){
         List<OrderServiceDto> formDtos = form.getOrderServiceDtos();
         Bill bill = billService.getBill(billId);
-        List<OrderService> orderServices = new ArrayList<>();
-        for(OrderServiceDto dto: formDtos){
-            orderServices.add(orderESService.create(new OrderService(bill, esService.getService(dto.getExtraService().getServiceId()), dto.getQuantity())));
-        }
-        bill.setOrderServices(orderServices);
+        if(!bill.isPaid()){
+            List<OrderService> orderServices = new ArrayList<>();
+            for(OrderServiceDto dto: formDtos){
+                orderServices.add(orderESService.create(new OrderService(bill, esService.getService(dto.getExtraService().getServiceId()), dto.getQuantity())));
+            }
+            bill.setOrderServices(orderServices);
 
-        return billService.update(bill);
+            return billService.update(bill);
+        }
+        return bill;
+
     }
 
     @GetMapping
