@@ -31,6 +31,16 @@ public class BillService {
         return billRepository.findAll();
     }
 
+    public Iterable<Bill> getAllPaidBill() {
+        return billRepository
+                .findAllByTimeEndIsNotNull();
+    }
+
+    public Iterable<Bill> getAllUnpaidBill() {
+        return billRepository
+                .findAllByTimeEndIsNull();
+    }
+
     public Bill getBill(Long id){
         return billRepository.getById(id);
     }
@@ -68,7 +78,6 @@ public class BillService {
         return billRepository.save(bill);
     }
 
-
     public Double getTotalHourPlayed(Bill bill){
         Duration duration = Duration.between(bill.getTimeStart(), bill.getTimeEnd());
         Long totalMinutes = duration.toMinutes(); //tong so phut choi
@@ -91,6 +100,7 @@ public class BillService {
         }
         return sum;
     }
+
     public void findEventForBill(Bill bill){
         if(!eventRepository.findAll().isEmpty()){
             List<Event> events = eventRepository.findAll();

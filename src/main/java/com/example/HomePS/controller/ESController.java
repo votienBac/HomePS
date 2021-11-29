@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/extraservice/")
+@RequestMapping("/api/extraservice")
 @AllArgsConstructor
 public class ESController {
     private final ESService esService;

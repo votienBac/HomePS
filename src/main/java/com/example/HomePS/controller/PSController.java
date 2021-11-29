@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/ps/")
+@RequestMapping("/api/ps")
 @AllArgsConstructor
 public class PSController {
     private final PSService psService;
@@ -17,8 +17,19 @@ public class PSController {
     }
 
     @GetMapping
-    public Iterable<PlayStation> getAllPS(){
-        return psService.getAllPS();
+    public Iterable<PlayStation> getAllPS(@RequestParam(required = false) String status){
+        if (status == null) {
+            return psService.getAllPS();
+        } else switch (status) {
+            case "free":
+                return psService.getPSByStatus(PlayStation.FREE);
+            case "busy":
+                return psService.getPSByStatus(PlayStation.BUSY);
+            case "broken":
+                return psService.getPSByStatus(PlayStation.BROKEN);
+            default:
+                return psService.getAllPS();
+        }
     }
 
     @GetMapping("/{id}")
@@ -30,7 +41,5 @@ public class PSController {
     public void delete(@PathVariable Long id){
         psService.delete(id);
     }
-
-
 
 }

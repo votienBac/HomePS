@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bills/")
+@RequestMapping("/api/bills")
 @AllArgsConstructor
 public class BillController {
 
@@ -27,7 +27,7 @@ public class BillController {
         billService.create(billRequest);
     }
 
-    @PutMapping("/endBill/{billId}")
+    @PutMapping("/endbill/{billId}")
     public void finishBill(@PathVariable Long billId){
         billService.endBill(billId);
     }
@@ -49,9 +49,17 @@ public class BillController {
     }
 
     @GetMapping
-    public Iterable<Bill> getAllBills(@RequestParam(required = false) Long psId){
-        return billService.getAllBill();
+    public Iterable<Bill> getAllBills(@RequestParam(required = false) String status){
+        if (status == null) {
+            return billService.getAllBill();
+        } else switch (status) {
+            case "paid": return billService.getAllPaidBill();
+            case "unpaid": return billService.getAllUnpaidBill();
+            default: return billService.getAllBill();
+        }
     }
+
+
     @GetMapping("/{id}")
     public Bill getBill(@PathVariable Long id){
         return billService.getBill(id);

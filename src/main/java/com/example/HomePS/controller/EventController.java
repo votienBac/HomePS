@@ -7,7 +7,7 @@ import com.example.HomePS.service.PSService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 @RestController
-@RequestMapping("/api/events/")
+@RequestMapping("/api/events")
 @AllArgsConstructor
 public class EventController {
     private final EventService eventService;

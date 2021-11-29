@@ -26,7 +26,8 @@ public class PlayStation {
         switch (psStatus) {
             case FREE: return "Trống";
             case BUSY: return "Đang sử dụng";
-            default: return "Đang hỏng";
+            case BROKEN: return "Đang hỏng";
+            default: return "undefined";
         }
     }
 }
