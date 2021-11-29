@@ -3,7 +3,6 @@ package com.example.HomePS.controller;
 import com.example.HomePS.dto.BillRequest;
 import com.example.HomePS.dto.OrderServiceDto;
 import com.example.HomePS.model.Bill;
-import com.example.HomePS.model.ExtraService;
 import com.example.HomePS.model.OrderService;
 import com.example.HomePS.service.BillService;
 import com.example.HomePS.service.ESService;
@@ -28,9 +27,9 @@ public class BillController {
         billService.create(billRequest);
     }
 
-    @PutMapping("/endBill/")
-    public void finishBill(@RequestBody BillRequest billRequest){
-        billService.endBill(billRequest);
+    @PutMapping("/endBill/{billId}")
+    public void finishBill(@PathVariable Long billId){
+        billService.endBill(billId);
     }
 
     @PutMapping("/{billId}")
@@ -47,11 +46,10 @@ public class BillController {
             return billService.update(bill);
         }
         return bill;
-
     }
 
     @GetMapping
-    public Iterable<Bill> getAllBills(){
+    public Iterable<Bill> getAllBills(@RequestParam(required = false) Long psId){
         return billService.getAllBill();
     }
     @GetMapping("/{id}")

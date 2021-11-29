@@ -9,10 +9,11 @@ import com.example.HomePS.repository.BillRepository;
 import com.example.HomePS.repository.EventRepository;
 import com.example.HomePS.repository.PSRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
-import javax.persistence.Transient;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
@@ -28,24 +29,33 @@ public class BillService {
 
     public Iterable<Bill> getAllBill(){
         return billRepository.findAll();
-
     }
+
     public Bill getBill(Long id){
         return billRepository.getById(id);
     }
 
     public Bill create(BillRequest billRequest){
         Bill bill = new Bill();
-        bill.setPlayStation(psRepository.getById(billRequest.getPsId()));
+        Long psId = billRequest.getPsId();
+        PlayStation ps = psRepository
+                .findById(psId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "PS not found!"));
+        if (ps.getPsStatus() != PlayStation.FREE)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This PlayStation is in use.");
+        ps.setPsStatus(PlayStation.BUSY);
+        psRepository.save(ps);
+        bill.setPlayStation(ps);
         bill.setTimeStart(Instant.now());
         bill.setPaid(false);
-
-
         return billRepository.save(bill);
     }
 
-    public Bill endBill(BillRequest billRequest){
-        Bill bill = billRepository.getById(billRequest.getBillId());
+    public Bill endBill(Long id){
+        Bill bill = billRepository.getById(id);
+        PlayStation ps = bill.getPlayStation();
+        ps.setPsStatus(PlayStation.FREE);
+        psRepository.save(ps);
         bill.setTimeEnd(Instant.now());
         bill.setPaid(true);
         findEventForBill(bill);

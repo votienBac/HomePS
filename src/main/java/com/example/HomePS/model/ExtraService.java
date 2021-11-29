@@ -1,7 +1,5 @@
 package com.example.HomePS.model;
 
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +20,4 @@ public class ExtraService {
     @Basic(optional = false)
     private String serviceName;
     private double price;
-
 }

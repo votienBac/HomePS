@@ -22,8 +22,6 @@ public class PSService {
         return psRepository
                 .findById(id)
                 .orElseThrow(()->new IllegalStateException("PS not found!"));
-
-
     }
     public PlayStation save(PlayStation playStation){
         return psRepository.save(playStation);

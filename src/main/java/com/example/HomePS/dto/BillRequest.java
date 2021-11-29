@@ -10,6 +10,4 @@ import lombok.NoArgsConstructor;
 public class BillRequest {
     private Long billId;
     private Long psId;
-
-
 }
