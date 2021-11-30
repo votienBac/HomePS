@@ -11,17 +11,29 @@ import './css/index.css';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  useLocation,
+  Link
 } from "react-router-dom";
 import store from './store/store.js'
 import { Provider } from 'react-redux'
 
 export default function App() {
-  
+  const location = useLocation();
+  const isLogin = location.pathname === "/";
   return (
     <div> 
-    <Router>
-      <a href="/"><h1>HOME PS</h1></a>
+        <a href="/"><h1>HOME PS</h1></a>
+        {!isLogin && (
+        <div class="btn-group">
+                <Link to = "/luotchoi"><button >Luotchoi</button></Link>
+                <Link to = "/mayps"><button >MayPS</button></Link>
+                <Link to = "/sukien"><button >SuKien</button></Link>
+                <Link to = "/dichvu"><button >DichVu</button></Link>
+                <Link to = "/thongke"><button >ThongKe</button></Link>
+                <Link to = "/taikhoan"><button >TaiKhoan</button></Link>
+        </div>
+        )}
         <Routes>
           <Route path="/luotchoi"
                   element = {<LuotChoi />}>
@@ -48,7 +60,6 @@ export default function App() {
                   element = {<Error />}>  
           </Route> 
         </Routes>
-    </Router>
     </div>
     )
 }
@@ -61,7 +72,9 @@ function Error(){
 
 ReactDOM.render(
   <Provider store = {store}>
-    <App />
+          <Router>
+                <App />
+          </Router>
   </Provider>,
   document.getElementById('root')
 );
