@@ -20,7 +20,7 @@ import java.util.List;
 public class EventService {
     private final EventRepository eventRepository;
 
-    public Iterable<Event> getAllEvent(Integer pageNumber, Integer pageSize, String sortBy){
+    public Iterable<Event> getEventsByPage(Integer pageNumber, Integer pageSize, String sortBy){
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Event> result = eventRepository.findAll(pageable);
         if (result.hasContent()) {

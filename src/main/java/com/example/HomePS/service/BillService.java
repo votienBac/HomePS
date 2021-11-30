@@ -31,7 +31,7 @@ public class BillService {
     private final PSRepository psRepository;
     private final EventRepository eventRepository;
 
-    public Iterable<Bill> getAllBill(Integer pageNumber, Integer pageSize, String sortBy){
+    public Iterable<Bill> getBillsByPage(Integer pageNumber, Integer pageSize, String sortBy){
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Bill> result = billRepository.findAll(pageable);
         if (result.hasContent()) {
@@ -41,7 +41,7 @@ public class BillService {
         }
     }
 
-    public Iterable<Bill> getAllPaidBill(Integer pageNumber, Integer pageSize, String sortBy) {
+    public Iterable<Bill> getPaidBillsByPage(Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Bill> result = billRepository.findAllByTimeEndIsNotNull(pageable);
 
@@ -52,7 +52,7 @@ public class BillService {
         }
     }
 
-    public Iterable<Bill> getAllUnpaidBill(Integer pageNumber, Integer pageSize, String sortBy) {
+    public Iterable<Bill> getUnpaidBillByPage(Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Bill> result = billRepository.findAllByTimeEndIsNull(pageable);
 

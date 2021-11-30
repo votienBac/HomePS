@@ -17,7 +17,7 @@ public class PSController {
     }
 
     @GetMapping
-    public Iterable<PlayStation> getAllPS(
+    public Iterable<PlayStation> getPSByPage(
             @RequestParam(required = false, defaultValue = "full") String status,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size,
@@ -31,7 +31,7 @@ public class PSController {
             case "broken":
                 return psService.getPSByStatus(PlayStation.BROKEN, page - 1, size, sortBy);
             default:
-                return psService.getAllPS(page - 1, size, sortBy);
+                return psService.getPSByPage(page - 1, size, sortBy);
         }
     }
 

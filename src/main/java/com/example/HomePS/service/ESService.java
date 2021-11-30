@@ -18,7 +18,7 @@ import java.util.List;
 public class ESService {
     private final ServiceRepository serviceRepository;
 
-    public Iterable<ExtraService> getAllService(Integer pageNumber, Integer pageSize, String sortBy){
+    public Iterable<ExtraService> getServicesByPage(Integer pageNumber, Integer pageSize, String sortBy){
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<ExtraService> result = serviceRepository.findAll(pageable);
         if (result.hasContent()) {

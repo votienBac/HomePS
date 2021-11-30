@@ -19,12 +19,12 @@ public class ESController {
     }
 
     @GetMapping
-    public Iterable<ExtraService> getAllES(
+    public Iterable<ExtraService> getServicesByPage(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size,
             @RequestParam(required = false, defaultValue = "serviceId") String sortBy
     ){
-        return esService.getAllService(page - 1, size, sortBy);
+        return esService.getServicesByPage(page - 1, size, sortBy);
     }
 
     @GetMapping("/{id}")

@@ -49,16 +49,16 @@ public class BillController {
     }
 
     @GetMapping
-    public Iterable<Bill> getAllBills(
+    public Iterable<Bill> getBillsByPage(
             @RequestParam(required = false, defaultValue = "full") String status,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size,
             @RequestParam(required = false, defaultValue = "billId") String sortBy
     ){
         switch (status) {
-            case "paid": return billService.getAllPaidBill(page - 1, size, sortBy);
-            case "unpaid": return billService.getAllUnpaidBill(page - 1, size, sortBy);
-            default: return billService.getAllBill(page - 1, size, sortBy);
+            case "paid": return billService.getPaidBillsByPage(page - 1, size, sortBy);
+            case "unpaid": return billService.getUnpaidBillByPage(page - 1, size, sortBy);
+            default: return billService.getBillsByPage(page - 1, size, sortBy);
         }
     }
 

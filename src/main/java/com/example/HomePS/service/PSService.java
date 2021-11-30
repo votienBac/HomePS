@@ -23,7 +23,7 @@ public class PSService {
     private final PSRepository psRepository;
 
 
-    public Iterable<PlayStation> getAllPS(Integer pageNumber, Integer pageSize, String sortBy){
+    public Iterable<PlayStation> getPSByPage(Integer pageNumber, Integer pageSize, String sortBy){
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<PlayStation> result = psRepository.findAll(pageable);
 
