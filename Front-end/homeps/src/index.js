@@ -55,7 +55,7 @@ export default function App() {
 
 
 function Error(){
-  return <a href="/" style={{ textDecoration: 'underline' }} to="/">Return to home page</a>
+  return <a href="/luotchoi" style={{ textDecoration: 'underline' }} to="/">Return to home page</a>
 }
 
 
