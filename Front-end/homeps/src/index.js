@@ -8,6 +8,8 @@ import ThongKe from './functionalpage/thongke/thongke.js';
 import TaiKhoan from './functionalpage/taikhoan/taikhoan.js';
 import Login from './functionalpage/login/login.js';
 import './css/index.css';
+import './css/login.css';
+
 import {
   BrowserRouter as Router,
   Routes,
