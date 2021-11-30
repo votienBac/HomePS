@@ -9,6 +9,10 @@ import com.example.HomePS.repository.BillRepository;
 import com.example.HomePS.repository.EventRepository;
 import com.example.HomePS.repository.PSRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,18 +31,36 @@ public class BillService {
     private final PSRepository psRepository;
     private final EventRepository eventRepository;
 
-    public Iterable<Bill> getAllBill(){
-        return billRepository.findAll();
+    public Iterable<Bill> getAllBill(Integer pageNumber, Integer pageSize, String sortBy){
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Page<Bill> result = billRepository.findAll(pageable);
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
     }
 
-    public Iterable<Bill> getAllPaidBill() {
-        return billRepository
-                .findAllByTimeEndIsNotNull();
+    public Iterable<Bill> getAllPaidBill(Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Page<Bill> result = billRepository.findAllByTimeEndIsNotNull(pageable);
+
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
     }
 
-    public Iterable<Bill> getAllUnpaidBill() {
-        return billRepository
-                .findAllByTimeEndIsNull();
+    public Iterable<Bill> getAllUnpaidBill(Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Page<Bill> result = billRepository.findAllByTimeEndIsNull(pageable);
+
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
     }
 
     public Bill getBill(Long id){

@@ -49,16 +49,18 @@ public class BillController {
     }
 
     @GetMapping
-    public Iterable<Bill> getAllBills(@RequestParam(required = false) String status){
-        if (status == null) {
-            return billService.getAllBill();
-        } else switch (status) {
-            case "paid": return billService.getAllPaidBill();
-            case "unpaid": return billService.getAllUnpaidBill();
-            default: return billService.getAllBill();
+    public Iterable<Bill> getAllBills(
+            @RequestParam(required = false, defaultValue = "full") String status,
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "10") Integer size,
+            @RequestParam(required = false, defaultValue = "billId") String sortBy
+    ){
+        switch (status) {
+            case "paid": return billService.getAllPaidBill(page - 1, size, sortBy);
+            case "unpaid": return billService.getAllUnpaidBill(page - 1, size, sortBy);
+            default: return billService.getAllBill(page - 1, size, sortBy);
         }
     }
-
 
     @GetMapping("/{id}")
     public Bill getBill(@PathVariable Long id){

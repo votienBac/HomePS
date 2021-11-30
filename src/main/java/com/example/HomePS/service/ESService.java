@@ -3,8 +3,14 @@ package com.example.HomePS.service;
 import com.example.HomePS.model.ExtraService;
 import com.example.HomePS.repository.ServiceRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -12,8 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class ESService {
     private final ServiceRepository serviceRepository;
 
-    public Iterable<ExtraService> getAllService(){
-        return serviceRepository.findAll();
+    public Iterable<ExtraService> getAllService(Integer pageNumber, Integer pageSize, String sortBy){
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Page<ExtraService> result = serviceRepository.findAll(pageable);
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
     }
 
     public ExtraService getService(long id){

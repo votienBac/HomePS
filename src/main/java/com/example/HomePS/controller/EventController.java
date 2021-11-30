@@ -18,8 +18,12 @@ public class EventController {
     }
 
     @GetMapping
-    public Iterable<Event> getAllEvents(){
-        return eventService.getAllEvent();
+    public Iterable<Event> getAllEvents(
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "10") Integer size,
+            @RequestParam(required = false, defaultValue = "eventId") String sortBy
+    ){
+        return eventService.getAllEvent(page - 1, size, sortBy);
     }
 
     @GetMapping("/{id}")

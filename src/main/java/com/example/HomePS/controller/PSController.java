@@ -17,18 +17,21 @@ public class PSController {
     }
 
     @GetMapping
-    public Iterable<PlayStation> getAllPS(@RequestParam(required = false) String status){
-        if (status == null) {
-            return psService.getAllPS();
-        } else switch (status) {
+    public Iterable<PlayStation> getAllPS(
+            @RequestParam(required = false, defaultValue = "full") String status,
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "10") Integer size,
+            @RequestParam(required = false, defaultValue = "psId") String sortBy
+    ){
+         switch (status) {
             case "free":
-                return psService.getPSByStatus(PlayStation.FREE);
+                return psService.getPSByStatus(PlayStation.FREE, page - 1, size, sortBy);
             case "busy":
-                return psService.getPSByStatus(PlayStation.BUSY);
+                return psService.getPSByStatus(PlayStation.BUSY, page - 1, size, sortBy);
             case "broken":
-                return psService.getPSByStatus(PlayStation.BROKEN);
+                return psService.getPSByStatus(PlayStation.BROKEN, page - 1, size, sortBy);
             default:
-                return psService.getAllPS();
+                return psService.getAllPS(page - 1, size, sortBy);
         }
     }
 
