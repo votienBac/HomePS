@@ -11,11 +11,11 @@ export default function Login(){
   }
   const sign = () => {
     console.log(details);
-    if(details.password == ""){
+    if(details.password === ""){
       console.log("False1");
       setError("Vui lòng nhập mật khẩu");
     }else{
-      if (details.password == adminUser.password){
+      if (details.password === adminUser.password){
         console.log("logged in");
         window.location.href =window.location.href + "/luotchoi";
       }else{
@@ -34,7 +34,7 @@ export default function Login(){
             <label htmlFor="password">Mật khẩu: </label>
             <input type="password" name = "password" id = "password"  onChange={e => setDetails({...details,password:e.target.value})} value={details.password}/>
           </div>
-            {(error != "") ? (<div className="error">{error}</div>) : ""}
+            {(error !== "") ? (<div className="error">{error}</div>) : ""}
             <input type="submit" value="LOGIN" onClick={sign} />
         </div>
       </form>
