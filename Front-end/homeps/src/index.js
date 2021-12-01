@@ -25,8 +25,9 @@ export default function App() {
   const isLogin = location.pathname === "/";
   return (
     <div> 
-        <a href="/"><h1>HOME PS</h1></a>
         {!isLogin && (
+        <div>
+        <a href="/luotchoi"><h1>HOME PS</h1></a>
         <div class="btn-group">
                 <Link to = "/luotchoi"><button >Luotchoi</button></Link>
                 <Link to = "/mayps"><button >MayPS</button></Link>
@@ -34,6 +35,7 @@ export default function App() {
                 <Link to = "/dichvu"><button >DichVu</button></Link>
                 <Link to = "/thongke"><button >ThongKe</button></Link>
                 <Link to = "/taikhoan"><button >TaiKhoan</button></Link>
+        </div>
         </div>
         )}
         <Routes>
