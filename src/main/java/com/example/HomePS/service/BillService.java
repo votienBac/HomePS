@@ -76,7 +76,6 @@ public class BillService {
         if (ps.getPsStatus() != PlayStation.FREE)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This PlayStation is in use.");
         ps.setPsStatus(PlayStation.BUSY);
-        psRepository.save(ps);
         bill.setPlayStation(ps);
         bill.setTimeStart(Instant.now());
         bill.setPaid(false);
@@ -87,7 +86,6 @@ public class BillService {
         Bill bill = billRepository.getById(id);
         PlayStation ps = bill.getPlayStation();
         ps.setPsStatus(PlayStation.FREE);
-        psRepository.save(ps);
         bill.setTimeEnd(Instant.now());
         bill.setPaid(true);
         findEventForBill(bill);
