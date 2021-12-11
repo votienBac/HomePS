@@ -32,7 +32,7 @@ export default function Login(){
       .then(result =>{
           console.log(result)
           localStorage.setItem("access_token",result.access_token)
-          window.location.href =window.location.href + "/luotchoi";} )
+          window.location.href =window.location.href + "luotchoi";} )
       .catch(error => {
         setError("Mật khẩu không chính xác")
         console.log('error', error)

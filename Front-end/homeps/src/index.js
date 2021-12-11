@@ -27,7 +27,7 @@ export default function App() {
         {!isLogin && (
         <div>
         <a href="/luotchoi"><h1>HOME PS</h1></a>
-        <div class="btn-group">
+        <div className="btn-group">
                 <Link to = "/luotchoi"><button >Luotchoi</button></Link>
                 <Link to = "/mayps"><button >MayPS</button></Link>
                 <Link to = "/sukien"><button >SuKien</button></Link>
@@ -38,28 +38,28 @@ export default function App() {
         </div>
         )}
         <Routes>
-          <Route path="/luotchoi"
+          <Route path="/luotchoi/*"
                   element = {<LuotChoi />}>
           </Route>
-          <Route path="/mayps"
+          <Route path="/mayps/*"
                   element = {<MayPS />}>
           </Route>
-          <Route path="/sukien"
+          <Route path="/sukien/*"
                   element = {<SuKien />}>
           </Route>
-          <Route path="/dichvu"
+          <Route path="/dichvu/*"
                   element = {<DichVu />}>
           </Route>
-          <Route path="/thongke"
+          <Route path="/thongke/*"
                   element = {<ThongKe />}>
           </Route>
-          <Route path="/taikhoan"
+          <Route path="/taikhoan/*"
                   element = {<TaiKhoan />}> 
           </Route>
           <Route path="/"
                   element = {<Login />}>
           </Route>
-          <Route path="/**"
+          <Route path="/*"
                   element = {<Error />}>  
           </Route> 
         </Routes>
