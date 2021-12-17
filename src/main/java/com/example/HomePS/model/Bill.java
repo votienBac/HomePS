@@ -47,6 +47,9 @@ public class Bill {
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "eventId", referencedColumnName = "eventId")
     private Event event;
+    @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "dailyEventId", referencedColumnName = "dailyEventId")
+    private DailyEvent dailyEvent;
     private Double totalHourPlayed;
     private Double totalPrice;
 

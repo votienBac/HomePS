@@ -1,11 +1,9 @@
 package com.example.HomePS.service;
 
 import com.example.HomePS.dto.BillRequest;
-import com.example.HomePS.model.Bill;
-import com.example.HomePS.model.Event;
-import com.example.HomePS.model.OrderService;
-import com.example.HomePS.model.PlayStation;
+import com.example.HomePS.model.*;
 import com.example.HomePS.repository.BillRepository;
+import com.example.HomePS.repository.DailyEventRepository;
 import com.example.HomePS.repository.EventRepository;
 import com.example.HomePS.repository.PSRepository;
 import lombok.AllArgsConstructor;
@@ -30,6 +28,7 @@ public class BillService {
     private final BillRepository billRepository;
     private final PSRepository psRepository;
     private final EventRepository eventRepository;
+    private final DailyEventRepository dailyEventRepository;
 
     public Iterable<Bill> getBillsByPage(Integer pageNumber, Integer pageSize, String sortBy){
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
@@ -89,6 +88,7 @@ public class BillService {
         bill.setTimeEnd(Instant.now());
         bill.setPaid(true);
         findEventForBill(bill);
+        findDailyEventForBill(bill);
         bill.setTotalPrice(getTotalBillPrice(bill));
         bill.setTotalHourPlayed(getTotalHourPlayed(bill));
         return billRepository.save(bill);
@@ -108,7 +108,11 @@ public class BillService {
     public Double getTotalBillPrice(Bill bill){
         double sum = 0;
         if(bill.getEvent() != null){
-            sum = getTotalHourPlayed(bill)*PricePerHour*bill.getEvent().getPercentDiscount();
+            sum = getTotalHourPlayed(bill)*PricePerHour*(1-bill.getEvent().getPercentDiscount());
+        }
+        else if(bill.getDailyEvent() != null) {
+            sum = getTotalHourPlayed(bill) * PricePerHour * (1-bill.getDailyEvent().getPercentDiscount());
+
         }else{
             sum = getTotalHourPlayed(bill)*PricePerHour;
         }
@@ -128,6 +132,18 @@ public class BillService {
                 if(bill.getTimeStart().isAfter(event.getTimeStart()) && bill.getTimeEnd().isBefore(event.getTimeEnd())){
                     bill.setEvent(event);
                 }
+            }
+        }
+    }
+    public void findDailyEventForBill(Bill bill){
+        if(!dailyEventRepository.findAll().isEmpty()){
+            List<DailyEvent> dailyEvents = dailyEventRepository.findAll();
+            for(DailyEvent dailyEvent: dailyEvents){
+                dailyEvent.setTimeAgain();
+                if(bill.getTimeStart().isAfter(dailyEvent.getTimeStart()) && bill.getTimeEnd().isBefore(dailyEvent.getTimeEnd())){
+                    bill.setDailyEvent(dailyEvent);
+                }
+                dailyEventRepository.save(dailyEvent);
             }
         }
     }

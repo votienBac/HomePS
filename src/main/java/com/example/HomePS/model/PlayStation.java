@@ -3,6 +3,7 @@ package com.example.HomePS.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -17,6 +18,7 @@ public class PlayStation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long psId;
+    @NotBlank(message = "PS name is required")
     private String psName;
     private Integer psStatus;
 

@@ -19,5 +19,6 @@ public class ExtraService {
     @NotNull(message = "Service name is required.")
     @Basic(optional = false)
     private String serviceName;
+    @Column(nullable = false)
     private double price;
 }
