@@ -1,13 +1,33 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.header {
+  margin-top: -48px;
+  height: 80px;
+  width: calc(100%);
+  text-align: center;
+  background-color: #bd4f6c;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.header h1{
+  color: rgb(253, 250, 251);
+  font-family: Georgia;
+  background-image: url("https://images.pushsquare.com/2540c3bb4ccfd/january-sale-ps-store-ps5-ps4-playstation-1.large.jpg");
+  background-size: cover;
+}
+.header :link{
+  text-decoration: none ;
+  font-size: 35px;
+}
+.btn-group{
+  margin-top: 0px;
+  width: calc(100%);
+}
+.btn-group button{
+  width: calc(16.66%);
+  height: 35px ;
+  font-size: 20px;
+  color: aliceblue;
+  font-family:'Times New Roman', Times, serif;
+  background-color: #019160;
+}
+body{
+  margin: 0;
+  background-color: antiquewhite;
 }

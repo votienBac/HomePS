@@ -26,14 +26,16 @@ export default function App() {
     <div> 
         {!isLogin && (
         <div>
-        <a href="/luotchoi"><h1>HOME PS</h1></a>
+        <div className='header'>
+                <Link to ="/luotchoi"><h1 >HOME PS</h1></Link>
+        </div>
         <div className="btn-group">
-                <Link to = "/luotchoi"><button >Luotchoi</button></Link>
-                <Link to = "/mayps"><button >MayPS</button></Link>
-                <Link to = "/sukien"><button >SuKien</button></Link>
-                <Link to = "/dichvu"><button >DichVu</button></Link>
-                <Link to = "/thongke"><button >ThongKe</button></Link>
-                <Link to = "/taikhoan"><button >TaiKhoan</button></Link>
+                <Link to = "/luotchoi"><button >Lượt chơi</button></Link>
+                <Link to = "/mayps"><button >Máy PS</button></Link>
+                <Link to = "/sukien"><button >Sự kiện</button></Link>
+                <Link to = "/dichvu"><button >Dịch vụ</button></Link>
+                <Link to = "/thongke"><button >Thống kê</button></Link>
+                <Link to = "/taikhoan"><button >Tài khoản</button></Link>
         </div>
         </div>
         )}
