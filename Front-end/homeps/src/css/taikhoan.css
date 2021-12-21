@@ -1,0 +1,46 @@
+.taikhoan {
+    display: flex;
+    flex-direction: column;
+    align-items:  center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center center;
+    margin-top: 100px;
+}
+.taikhoan input[type='submit']{
+    margin-top: 50px;
+    background-color: #019160;
+    border-radius: 4px;
+    height: 40px;
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: normal;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: center;
+    outline: unset;
+    border: none;
+    cursor: pointer;
+    width: 125px;
+}
+.taikhoan input[type='submit']:hover,
+input[type='submit']:focus {
+    background-color: #2FBE8E;
+}
+.taikhoan input[type='submit']:active {
+    background-color: #01B075;
+}
+form .taikhoan h2{
+    color: rgb(175, 162, 162);
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+.doimk {
+    height: 70vh;
+    display: flex;
+    align-items:  center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center center;
+}
