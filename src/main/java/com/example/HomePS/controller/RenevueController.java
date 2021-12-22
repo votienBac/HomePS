@@ -1,6 +1,5 @@
 package com.example.HomePS.controller;
 
-import com.example.HomePS.model.Daily_TurnOver;
 import com.example.HomePS.service.Statistical;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,13 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/Renevue")
+@RequestMapping("api/renevue")
 public class RenevueController {
 
     private Statistical statistical;
@@ -27,10 +25,7 @@ public class RenevueController {
     ){
         LocalDate end=LocalDate.now();
         switch (status){
-
-
             case "7 days":
-
                 return  statistical.getSumTurnOver(statistical.getRenevueDay(end.minusDays(8), end.minusDays(1)));
             case "30 days":
 
