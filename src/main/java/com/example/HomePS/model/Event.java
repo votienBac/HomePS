@@ -1,5 +1,6 @@
 package com.example.HomePS.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Event {
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @ApiModelProperty(hidden = true)
     private Long eventId;
     private String eventName;
     private Instant timeStart;

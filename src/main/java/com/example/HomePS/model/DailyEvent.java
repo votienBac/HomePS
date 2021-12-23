@@ -1,5 +1,6 @@
 package com.example.HomePS.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class DailyEvent{
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @ApiModelProperty(hidden = true)
     private Long dailyEventId;
     @NotBlank(message = "Daily event name is required")
     private String dailyEventName;

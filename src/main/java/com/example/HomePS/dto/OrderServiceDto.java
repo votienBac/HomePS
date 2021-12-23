@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class OrderServiceDto {
-    private ExtraService extraService;
+    private Long esId;
     private Integer quantity;
 }

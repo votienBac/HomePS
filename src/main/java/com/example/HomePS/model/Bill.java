@@ -5,6 +5,7 @@ package com.example.HomePS.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class Bill {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @ApiModelProperty(hidden = true)
     private Long billId;
     private Instant timeStart;
     private Instant timeEnd;

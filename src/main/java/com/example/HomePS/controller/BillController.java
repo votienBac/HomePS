@@ -34,12 +34,12 @@ public class BillController {
 
     @PutMapping("/{billId}")
     public Bill addExtraService(@RequestBody OrderForm form, @PathVariable Long billId){
-        List<OrderServiceDto> formDtos = form.getOrderServiceDtos();
+        List<OrderServiceDto> formDtos = form.getServices();
         Bill bill = billService.getBill(billId);
         if(!bill.isPaid()){
             List<OrderService> orderServices = new ArrayList<>();
             for(OrderServiceDto dto: formDtos){
-                orderServices.add(orderESService.create(new OrderService(bill, esService.getService(dto.getExtraService().getServiceId()), dto.getQuantity())));
+                orderServices.add(orderESService.create(new OrderService(bill, esService.getService(dto.getEsId()), dto.getQuantity())));
             }
             bill.setOrderServices(orderServices);
 
@@ -68,14 +68,14 @@ public class BillController {
     }
 
     public static class OrderForm{
-        private List<OrderServiceDto> orderServiceDtos ;
+        private List<OrderServiceDto> services;
 
-        public List<OrderServiceDto> getOrderServiceDtos() {
-            return orderServiceDtos;
+        public List<OrderServiceDto> getServices() {
+            return services;
         }
 
-        public void setOrderServiceDtos(List<OrderServiceDto> orderServiceDtos) {
-            this.orderServiceDtos = orderServiceDtos;
+        public void setServices(List<OrderServiceDto> services) {
+            this.services = services;
         }
     }
 }

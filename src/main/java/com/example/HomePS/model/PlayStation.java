@@ -1,5 +1,6 @@
 package com.example.HomePS.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class PlayStation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(hidden = true)
     private Long psId;
     @NotBlank(message = "PS name is required")
     private String psName;
