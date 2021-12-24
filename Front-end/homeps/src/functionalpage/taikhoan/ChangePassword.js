@@ -29,7 +29,7 @@ function ChangePassword({setPage}) {
               body: raw,
               redirect: 'follow'
             };
-            fetch("http://homeps.herokuapp.com/api/user", requestOptions)
+            fetch("https://homeps.herokuapp.com/api/user", requestOptions)
               .then(response => response.text())
               .then(result => console.log(result))
               .catch(error => {
