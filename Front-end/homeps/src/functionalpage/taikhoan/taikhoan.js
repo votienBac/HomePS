@@ -3,10 +3,26 @@ import { useNavigate } from "react-router-dom";
 import ChangePassword from "./ChangePassword";
 import '../../css/taikhoan.css';
 export default function TaiKhoan(){
-    const [user, setUser] = useState({password: "12345"});
     const [page, setPage] = useState({page: "account"});
     let navigate = useNavigate();
     const Logout = () => {
+        localStorage.clear();
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        var urlencoded = new URLSearchParams();
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: urlencoded,
+          redirect: 'follow'
+        };
+        fetch("http://homeps.herokuapp.com/logout", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => {
+            console.log('error', error)
+          });
+
         navigate('/', {replace: true});
     }
     const change = () => {
@@ -15,7 +31,7 @@ export default function TaiKhoan(){
     return(
         <div className="doimk">
             {(page.page === "change") ? (
-                <ChangePassword setPage={setPage} user={user} setUser={setUser}/>
+                <ChangePassword setPage={setPage}/>
             ) : (
                 <div className="taikhoan">
                     <input type="submit" value="Đăng xuất" onClick={Logout}/>
