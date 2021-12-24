@@ -9,8 +9,6 @@ function ChangePassword({setPage}) {
     const Complete = () => {
         if(details.mkcu==="" || details.mkmoi==="" ||details.xn==="" ){
             setError("Hãy nhập đủ thông tin");
-        // }else if(details.mkcu !== ){
-        //     setError("Mật khẩu hiện tại không chính xác");
         }else if(details.mkmoi !== details.xn){
             setError("Xác nhận mật khẩu không chính xác");
         }else if(details.mkmoi === details.mkcu){
@@ -30,14 +28,17 @@ function ChangePassword({setPage}) {
               redirect: 'follow'
             };
             fetch("https://homeps.herokuapp.com/api/user", requestOptions)
-              .then(response => response.text())
-              .then(result => console.log(result))
+              .then(response => response.json())
+              .then(result => {
+                  if(result.message === "Wrong password."){
+                    setError("Mật khẩu hiện tại không chính xác");
+                  }else{
+                    back();
+                  }
+                })
               .catch(error => {
                   console.log('error', error)
                 });
-
-
-            back();
         }
       }
     const back = () => {
