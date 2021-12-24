@@ -14,7 +14,7 @@ import {
   Routes,
   Route,
   useLocation,
-  Link
+  Link,
 } from "react-router-dom";
 import store from './store/store.js'
 import { Provider } from 'react-redux'
@@ -22,6 +22,12 @@ import { Provider } from 'react-redux'
 export default function App() {
   const location = useLocation();
   const isLogin = location.pathname === "/";
+
+  if(!localStorage.getItem("access_token") && !isLogin) {
+        window.location.href = "/"
+        return <Login />
+      }
+
   return (
     <div> 
         {!isLogin && (
