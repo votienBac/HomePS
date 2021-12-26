@@ -91,7 +91,15 @@ public class BillService {
     }
 
     public Bill update(Bill bill){
-
+       Bill oldBill=billRepository.getById(bill.getBillId());
+        ZonedDateTime zonedDateTime1 = oldBill.getTimeStart().atZone(ZoneId.systemDefault());
+        LocalDate oldDate= LocalDate.of(zonedDateTime1.getYear(), zonedDateTime1.getMonth(), zonedDateTime1.getDayOfMonth());
+        Daily_TurnOver daily_turnOverBefore=dailyTurnOverRepository.findDaily_TurnOverByDate(oldDate);
+        if(oldBill.getTotalPrice()!=null) {
+            daily_turnOverBefore.setTurnOver(daily_turnOverBefore.getTurnOver() - oldBill.getTotalPrice());
+            dailyTurnOverRepository.save(daily_turnOverBefore);
+            addBill_OneDay(bill);
+        }
         return billRepository.save(bill);
     }
     public void addBill_OneDay(Bill bill){
