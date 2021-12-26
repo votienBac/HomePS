@@ -8,6 +8,7 @@ import com.example.HomePS.service.BillService;
 import com.example.HomePS.service.ESService;
 import com.example.HomePS.service.OrderESService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -70,6 +71,17 @@ public class BillController {
             case "paid": return searchList.stream().filter(Bill::isPaid).collect(Collectors.toList());
             case "unpaid": return searchList.stream().filter(b -> !b.isPaid()).collect(Collectors.toList());
             default: return searchList;
+        }
+    }
+
+    @DeleteMapping("/{billId}")
+    public ResponseEntity<?> deleteBill(@PathVariable Long billId) {
+        orderESService.getAllOrderById(billId).forEach(orderESService::delete);
+        var bill = billService.getBill(billId);
+        if (bill == null) return ResponseEntity.notFound().build();
+        else {
+            billService.deleteBill(bill);
+            return ResponseEntity.ok().build();
         }
     }
 

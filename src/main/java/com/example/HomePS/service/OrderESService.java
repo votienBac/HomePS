@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @AllArgsConstructor
@@ -17,5 +19,13 @@ public class OrderESService {
             orderService.setQuantity(orderService.getQuantity()+orderServiceRepository.findById(orderService.getPk()).get().getQuantity());
         }
         return orderServiceRepository.save(orderService);
+    }
+
+    public void delete(OrderService orderService) {
+        orderServiceRepository.delete(orderService);
+    }
+
+    public List<OrderService> getAllOrderById(Long billId) {
+        return orderServiceRepository.findAllByBillId(billId);
     }
 }

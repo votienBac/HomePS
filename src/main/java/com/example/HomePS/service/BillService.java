@@ -157,6 +157,11 @@ public class BillService {
         }
     }
 
+    public void deleteBill(Bill bill) {
+        bill.getPlayStation().setPsStatus(0);
+        billRepository.delete(bill);
+    }
+
     public List<Bill> searchByPS(String query) {
         return billRepository.search(query);
     }
