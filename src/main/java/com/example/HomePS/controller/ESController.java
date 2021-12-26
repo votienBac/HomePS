@@ -7,6 +7,8 @@ import com.example.HomePS.service.ESService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/extraservice")
 @AllArgsConstructor
@@ -35,5 +37,10 @@ public class ESController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
         esService.delete(id);
+    }
+
+    @GetMapping("/search/{query}")
+    public List<ExtraService> searchESByName(@PathVariable String query) {
+        return esService.getESByName(query);
     }
 }

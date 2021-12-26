@@ -45,4 +45,8 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 
+    public List<Event> searchEventByName(String query) {
+        return eventRepository.search(query);
+    }
+
 }

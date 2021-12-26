@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/bills")
@@ -59,6 +60,16 @@ public class BillController {
             case "paid": return billService.getPaidBillsByPage(page - 1, size, sortBy);
             case "unpaid": return billService.getUnpaidBillByPage(page - 1, size, sortBy);
             default: return billService.getBillsByPage(page - 1, size, sortBy);
+        }
+    }
+
+    @GetMapping("/search/{query}")
+    public List<Bill> searchByPS(@PathVariable String query, @RequestParam(required = false, defaultValue = "full") String status) {
+        var searchList = billService.searchByPS(query);
+        switch(status) {
+            case "paid": return searchList.stream().filter(Bill::isPaid).collect(Collectors.toList());
+            case "unpaid": return searchList.stream().filter(b -> !b.isPaid()).collect(Collectors.toList());
+            default: return searchList;
         }
     }
 

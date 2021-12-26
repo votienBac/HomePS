@@ -91,18 +91,6 @@ public class BillService {
     }
 
     public Bill update(Bill bill){
-        Bill oldBill=billRepository.getById(bill.getBillId());
-        ZonedDateTime zonedDateTime1 = oldBill.getTimeStart().atZone(ZoneId.systemDefault());
-        LocalDate oldDate= LocalDate.of(zonedDateTime1.getYear(), zonedDateTime1.getMonth(), zonedDateTime1.getDayOfMonth());
-        Daily_TurnOver daily_turnOverBefore=dailyTurnOverRepository.findDaily_TurnOverByDate(oldDate);
-        daily_turnOverBefore.setTurnOver(daily_turnOverBefore.getTurnOver()-oldBill.getTotalPrice());
-        dailyTurnOverRepository.save(daily_turnOverBefore);
-        addBill_OneDay(bill);
-//        ZonedDateTime zonedDateTime2 = bill.getTimeStart().atZone(ZoneId.systemDefault());
-//        LocalDate newDate= LocalDate.of(zonedDateTime2.getYear(), zonedDateTime2.getMonth(), zonedDateTime2.getDayOfMonth());
-//        Daily_TurnOver daily_turnOverAfter=dailyTurnOverRepository.findDaily_TurnOverByDate(newDate);
-//        daily_turnOverAfter.setTurnOver(daily_turnOverAfter.getTurnOver()+bill.getTotalPrice());
-//        dailyTurnOverRepository.save(daily_turnOverAfter);
         return billRepository.save(bill);
     }
     public void addBill_OneDay(Bill bill){
@@ -167,6 +155,10 @@ public class BillService {
                 dailyEventRepository.save(dailyEvent);
             }
         }
+    }
+
+    public List<Bill> searchByPS(String query) {
+        return billRepository.search(query);
     }
 
 }

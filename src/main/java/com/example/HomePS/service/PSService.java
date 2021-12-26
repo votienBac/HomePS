@@ -59,4 +59,8 @@ public class PSService {
     public void delete(long id){
         psRepository.deleteById(id);
     }
+
+    public List<PlayStation> searchPSByName(String query) {
+        return psRepository.search(query);
+    }
 }

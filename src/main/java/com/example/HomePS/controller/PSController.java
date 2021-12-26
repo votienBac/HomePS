@@ -5,6 +5,8 @@ import com.example.HomePS.service.PSService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/ps")
 @AllArgsConstructor
@@ -45,4 +47,8 @@ public class PSController {
         psService.delete(id);
     }
 
+    @GetMapping("/search/{query}")
+    public List<PlayStation> searchPSByName(@PathVariable String query) {
+        return psService.searchPSByName(query);
+    }
 }

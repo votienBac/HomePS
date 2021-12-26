@@ -42,4 +42,9 @@ public class ESService {
     public void delete(long id){
         serviceRepository.deleteById(id);
     }
+
+    public List<ExtraService> getESByName(String query) {
+        return serviceRepository.search(query);
+    }
+
 }
