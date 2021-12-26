@@ -14,8 +14,8 @@ public class DailyEventController {
     private final DailyEventService dailyEventService;
 
     @PostMapping
-    public void createNewDailyEvent(@RequestBody DailyEvent dailyEvent){
-        dailyEventService.save(dailyEvent);
+    public DailyEvent createNewDailyEvent(@RequestBody DailyEvent dailyEvent){
+        return dailyEventService.save(dailyEvent);
     }
 
     @GetMapping

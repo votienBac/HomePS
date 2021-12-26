@@ -16,8 +16,8 @@ public class ESController {
     private final ESService esService;
 
     @PostMapping
-    public void createNewExtraService(@RequestBody ExtraService extraService){
-        esService.save(extraService);
+    public ExtraService createNewExtraService(@RequestBody ExtraService extraService){
+        return esService.save(extraService);
     }
 
     @GetMapping

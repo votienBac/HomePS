@@ -50,25 +50,18 @@ public class Statistical {
 //        }
 //        return listBill;
 //    }
-    public List<Daily_TurnOver> getRenevueDay(LocalDate dateBegin, LocalDate dateEnd) {
-
+    public List<Daily_TurnOver> getRevenueDay(LocalDate dateBegin, LocalDate dateEnd) {
         List<Daily_TurnOver> list_Daily_TurnOver=dailyTurnOverRepository.findDaily_TurnOverByDateBetween(dateBegin, dateEnd);
-
-
-
         if(list_Daily_TurnOver.size()<=0){
             return List.of();
         }
-
         return list_Daily_TurnOver;
-
     }
-
 
     public double getSumTurnOver(List<Daily_TurnOver> list){
         double sumTurnOver=0;
-        for(int i=0;i<list.size();i++){
-            sumTurnOver+=list.get(i).getTurnOver();
+        for (Daily_TurnOver daily_turnOver : list) {
+            sumTurnOver += daily_turnOver.getTurnOver();
         }
         return sumTurnOver;
     }

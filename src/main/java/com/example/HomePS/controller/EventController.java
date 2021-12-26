@@ -14,8 +14,8 @@ public class EventController {
     private final EventService eventService;
 
     @PostMapping
-    public void createNewEvent(@RequestBody Event event){
-        eventService.save(event);
+    public Event createNewEvent(@RequestBody Event event){
+        return eventService.save(event);
     }
 
     @GetMapping

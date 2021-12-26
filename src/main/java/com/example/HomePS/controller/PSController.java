@@ -14,8 +14,8 @@ public class PSController {
     private final PSService psService;
 
     @PostMapping
-    public void createNewPS(@RequestBody PlayStation playStation){
-        psService.save(playStation);
+    public PlayStation createNewPS(@RequestBody PlayStation playStation){
+        return psService.save(playStation);
     }
 
     @GetMapping

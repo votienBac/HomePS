@@ -25,8 +25,8 @@ public class BillController {
     private final ESService esService;
 
     @PostMapping
-    public void createNewBill(@RequestBody BillRequest billRequest){
-        billService.create(billRequest);
+    public Bill createNewBill(@RequestBody BillRequest billRequest){
+        return billService.create(billRequest);
     }
 
     @PutMapping("/endbill/{billId}")
