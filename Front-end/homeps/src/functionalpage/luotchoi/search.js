@@ -1,30 +1,28 @@
-import { useLinkClickHandler } from "react-router-dom";
 import React, {useState} from 'react'
 
-const handleSubmit =  () =>{
-    console.log('submit')
-}
 const SearchBar = () => {
     const [details, setDetails] = useState({searchValue:''})
+    console.log(details);
     const handleSearch = ()=>{
+
         //TODO
     }
     return(
-        <section class="search">
-        <div class="container">
-          <div class="row">
-            <div class="col">Search</div>
-            <div class="col">
+        <section className="search">
+        <div className="container">
+          <div className="row">
+            <div className="col">Search</div>
+            <div className="col">
                 <input
                 id = 'input'
                 type = 'text'
                 name = 'input'
-                placeholder = 'Search the current turn'
+                placeholder = 'Enter psID'
                 onChange = {e=>setDetails({searchValue: e.target.value})}
                 value = {details.searchValue}
                 />
             </div>
-            <div class="col">
+            <div className="col">
                 <button
                 onClick  = {handleSearch}
                 >

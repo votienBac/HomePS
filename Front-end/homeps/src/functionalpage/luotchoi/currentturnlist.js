@@ -9,31 +9,34 @@ const CurrentTurnList = () => {
         })
             .then(res => res.json())
             .then(currentTurns => { setCurrentTurns(currentTurns) })
-    }, [currentTurns])
-
+    }, [])
     return (
         <div>
-            <Link to = ''>Lượt chơi hiện tại</Link>
-            <Link to = 'finished-turn'>Lượt chơi đã kết thúc</Link>
-            <SearchBar />
-            
+            <Link to=''>Lượt chơi hiện tại</Link>
+            <Link to='finished-turn'>Lượt chơi đã kết thúc</Link>
+            <SearchBar type = 'unpaid'/>
+
             <table id='current-turns-list'>
-                <tr>
-                    <th style={{ width: '10%' }}>ID</th>
-                    <th style={{ width: '10%' }}>Máy</th>
-                    <th style={{ width: '20%' }}>Tình trạng</th>
-                    <th style={{ width: '30%' }}>Bắt đầu</th>
-                    <th style={{ width: '30%' }}></th>
-                </tr>
-                {currentTurns.map(currentTurn => {
-                    return (<tr key={currentTurn.billId}>
-                        <td>{currentTurn.billId}</td>
-                        <td>{currentTurn.playStation.psName}</td>
-                        <td>{currentTurn.playStation.psState}</td>
-                        <td>{currentTurn.timeStart}</td>
-                        <td><Link to={`current-turn/${currentTurn.billId}`} >Xem chi tiết</Link> </td>
-                    </tr>)
-                })}
+                <tbody>
+                    <tr>
+                        <th style={{ width: '10%' }}>ID</th>
+                        <th style={{ width: '10%' }}>Máy</th>
+                        <th style={{ width: '20%' }}>Tình trạng</th>
+                        <th style={{ width: '30%' }}>Bắt đầu</th>
+                        <th style={{ width: '30%' }}></th>
+                    </tr>
+                    {currentTurns.map(currentTurn => {
+                        return (<tr key={currentTurn.billId}>
+                            <td>{currentTurn.billId}</td>
+                            <td>{currentTurn.playStation.psName}</td>
+                            <td>{currentTurn.playStation.psState}</td>
+                            <td>{currentTurn.timeStart}</td>
+                            <td>
+                                <Link to={`current-turn/${currentTurn.billId}`} >Xem chi tiết</Link>
+                            </td>
+                        </tr>)
+                    })}
+                </tbody>
             </table>
             <Link to="addturn"><button>Thêm lượt chơi</button></Link>
         </div>)

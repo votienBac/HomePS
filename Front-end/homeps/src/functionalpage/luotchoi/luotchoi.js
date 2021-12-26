@@ -1,11 +1,9 @@
-import SearchBar from './search'
 import AddTurn from './addturn.js'
 import DetailsTurn from './detailsturn'
 import Payment from './payment'
 import FinishedTurn from './finishedturnlist'
-import NewTurn from './newturn.js'
+import DetailsFinishTurn from './detailsfinishturn'
 import {
-    BrowserRouter as Router,
     Routes,
     Route,
 
@@ -19,7 +17,7 @@ export default function LuotChoi() {
             <Route path='' element={<CurrentTurnList />} />
             <Route path='finished-turn'>
                 <Route path = '' element={<FinishedTurn />}></Route>
-                <Route path = {`:id`} element={<DetailsTurn />}></Route>
+                <Route path = {`:id`} element={<DetailsFinishTurn />}></Route>
             </Route>
             <Route path='current-turn'>
                 <Route path={`:id`} element={<DetailsTurn type='1' />}></Route>
