@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2'
+import '../../css/thongke.css';
 
-const BarChart = () => {
+const BarChart = (props) => {
     const [chartData, setChartData] = useState({});
-    const [date, setDate] = useState([]);
-    const [turnOver, setTurnOver] = useState([]);
-
-    var baseUrl = "https://homeps.herokuapp.com/api/revenue"
-
+    //const [date, setDate] = useState([]);
+    const [turnOver, setTurnOver] = useState();
+    const baseUrl = `https://homeps.herokuapp.com/api/revenue`
     useEffect(() => {
         let dateList = [];
         let turnOverList = [];
-
         const fetchData = async () => {
-            await fetch(baseUrl, {
+            await fetch(baseUrl+`?dateBegin=${props.stringBegin}&dateEnd=${props.stringEnd}&status=${props.type}`, {
+            //await fetch(baseUrl,{
                 method: 'GET'
             }).then(res => {
                 res.json().then(json => {
@@ -23,6 +22,7 @@ const BarChart = () => {
                         dateList.push(dataOjb.date)
                         turnOverList.push(dataOjb.turnOver)
                     }
+                    setTurnOver(json.revenue);
                     setChartData({
                         labels: dateList,
                         datasets: [{
@@ -53,13 +53,13 @@ const BarChart = () => {
             })
         }
         fetchData()
-    }, [])
+    }, [props,baseUrl])
 
     return (
         <div>
             <Line
                 data={chartData}
-                height={1}
+                height={1.2}
                 width={4}
                 options={{
                     responsive: true,
@@ -73,6 +73,9 @@ const BarChart = () => {
                     }
                 }}
             />
+            <div className='doanhthu'>
+                Tổng doanh thu là: {turnOver} vnđ
+            </div>
         </div>
     )
 }
