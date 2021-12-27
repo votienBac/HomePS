@@ -26,7 +26,8 @@ public class BillService {
     private final EventRepository eventRepository;
     private final DailyEventRepository dailyEventRepository;
     private final DailyTurnOverRepository dailyTurnOverRepository;
-    public Iterable<Bill> getBillsByPage(Integer pageNumber, Integer pageSize, String sortBy){
+
+    public Iterable<Bill> getBillsByPage(Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Bill> result = billRepository.findAll(pageable);
         if (result.hasContent()) {
@@ -58,11 +59,13 @@ public class BillService {
         }
     }
 
-    public Bill getBill(Long id){
-        return billRepository.getById(id);
+    public Bill getBill(Long id) {
+        return billRepository
+                .findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bill not found with this ID"));
     }
 
-    public Bill create(BillRequest billRequest){
+    public Bill create(BillRequest billRequest) {
         Bill bill = new Bill();
         Long psId = billRequest.getPsId();
         PlayStation ps = psRepository
@@ -77,8 +80,8 @@ public class BillService {
         return billRepository.save(bill);
     }
 
-   public Bill endBill(Long id){
-        Bill bill = billRepository.getById(id);
+    public Bill endBill(Long id) {
+        Bill bill = getBill(id);
         PlayStation ps = bill.getPlayStation();
         ps.setPsStatus(PlayStation.FREE);
         bill.setTimeEnd(Instant.now());
@@ -90,75 +93,76 @@ public class BillService {
         return billRepository.save(bill);
     }
 
-    public Bill update(Bill bill){
-       Bill oldBill=billRepository.getById(bill.getBillId());
+    public Bill update(Bill bill) {
+        Bill oldBill = getBill(bill.getBillId());
         ZonedDateTime zonedDateTime1 = oldBill.getTimeStart().atZone(ZoneId.systemDefault());
-        LocalDate oldDate= LocalDate.of(zonedDateTime1.getYear(), zonedDateTime1.getMonth(), zonedDateTime1.getDayOfMonth());
-        Daily_TurnOver daily_turnOverBefore=dailyTurnOverRepository.findDaily_TurnOverByDate(oldDate);
-        if(oldBill.getTotalPrice()!=null) {
+        LocalDate oldDate = LocalDate.of(zonedDateTime1.getYear(), zonedDateTime1.getMonth(), zonedDateTime1.getDayOfMonth());
+        Daily_TurnOver daily_turnOverBefore = dailyTurnOverRepository.findDaily_TurnOverByDate(oldDate);
+        if (oldBill.getTotalPrice() != null) {
             daily_turnOverBefore.setTurnOver(daily_turnOverBefore.getTurnOver() - oldBill.getTotalPrice());
             dailyTurnOverRepository.save(daily_turnOverBefore);
             addBill_OneDay(bill);
         }
         return billRepository.save(bill);
     }
-    public void addBill_OneDay(Bill bill){
+
+    public void addBill_OneDay(Bill bill) {
         ZonedDateTime zonedDateTime = bill.getTimeStart().atZone(ZoneId.systemDefault());
-        LocalDate date= LocalDate.of(zonedDateTime.getYear(), zonedDateTime.getMonth(), zonedDateTime.getDayOfMonth());
-        if(dailyTurnOverRepository.findDaily_TurnOverByDate(date)==null){
-            Daily_TurnOver daily_turnOver=new Daily_TurnOver(date, bill.getTotalPrice());
+        LocalDate date = LocalDate.of(zonedDateTime.getYear(), zonedDateTime.getMonth(), zonedDateTime.getDayOfMonth());
+        if (dailyTurnOverRepository.findDaily_TurnOverByDate(date) == null) {
+            Daily_TurnOver daily_turnOver = new Daily_TurnOver(date, bill.getTotalPrice());
             dailyTurnOverRepository.save(daily_turnOver);
-        }else{
-            Daily_TurnOver daily_turnOver=dailyTurnOverRepository.findDaily_TurnOverByDate(date);
-            daily_turnOver.setTurnOver(daily_turnOver.getTurnOver()+bill.getTotalPrice());
+        } else {
+            Daily_TurnOver daily_turnOver = dailyTurnOverRepository.findDaily_TurnOverByDate(date);
+            daily_turnOver.setTurnOver(daily_turnOver.getTurnOver() + bill.getTotalPrice());
             dailyTurnOverRepository.save(daily_turnOver);
         }
 
-}
+    }
 
-    public Double getTotalHourPlayed(Bill bill){
+    public Double getTotalHourPlayed(Bill bill) {
         Duration duration = Duration.between(bill.getTimeStart(), bill.getTimeEnd());
         Long totalMinutes = duration.toMinutes(); //tong so phut choi
-        Double totalHours = ((totalMinutes%60)>30)?(totalMinutes/60 + 1):(totalMinutes/60 + 0.5);
+        Double totalHours = ((totalMinutes % 60) > 30) ? (totalMinutes / 60 + 1) : (totalMinutes / 60 + 0.5);
         return totalHours;
     }
 
-    public Double getTotalBillPrice(Bill bill){
+    public Double getTotalBillPrice(Bill bill) {
         double sum = 0;
-        if(bill.getEvent() != null){
-            sum = getTotalHourPlayed(bill)*PricePerHour*(1-bill.getEvent().getPercentDiscount());
-        }
-        else if(bill.getDailyEvent() != null) {
-            sum = getTotalHourPlayed(bill) * PricePerHour * (1-bill.getDailyEvent().getPercentDiscount());
+        if (bill.getEvent() != null) {
+            sum = getTotalHourPlayed(bill) * PricePerHour * (1 - bill.getEvent().getPercentDiscount());
+        } else if (bill.getDailyEvent() != null) {
+            sum = getTotalHourPlayed(bill) * PricePerHour * (1 - bill.getDailyEvent().getPercentDiscount());
 
-        }else{
-            sum = getTotalHourPlayed(bill)*PricePerHour;
+        } else {
+            sum = getTotalHourPlayed(bill) * PricePerHour;
         }
-        if(bill.getOrderServices() != null){
+        if (bill.getOrderServices() != null) {
             List<OrderService> orderServices = bill.getOrderServices();
-            for(OrderService os: orderServices){
-                sum+=os.getTotalPrice();
+            for (OrderService os : orderServices) {
+                sum += os.getTotalPrice();
             }
         }
         return sum;
     }
 
-    public void findEventForBill(Bill bill){
-        if(!eventRepository.findAll().isEmpty()){
+    public void findEventForBill(Bill bill) {
+        if (!eventRepository.findAll().isEmpty()) {
             List<Event> events = eventRepository.findAll();
-            for(Event event: events){
-                if(bill.getTimeStart().isAfter(event.getTimeStart()) && bill.getTimeEnd().isBefore(event.getTimeEnd())){
+            for (Event event : events) {
+                if (bill.getTimeStart().isAfter(event.getTimeStart()) && bill.getTimeEnd().isBefore(event.getTimeEnd())) {
                     bill.setEvent(event);
                 }
             }
         }
     }
-    public void findDailyEventForBill(Bill bill){
-        if(!dailyEventRepository.findAll().isEmpty()){
+
+    public void findDailyEventForBill(Bill bill) {
+        if (!dailyEventRepository.findAll().isEmpty()) {
             List<DailyEvent> dailyEvents = dailyEventRepository.findAll();
-            for(DailyEvent dailyEvent: dailyEvents){
+            for (DailyEvent dailyEvent : dailyEvents) {
                 dailyEvent.setTimeAgain();
-                if(bill.getTimeStart().isAfter(dailyEvent.getTimeStart()) && bill.getTimeEnd().isBefore(dailyEvent.getTimeEnd())){
+                if (bill.getTimeStart().isAfter(dailyEvent.getTimeStart()) && bill.getTimeEnd().isBefore(dailyEvent.getTimeEnd())) {
                     bill.setDailyEvent(dailyEvent);
                 }
                 dailyEventRepository.save(dailyEvent);
@@ -167,7 +171,7 @@ public class BillService {
     }
 
     public void deleteBill(Bill bill) {
-        bill.getPlayStation().setPsStatus(0);
+        if (!bill.isPaid()) bill.getPlayStation().setPsStatus(0);
         billRepository.delete(bill);
     }
 

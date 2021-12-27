@@ -6,9 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -17,6 +15,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
@@ -45,7 +44,6 @@ public class Bill {
    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<OrderService> orderServices = new ArrayList<>();
 
-
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "eventId", referencedColumnName = "eventId")
     private Event event;
@@ -55,5 +53,7 @@ public class Bill {
     private Double totalHourPlayed;
     private Double totalPrice;
 
-
+    public List<OrderService> getOrderServices() {
+        return orderServices.stream().filter(o -> o.getQuantity() > 0).collect(Collectors.toList());
+    }
 }

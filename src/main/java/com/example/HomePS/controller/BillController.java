@@ -44,7 +44,6 @@ public class BillController {
                 orderServices.add(orderESService.create(new OrderService(bill, esService.getService(dto.getEsId()), dto.getQuantity())));
             }
             bill.setOrderServices(orderServices);
-
             return billService.update(bill);
         }
         return bill;

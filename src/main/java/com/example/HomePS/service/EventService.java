@@ -34,8 +34,6 @@ public class EventService {
         return eventRepository
                 .findById(id)
                 .orElseThrow(()->new IllegalStateException("Event not found!"));
-
-
     }
     public Event save(Event event){
         return eventRepository.save(event);
