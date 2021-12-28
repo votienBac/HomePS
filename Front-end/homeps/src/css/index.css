@@ -58,5 +58,6 @@ body{
 
 .pageMain{
   background-color: rgb(245, 232, 216);
-  height: 82vh;
+  height: 75vh;
+  padding: 20px;
 }
