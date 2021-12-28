@@ -45,7 +45,7 @@ export default function App() {
         </div>
         </div>
         )}
-        <Routes>
+        <Routes className="pageMain">
           <Route path="/luotchoi/*"
                   element = {<LuotChoi />}>
           </Route>
