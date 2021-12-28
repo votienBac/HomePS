@@ -31,7 +31,7 @@ export default function TaiKhoan(){
     return(
         <div className="doimk">
             {(page.page === "change") ? (
-                <ChangePassword setPage={setPage}/>
+                <ChangePassword setPage={setPage} Logout={Logout}/>
             ) : (
                 <div className="taikhoan">
                     <input type="submit" value="Đăng xuất" onClick={Logout}/>

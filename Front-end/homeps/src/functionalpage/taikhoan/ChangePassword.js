@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-function ChangePassword({setPage}) {
+function ChangePassword({setPage,Logout}) {
     const [ details,setDetails] = useState({mkcu:"", mkmoi:"",xn:""});
     const [error,setError] = useState("");
     const submitHandler = e => {
@@ -33,7 +33,7 @@ function ChangePassword({setPage}) {
                   if(result.message === "Wrong password."){
                     setError("Mật khẩu hiện tại không chính xác");
                   }else{
-                    back();
+                    Logout();
                   }
                 })
               .catch(error => {
