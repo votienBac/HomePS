@@ -31,7 +31,7 @@ export default function App() {
   return (
     <div> 
         {!isLogin && (
-        <div>
+        <div className='headerOut'>
         <div className='header'>
                 <Link to ="/luotchoi"><h1 >HOME PS</h1></Link>
         </div>
@@ -45,7 +45,8 @@ export default function App() {
         </div>
         </div>
         )}
-        <Routes className="pageMain">
+        <div className="pageMain">
+        <Routes>
           <Route path="/luotchoi/*"
                   element = {<LuotChoi />}>
           </Route>
@@ -64,13 +65,14 @@ export default function App() {
           <Route path="/taikhoan/*"
                   element = {<TaiKhoan />}> 
           </Route>
-          <Route path="/"
-                  element = {<Login />}>
+          <Route  path="/"
+                  element = {<Login className = "login"/>}>
           </Route>
           <Route path="/*"
                   element = {<Error />}>  
           </Route> 
         </Routes>
+        </div>
     </div>
     )
 }

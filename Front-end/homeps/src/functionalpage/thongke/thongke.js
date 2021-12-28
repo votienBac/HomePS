@@ -6,7 +6,7 @@ import { Select, MenuItem } from "@material-ui/core";
 import '../../css/thongke.css';
 
 export default function ThongKe(){
-    const [dateBegin, setDateBegin] = useState(new Date());
+    const [dateBegin, setDateBegin] = useState(new Date("2021/01/01"));
     const [dateEnd, setDateEnd] = useState(new Date());
     const [queryType, setQueryType] = useState('full');
 
