@@ -1,8 +1,13 @@
 import React, {useState} from 'react'
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { DialogActions } from '@material-ui/core';
 
 function ChangePassword({setPage,Logout}) {
     const [ details,setDetails] = useState({mkcu:"", mkmoi:"",xn:""});
     const [error,setError] = useState("");
+    const [ out,setOut] = useState(false);
     const submitHandler = e => {
         e.preventDefault();
     }
@@ -33,7 +38,7 @@ function ChangePassword({setPage,Logout}) {
                   if(result.message === "Wrong password."){
                     setError("Mật khẩu hiện tại không chính xác");
                   }else{
-                    Logout();
+                    setOut(true);
                   }
                 })
               .catch(error => {
@@ -59,6 +64,13 @@ function ChangePassword({setPage,Logout}) {
                 </div>
                 <input type="submit" value="Trở lại" onClick={back}/>
                 <input type="submit" className="submitt" value="Đổi mật khẩu"  onClick={Complete} />
+                <Dialog open={out} className="dialog">
+                  <DialogTitle className="dialogTitle">Bạn đã đổi mật khẩu thành công</DialogTitle>
+                  <DialogContent>Vui lòng quay trở lại trang đăng nhập</DialogContent>
+                  <DialogActions>
+                      <button onClick = {Logout}>Đồng ý</button>
+                  </DialogActions>
+                </Dialog>
             </div>
         </form>
     )

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import ChangePassword from "./ChangePassword";
 import '../../css/taikhoan.css';
+import '../../css/popup.css';
 export default function TaiKhoan(){
     const [page, setPage] = useState({page: "account"});
     let navigate = useNavigate();
