@@ -21,13 +21,24 @@
 }
 .btn-group button{
   width: calc(16.66%);
-  height: 35px ;
+  height: 50px ;
   font-size: 20px;
   color: aliceblue;
   font-family:'Times New Roman', Times, serif;
-  background-color: #019160;
+  background-color: white;
+  color: black;
+  border:none;
+}
+.btn-group button:active{
+  background-color: #01B075;
+  color: white;
+}
+.btn-group button:hover,
+button:focus,button:visited {
+    background-color: #2FBE8E;
+    color: white;
 }
 body{
-  margin: 0;
+  margin:0px;
   background-color: antiquewhite;
 }
