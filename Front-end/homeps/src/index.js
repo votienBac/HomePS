@@ -66,7 +66,7 @@ export default function App() {
                   element = {<TaiKhoan />}> 
           </Route>
           <Route  path="/"
-                  element = {<Login className = "login"/>}>
+                  element = {<Login/>}>
           </Route>
           <Route path="/*"
                   element = {<Error />}>  
