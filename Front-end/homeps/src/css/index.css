@@ -34,11 +34,9 @@
   font-size: 18px;
   color: aliceblue;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  background-color: white;
   color: black;
   border:none;
   background-color: rgb(223, 221, 224);
-
 }
 .btn-group button:active{
   background-color: #019160;
@@ -49,6 +47,8 @@ button:focus,button:visited {
     background-color: #019160;
     color: white;
 }
+
+
 body{
   margin-left: 50px;
   margin-right: 50px;
@@ -63,4 +63,23 @@ body{
   background-color: rgb(245, 232, 216);
   height: 75vh;
   padding: 20px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+button {
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 4px;
+  background-size: 200%;
+  background-position: 0%;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.4s;
+  background-color: #019160;
+ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
