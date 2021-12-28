@@ -8,40 +8,50 @@ import ThongKe from './functionalpage/thongke/thongke.js';
 import TaiKhoan from './functionalpage/taikhoan/taikhoan.js';
 import Login from './functionalpage/login/login.js';
 import './css/index.css';
-
+import { Tab,Tabs } from '@material-ui/core';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
   Link,
+  useNavigate,
 } from "react-router-dom";
 import store from './store/store.js'
 import { Provider } from 'react-redux'
 
 export default function App() {
-  const location = useLocation();
-  const isLogin = location.pathname === "/";
+        const navigate = useNavigate()
+        const location = useLocation();
+        const isLogin = location.pathname === "/";
+        const [value, setValue] = React.useState(0);
 
-  if(!localStorage.getItem("access_token") && !isLogin) {
-        window.location.href = "/"
-        return <Login />
-      }
+        const handleChange = (event, newValue) => {
+                setValue(newValue);
+                navigate('/'+newValue);
+        };
 
-  return (
-    <div> 
+        if(!localStorage.getItem("access_token") && !isLogin) {
+                window.location.href = "/"
+                return <Login />
+        }
+
+        return (
+    <   div> 
         {!isLogin && (
         <div className='headerOut'>
         <div className='header'>
                 <Link to ="/luotchoi"><h1 >HOME PS</h1></Link>
         </div>
         <div className="btn-group">
-                <Link to = "/luotchoi"><button >Lượt chơi</button></Link>
-                <Link to = "/mayps"><button >Máy PS</button></Link>
-                <Link to = "/sukien"><button >Sự kiện</button></Link>
-                <Link to = "/dichvu"><button >Dịch vụ</button></Link>
-                <Link to = "/thongke"><button >Thống kê</button></Link>
-                <Link to = "/taikhoan"><button >Tài khoản</button></Link>
+                <Tabs value={value} onChange={handleChange} variant='fullWidth'>
+                        <Tab value = 'luotchoi' label="Lượt chơi" />
+                        <Tab value = 'mayps' label="Máy PS" />
+                        <Tab value = 'sukien' label="Sự kiện" />
+                        <Tab value = 'dichvu' label="Dịch vụ" />
+                        <Tab value = 'thongke' label="Thống kê" />
+                        <Tab value = 'taikhoan' label="Tài khoản" />
+                </Tabs>
         </div>
         </div>
         )}
