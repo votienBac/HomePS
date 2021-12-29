@@ -13,12 +13,12 @@ function FinishedTurn() {
             .then(res => res.json())
             .then(finishedTurns => { setFinishedTurns(finishedTurns) })
     }, [])
-    
+
     return (
         <div>
             <u onClick={() => navigate(-1)}>Lượt chơi hiện tại</u>
             <Link to=''>Lượt chơi đã kết thúc</Link>
-            <SearchBar />
+            <SearchBar type='paid' />
             <table id='finished-turns-list'>
                 <tbody>
                     <tr>
