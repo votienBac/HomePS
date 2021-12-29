@@ -3,10 +3,16 @@ import React, {useState} from 'react'
 const SearchBar = () => {
     const [details, setDetails] = useState({searchValue:''})
     console.log(details);
+    const [billsQuery, setBillsQuery] = useState([])
     const handleSearch = ()=>{
-
-        //TODO
+        fetch(`https://homeps.herokuapp.com/api/bills/search/${details.searchValue}?status=${'paid'}`, {
+            method: 'GET',
+        })
+            .then(res => res.json())
+            .then(res => setBillsQuery(res))
+            console.log(billsQuery);
     }
+
     return(
         <section className="search">
         <div className="container">
