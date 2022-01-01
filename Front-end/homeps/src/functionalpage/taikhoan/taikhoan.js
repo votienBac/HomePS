@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import ChangePassword from "./ChangePassword";
 import '../../css/taikhoan.css';
+import '../../css/popup.css';
 export default function TaiKhoan(){
     const [page, setPage] = useState({page: "account"});
     let navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function TaiKhoan(){
     return(
         <div className="doimk">
             {(page.page === "change") ? (
-                <ChangePassword setPage={setPage}/>
+                <ChangePassword setPage={setPage} Logout={Logout}/>
             ) : (
                 <div className="taikhoan">
                     <input type="submit" value="Đăng xuất" onClick={Logout}/>

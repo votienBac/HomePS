@@ -1,16 +1,19 @@
 import React, {useState} from 'react'
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { DialogActions } from '@material-ui/core';
 
-function ChangePassword({setPage}) {
+function ChangePassword({setPage,Logout}) {
     const [ details,setDetails] = useState({mkcu:"", mkmoi:"",xn:""});
     const [error,setError] = useState("");
+    const [ out,setOut] = useState(false);
     const submitHandler = e => {
         e.preventDefault();
     }
     const Complete = () => {
         if(details.mkcu==="" || details.mkmoi==="" ||details.xn==="" ){
             setError("Hãy nhập đủ thông tin");
-        // }else if(details.mkcu !== ){
-        //     setError("Mật khẩu hiện tại không chính xác");
         }else if(details.mkmoi !== details.xn){
             setError("Xác nhận mật khẩu không chính xác");
         }else if(details.mkmoi === details.mkcu){
@@ -30,14 +33,17 @@ function ChangePassword({setPage}) {
               redirect: 'follow'
             };
             fetch("https://homeps.herokuapp.com/api/user", requestOptions)
-              .then(response => response.text())
-              .then(result => console.log(result))
+              .then(response => response.json())
+              .then(result => {
+                  if(result.message === "Wrong password."){
+                    setError("Mật khẩu hiện tại không chính xác");
+                  }else{
+                    setOut(true);
+                  }
+                })
               .catch(error => {
                   console.log('error', error)
                 });
-
-
-            back();
         }
       }
     const back = () => {
@@ -58,6 +64,13 @@ function ChangePassword({setPage}) {
                 </div>
                 <input type="submit" value="Trở lại" onClick={back}/>
                 <input type="submit" className="submitt" value="Đổi mật khẩu"  onClick={Complete} />
+                <Dialog open={out} className="dialog">
+                  <DialogTitle className="dialogTitle">Bạn đã đổi mật khẩu thành công</DialogTitle>
+                  <DialogContent>Vui lòng quay trở lại trang đăng nhập</DialogContent>
+                  <DialogActions>
+                      <button onClick = {Logout}>Đồng ý</button>
+                  </DialogActions>
+                </Dialog>
             </div>
         </form>
     )

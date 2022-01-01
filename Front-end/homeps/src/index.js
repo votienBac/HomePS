@@ -8,37 +8,54 @@ import ThongKe from './functionalpage/thongke/thongke.js';
 import TaiKhoan from './functionalpage/taikhoan/taikhoan.js';
 import Login from './functionalpage/login/login.js';
 import './css/index.css';
-
+import { Tab,Tabs } from '@material-ui/core';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
-  Link
+  Link,
+  useNavigate,
 } from "react-router-dom";
 import store from './store/store.js'
 import { Provider } from 'react-redux'
 
 export default function App() {
-  const location = useLocation();
-  const isLogin = location.pathname === "/";
-  return (
-    <div> 
+        const navigate = useNavigate()
+        const location = useLocation();
+        const isLogin = location.pathname === "/";
+        const [value, setValue] = React.useState(0);
+
+        const handleChange = (event, newValue) => {
+                setValue(newValue);
+                navigate('/'+newValue);
+        };
+
+        if(!localStorage.getItem("access_token") && !isLogin) {
+                window.location.href = "/"
+                return <Login />
+        }
+
+        return (
+    <   div> 
         {!isLogin && (
-        <div>
+        <div className='headerOut'>
         <div className='header'>
                 <Link to ="/luotchoi"><h1 >HOME PS</h1></Link>
         </div>
         <div className="btn-group">
-                <Link to = "/luotchoi"><button >Lượt chơi</button></Link>
-                <Link to = "/mayps"><button >Máy PS</button></Link>
-                <Link to = "/sukien"><button >Sự kiện</button></Link>
-                <Link to = "/dichvu"><button >Dịch vụ</button></Link>
-                <Link to = "/thongke"><button >Thống kê</button></Link>
-                <Link to = "/taikhoan"><button >Tài khoản</button></Link>
+                <Tabs value={value} onChange={handleChange} variant='fullWidth'>
+                        <Tab value = 'luotchoi' label="Lượt chơi" />
+                        <Tab value = 'mayps' label="Máy PS" />
+                        <Tab value = 'sukien' label="Sự kiện" />
+                        <Tab value = 'dichvu' label="Dịch vụ" />
+                        <Tab value = 'thongke' label="Thống kê" />
+                        <Tab value = 'taikhoan' label="Tài khoản" />
+                </Tabs>
         </div>
         </div>
         )}
+        <div className="pageMain">
         <Routes>
           <Route path="/luotchoi/*"
                   element = {<LuotChoi />}>
@@ -58,20 +75,22 @@ export default function App() {
           <Route path="/taikhoan/*"
                   element = {<TaiKhoan />}> 
           </Route>
-          <Route path="/"
-                  element = {<Login />}>
+          <Route  path="/"
+                  element = {<Login/>}>
           </Route>
           <Route path="/*"
                   element = {<Error />}>  
           </Route> 
         </Routes>
+        </div>
     </div>
     )
 }
 
 
 function Error(){
-  return <a href="/luotchoi" style={{ textDecoration: 'underline' }} to="/">Return to home page</a>
+        window.location.href = "/luotchoi"
+  //return <a href="/luotchoi" style={{ textDecoration: 'underline' }} to="/">Return to home page</a>
 }
 
 

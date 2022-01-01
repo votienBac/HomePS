@@ -1,0 +1,17 @@
+
+.dialog button {
+    margin: 15px;
+    background-color: #019160;
+    border-radius: 4px;
+    height: 40px;
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: normal;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: center;
+    outline: unset;
+    border: none;
+    cursor: pointer;
+    width: 125px;
+}
