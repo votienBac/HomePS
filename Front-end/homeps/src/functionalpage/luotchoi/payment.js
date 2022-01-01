@@ -12,8 +12,6 @@ const Payment = () => {
             .then(res => res.json())
             .then(turn => setTurn(turn))
     }, [])
-    console.log(turn);
-    console.log(turn.orderServices);
     
     return (
         <section className="body">

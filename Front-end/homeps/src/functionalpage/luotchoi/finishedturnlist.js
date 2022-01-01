@@ -6,19 +6,22 @@ function FinishedTurn() {
     const [finishedTurns, setFinishedTurns] = useState([])
 
     //Load the bill list
-    useEffect(() => {
-        fetch(`https://homeps.herokuapp.com/api/bills?page=${1}&size=${10}&status=${'paid'}`, {
-            method: 'GET'
-        })
-            .then(res => res.json())
-            .then(finishedTurns => { setFinishedTurns(finishedTurns) })
-    }, [])
+    // useEffect(() => {
+    //     fetch(`https://homeps.herokuapp.com/api/bills?page=${1}&size=${10}&status=${'paid'}`, {
+    //         method: 'GET'
+    //     })
+    //         .then(res => res.json())
+    //         .then(finishedTurns => { setFinishedTurns(finishedTurns) })
+    // }, [])
 
     return (
         <div>
             <u onClick={() => navigate(-1)}>Lượt chơi hiện tại</u>
             <Link to=''>Lượt chơi đã kết thúc</Link>
-            <SearchBar type='paid' />
+            <SearchBar
+                type='paid'
+                setBillsQuery={setFinishedTurns} />
+            {/* {console.log(finishedTurns)} */}
             <table id='finished-turns-list'>
                 <tbody>
                     <tr>

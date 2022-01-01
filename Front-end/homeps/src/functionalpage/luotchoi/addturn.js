@@ -15,7 +15,6 @@ const UnusedPsList = () => {
 
     //Add new turn
     const handleAddTurn = async (psId) => {
-        console.log(psId);
         const postNewBillData = {
             psId: psId
         }

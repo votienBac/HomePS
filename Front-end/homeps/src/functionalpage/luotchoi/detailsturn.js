@@ -39,7 +39,6 @@ const DetailsTurn = (props) => {
         setChangeServicesDialog(true)
         addS = add
         removeS = remove
-        console.log('42', addS, removeS);
         fetch(`https://homeps.herokuapp.com/api/extraservice?page=${1}&size=${10}`, {
             method: 'GET'
         })
@@ -49,16 +48,13 @@ const DetailsTurn = (props) => {
     extraServices.map(service => (
         services = [...services, { esId: service.serviceId, quantity: 0 }]
     ))
-    console.log(services);
 
     const handleChangeServices = async () => {
         services = services.filter(service => service.quantity != 0)
-        console.log('abc', addS, removeS);
         if (addS === 0 && removeS === 1)
             services.map(service => {
                 service.quantity = - service.quantity
             })
-        console.log(services);
         await fetch(`https://homeps.herokuapp.com/api/bills/${billId}`, {
             method: 'PUT',
             headers: {
@@ -68,9 +64,7 @@ const DetailsTurn = (props) => {
             body: JSON.stringify({ services })
         })
         setCheckChangeServices(!checkChangeServices)
-        console.log(JSON.stringify({ services }));
         closeChangeServicesDialog()
-        console.log(addS, removeS);
     }
 
     const closeChangeServicesDialog = () => {
