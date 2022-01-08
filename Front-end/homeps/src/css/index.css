@@ -52,7 +52,6 @@ button:focus,button:visited {
 
 
 body{
-
   margin-right: 50px;
   background-color: rgb(221, 215, 215);
   margin-top: 0px;
@@ -62,8 +61,8 @@ body{
 }
 
 .pageMain{
+  height: calc(100%);
   background-color: rgb(245, 232, 216);
-  height: 75vh;
   padding: 20px;
   margin-left: 50px;
   border-bottom-right-radius: 10px;
