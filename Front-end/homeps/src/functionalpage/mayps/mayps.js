@@ -5,10 +5,25 @@ import {
     CCollapse,
     CRow,CCol,
     CSmartTable,
- } from '@coreui/react-pro'
+ } from '@coreui/react-pro';
+import {
+  Routes,
+  Route,
+  Link
+} from 'react-router-dom';
 import '@coreui/coreui/dist/css/coreui.min.css';
+import Form from "./form";
 
 export default function MayPS(){
+  return (
+    <Routes>
+        <Route path='' element={<ExtraMayPS />} />
+        <Route path="/form" element={<Form />} />
+    </Routes>
+
+)
+}
+function ExtraMayPS(){
     const [details, setDetails] = useState([])
 
     const columns = [
@@ -154,7 +169,7 @@ return (
     
   />
     <CCol>
-    <CButton component="a" href="./form" color="primary" size="lg" >Thêm máy</CButton>
+    <Link to='/mayps/form'><CButton component="a"color="primary" size="lg" >Thêm máy</CButton></Link>
     </CCol>
   </CRow>
 )
