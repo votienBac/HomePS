@@ -41,17 +41,18 @@ export default function App() {
         {!isLogin && (
         <div className='headerOut'>
         <div className='header'>
-                <Link to ="/luotchoi"><h1 >HOME PS</h1></Link>
-        </div>
-        <div className="btn-group">
-                <Tabs value={value} onChange={handleChange} variant='fullWidth'>
-                        <Tab value = 'luotchoi' label="Lượt chơi" />
-                        <Tab value = 'mayps' label="Máy PS" />
-                        <Tab value = 'sukien' label="Sự kiện" />
-                        <Tab value = 'dichvu' label="Dịch vụ" />
-                        <Tab value = 'thongke' label="Thống kê" />
-                        <Tab value = 'taikhoan' label="Tài khoản" />
-                </Tabs>
+                <Link to ="/luotchoi"><img  src="https://thumbs.dreamstime.com/b/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg"></img></Link>
+        
+                <div className="btn-group">
+                        <Tabs value={value} onChange={handleChange} variant='fullWidth'>
+                                <Tab value = 'luotchoi' label="Lượt chơi" />
+                                <Tab value = 'mayps' label="Máy PS" />
+                                <Tab value = 'sukien' label="Sự kiện" />
+                                <Tab value = 'dichvu' label="Dịch vụ" />
+                                <Tab value = 'thongke' label="Thống kê" />
+                                <Tab value = 'taikhoan' label="Tài khoản" />
+                        </Tabs>
+                </div>
         </div>
         </div>
         )}
