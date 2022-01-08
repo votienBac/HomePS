@@ -24,7 +24,7 @@ export default function App() {
         const navigate = useNavigate()
         const location = useLocation();
         const isLogin = location.pathname === "/";
-        const [value, setValue] = React.useState(0);
+        const [value, setValue] = React.useState('luotchoi');
 
         const handleChange = (event, newValue) => {
                 setValue(newValue);
@@ -37,7 +37,7 @@ export default function App() {
         }
 
         return (
-    <   div> 
+        <div> 
         {!isLogin && (
         <div className='headerOut'>
         <div className='header'>

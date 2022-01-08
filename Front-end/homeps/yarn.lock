@@ -1285,6 +1285,26 @@
     "exec-sh" "^0.3.2"
     "minimist" "^1.2.0"
 
+"@coreui/coreui@^4.1.0":
+  "integrity" "sha512-2iMKPpxXquN3ZyL44s6Urvsnk03iw+KuJk/AKz5spSgKReUr7AM3WEiaTNFNo1/ZypB67pg0966tT22BSmgkGg=="
+  "resolved" "https://registry.npmjs.org/@coreui/coreui/-/coreui-4.1.0.tgz"
+  "version" "4.1.0"
+
+"@coreui/icons-react@^2.0.0":
+  "integrity" "sha512-532DYj/b+YeSXfvLLK1FoH6uBMCWdNuxzQe+zQF8NQRFT869Zt6VnbLKNwObxZLUMXwwyATbku8Dw4Cdm0eqiQ=="
+  "resolved" "https://registry.npmjs.org/@coreui/icons-react/-/icons-react-2.0.1.tgz"
+  "version" "2.0.1"
+
+"@coreui/react-pro@^4.1.2":
+  "integrity" "sha512-czrEtUR6PuY7Fcv0yIp3s+XtYy02ULljIPuIOThPlGUTwdX76nTFfLQIS6cXQXFvu8FVE+Mf6MSychS2QXIRCg=="
+  "resolved" "https://registry.npmjs.org/@coreui/react-pro/-/react-pro-4.1.2.tgz"
+  "version" "4.1.2"
+
+"@coreui/react@^4.1.0":
+  "integrity" "sha512-h4VjbL7Qyz2iEJ27CRyHYlu6O4az6LTtn+patsdQXAck4mg7mN235nFwUgZMhJIc/8rpYgYJI1VBmvQ+YRg4aA=="
+  "resolved" "https://registry.npmjs.org/@coreui/react/-/react-4.1.1.tgz"
+  "version" "4.1.1"
+
 "@csstools/convert-colors@^1.4.0":
   "integrity" "sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw=="
   "resolved" "https://registry.npmjs.org/@csstools/convert-colors/-/convert-colors-1.4.0.tgz"
@@ -1681,7 +1701,7 @@
     "schema-utils" "^2.6.5"
     "source-map" "^0.7.3"
 
-"@popperjs/core@^2.0.0", "@popperjs/core@^2.9.2":
+"@popperjs/core@^2.0.0", "@popperjs/core@^2.11.0", "@popperjs/core@^2.9.2":
   "integrity" "sha512-zrsUxjLOKAzdewIDRWy9nsV1GQsKBCWaGwsZQlCgr6/q+vjyZhFgqedLfFBuI9anTPEUT4APq9Mu0SZBTzIcGQ=="
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.11.0.tgz"
   "version" "2.11.0"
@@ -10647,7 +10667,7 @@
     "shell-quote" "^1.6.1"
     "ws" "^7"
 
-"react-dom@*", "react-dom@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react-dom@^15.5.x || ^16.x || ^17.x", "react-dom@^16.8.0 || ^17.0.0", "react-dom@^16.9.0 || ^17", "react-dom@^17.0.2", "react-dom@>=16.6.0", "react-dom@>=16.8":
+"react-dom@*", "react-dom@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react-dom@^15.5.x || ^16.x || ^17.x", "react-dom@^16.8.0 || ^17.0.0", "react-dom@^16.9.0 || ^17", "react-dom@^17", "react-dom@^17.0.2", "react-dom@>=16.6.0", "react-dom@>=16.8":
   "integrity" "sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
   "version" "17.0.2"
@@ -10863,7 +10883,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.5.x || ^16.x || ^17.x", "react@^16.14.0 || ^17.0.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17", "react@^17.0.2", "react@>= 16", "react@>=16.6.0", "react@>=16.8", "react@17.0.2":
+"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.5.x || ^16.x || ^17.x", "react@^16.14.0 || ^17.0.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17", "react@^17", "react@^17.0.2", "react@>= 16", "react@>=16.6.0", "react@>=16.8", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

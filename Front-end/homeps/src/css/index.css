@@ -1,12 +1,14 @@
 .headerOut{
-  margin-left: -50px;
-  margin-right: -50px;
+  margin-left: 0px;
+  
 }
 .header {
-  margin-top: -48px;
+  margin-top: -20px;
   height: 80px;
   width: calc(100%);
   text-align: left;
+  background: rgba(0,0,0,0);
+  border: 0px;
 }
 .header h1{
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -63,6 +65,7 @@ body{
   background-color: rgb(245, 232, 216);
   height: 75vh;
   padding: 20px;
+  margin-left: 50px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }

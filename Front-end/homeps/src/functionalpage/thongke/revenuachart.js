@@ -6,12 +6,18 @@ const BarChart = (props) => {
     const [chartData, setChartData] = useState({});
     //const [date, setDate] = useState([]);
     const [turnOver, setTurnOver] = useState();
-    const baseUrl = `https://homeps.herokuapp.com/api/revenue`
+    var baseUrl
+    if(props.type){
+        baseUrl = `https://homeps.herokuapp.com/api/revenue`
+    }
+    else{
+        baseUrl = `https://homeps.herokuapp.com/api/revenue`
+    }
     useEffect(() => {
         let dateList = [];
         let turnOverList = [];
         const fetchData = async () => {
-            await fetch(baseUrl+`?dateBegin=${props.stringBegin}&dateEnd=${props.stringEnd}&status=${props.type}`, {
+            await fetch(baseUrl+`?dateBegin=${props.stringBegin}&dateEnd=${props.stringEnd}`, {
             //await fetch(baseUrl,{
                 method: 'GET'
             }).then(res => {
