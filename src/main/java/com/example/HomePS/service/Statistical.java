@@ -4,6 +4,7 @@ import com.example.HomePS.model.Bill;
 import com.example.HomePS.model.Daily_TurnOver;
 import com.example.HomePS.repository.BillRepository;
 import com.example.HomePS.repository.DailyTurnOverRepository;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 
 import org.springframework.data.domain.PageRequest;
@@ -50,18 +51,28 @@ public class Statistical {
 //        }
 //        return listBill;
 //    }
-    public List<Daily_TurnOver> getRevenueDay(LocalDate dateBegin, LocalDate dateEnd) {
+    public List<Daily_TurnOver> getRenevueDay(LocalDate dateBegin, LocalDate dateEnd) {
+
+
         List<Daily_TurnOver> list_Daily_TurnOver=dailyTurnOverRepository.findDaily_TurnOverByDateBetween(dateBegin, dateEnd);
+
+
+
         if(list_Daily_TurnOver.size()<=0){
+
             return List.of();
         }
+
         return list_Daily_TurnOver;
+
     }
+
+
 
     public double getSumTurnOver(List<Daily_TurnOver> list){
         double sumTurnOver=0;
-        for (Daily_TurnOver daily_turnOver : list) {
-            sumTurnOver += daily_turnOver.getTurnOver();
+        for(int i=0;i<list.size();i++){
+            sumTurnOver+=list.get(i).getTurnOver();
         }
         return sumTurnOver;
     }
