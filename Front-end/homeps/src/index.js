@@ -26,6 +26,9 @@ export default function App() {
         const isLogin = location.pathname === "/";
         const [value, setValue] = React.useState('luotchoi');
 
+        const mql = window.matchMedia('(max-width: 2000px)');
+        const smallScreen = mql.matches;
+
         const handleChange = (event, newValue) => {
                 setValue(newValue);
                 navigate('/'+newValue);
@@ -47,7 +50,7 @@ export default function App() {
                         src="https://thumbs.dreamstime.com/b/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg"></img></Link>
         
                 <div className="btn-group">
-                        <Tabs value={value} onChange={handleChange} variant='fullWidth'>
+                        <Tabs value={value} onChange={handleChange} variant={smallScreen ? 'scrollable' : 'standard'}>
                                 <Tab value = 'luotchoi' label="Lượt chơi" />
                                 <Tab value = 'mayps' label="Máy PS" />
                                 <Tab value = 'sukien' label="Sự kiện" />

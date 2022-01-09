@@ -29,7 +29,7 @@ export default function ThongKe(){
         <div>
             {isQueryNgay? (
             <div className="queryBox">
-                <pre>Chọn ngày bắt đầu  </pre>
+                <label>Chọn ngày bắt đầu  </label>
                 <DatePicker className = 'startTime' 
                             selected={dateBegin} 
                             onChange={(date) => setDateBegin(date)} 
@@ -37,14 +37,14 @@ export default function ThongKe(){
                             minDate = {new Date("2021/12/23")}
                             maxDate={new Date}
                             />
-                <pre>Chọn ngày kết thúc  </pre>
+                <label>Chọn ngày kết thúc  </label>
                 <DatePicker className= 'endTime'
                             selected={dateEnd} 
                             onChange={(date) => setDateEnd(date)} 
                             dateFormat={'dd-MM-yyyy'} 
                             minDate={dateBegin}
                             />
-                <pre>Chọn loại thống kê  </pre>
+                <label>Chọn loại thống kê  </label>
                 <Select 
                     value={queryType}
                     label="Chọn loại thống kê"
@@ -58,7 +58,7 @@ export default function ThongKe(){
             )
             :(
             <div className="queryBox">
-                <pre>Chọn tháng bắt đầu  </pre>
+                <label>Chọn tháng bắt đầu  </label>
                 <DatePicker className = 'startTime' 
                             selected={dateBegin} 
                             onChange={(date) => setDateBegin(date)} 
@@ -66,8 +66,9 @@ export default function ThongKe(){
                             minDate={new Date("2021/12")}
                             maxDate={dateEnd}
                             showMonthYearPicker
+                            label = 'start'
                             />
-                <pre>Chọn tháng kết thúc  </pre>
+                <label>Chọn tháng kết thúc  </label>
                 <DatePicker className= 'endTime'
                             selected={dateEnd} 
                             onChange={(date) => setDateEnd(date)} 
@@ -76,7 +77,7 @@ export default function ThongKe(){
                             maxDate={new Date}
                             showMonthYearPicker
                             />
-                <pre>Chọn loại thống kê  </pre>
+                <label>Chọn loại thống kê  </label>
                 <Select 
                     value={queryType}
                     label="Chọn loại thống kê"
