@@ -2,13 +2,24 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import SearchBar from './search.js'
 const CurrentTurnList = () => {
-    const [currentTurns, setCurrentTurns] = useState([])
+    const [data, setData] = useState({
+        currentPage: 1,
+        currentPlaying: 0,
+        currentTurns: [],
+        totalPage: 1
+    });
+    //const [currentTurns, setCurrentTurns] = useState([])
+    var currentTurns = data.currentTurns;
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/bills?page=${1}&size=${10}&status=${'unpaid'}`, {
             method: 'GET'
         })
             .then(res => res.json())
-            .then(currentTurns => { setCurrentTurns(currentTurns) })
+            .then(data => setData(data))
+        //    .then(data => data.currentTurns)
+        //    .then(currentTurns => { setCurrentTurns(currentTurns) })
+        //console.log(data.currentTurns)
+        //setCurrentTurns(data.currentTurns)
     }, [])
     return (
         <div>

@@ -3,8 +3,12 @@ import { useState, useEffect } from 'react'
 import SearchBar from './search.js'
 function FinishedTurn() {
     const navigate = useNavigate()
-    const [finishedTurns, setFinishedTurns] = useState([])
-
+    const [finishedTurns, setFinishedTurns] = useState({
+        currentPage: 1,
+        currentPlaying: 0,
+        currentTurns: [],
+        totalPage: 1
+    })
     //Load the bill list
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/bills?page=${1}&size=${10}&status=${'paid'}`, {
@@ -28,7 +32,7 @@ function FinishedTurn() {
                         <th style={{ width: '25%' }}>Kết thúc</th>
                         <th style={{ width: '30%' }}></th>
                     </tr>
-                    {finishedTurns.map(finishedTurn => {
+                    {finishedTurns.currentTurns.map(finishedTurn => {
                         return (<tr key={finishedTurn.billId}>
                             <td>{finishedTurn.billId}</td>
                             <td>{finishedTurn.playStation.psName}</td>

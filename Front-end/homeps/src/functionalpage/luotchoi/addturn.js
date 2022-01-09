@@ -7,7 +7,11 @@ import { useEffect, useRef, useState } from 'react'
 
 const UnusedPsList = () => {
     const navigate = useNavigate()
-    const [unusedPs, setUnusedPs] = useState([])
+    const [unusedPs, setUnusedPs] = useState({
+        currentPage: 1,
+        psList: [],
+        totalPage: 1
+    })
     const [popup, setPopup] = useState(false)
     const closePopup = () => setPopup(false)
     const [addTurnDialog, setAddTurnDialog] = useState(false)
@@ -55,7 +59,7 @@ const UnusedPsList = () => {
                         <th className="text-align-center" style={{ width: "100px" }}>Hành động</th>
                         <th className="text-align-right" style={{ width: "150px" }}></th>
                     </tr>
-                    {unusedPs.map(unusedPs => {
+                    {unusedPs.psList.map(unusedPs => {
                         return (<tr key={unusedPs.psId}>
                             <td>{unusedPs.psId}</td>
                             <td>{unusedPs.psName}</td>
