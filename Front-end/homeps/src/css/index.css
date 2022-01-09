@@ -96,6 +96,11 @@ button {
   background-color: #019160;
  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+.header label{
+  padding:20px;
+  display: flex;
+  float: right;
+}
 .header input[type="checkbox"] {
   -webkit-appearance: none;
   visibility: hidden;
@@ -103,6 +108,7 @@ button {
 }
 .check{
   position:relative;
+
   display: block;
   width:40px;
   height: 20px;
@@ -114,7 +120,7 @@ button {
 }
 .header input[type="checkbox"]:checked ~ .check{
   background: #FFF;
-  box-shadow: 0 0 0 1200px #092c3e;
+  box-shadow: 0 0 0 2px #092c3e;
 }
 .check:before{
   content: ' ';
@@ -127,9 +133,7 @@ button {
   border-radius: 50% ;
   transition: 0.5s;
 }
-.header input[type="checkbox"]:checked ~ .check{
-  transform: translateX(-50px);
-}
+
 .check:after{
   content: ' ';
   position: absolute;
@@ -140,8 +144,4 @@ button {
   height: 16px;
   border-radius: 50% ;
   transition: 0.5s;
-  transform: translateX(50px);
-}
-.header input[type="checkbox"]:checked ~ .check:after{
-  transform: translateX(0px);
 }

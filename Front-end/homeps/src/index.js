@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from "react";
 import ReactDOM from 'react-dom';
 import LuotChoi from './functionalpage/luotchoi/luotchoi.js';
 import MayPS from './functionalpage/mayps/mayps.js';
@@ -8,6 +8,8 @@ import ThongKe from './functionalpage/thongke/thongke.js';
 import TaiKhoan from './functionalpage/taikhoan/taikhoan.js';
 import Login from './functionalpage/login/login.js';
 import './css/index.css';
+import './css/index_dark.css';
+
 import { Tab,Tabs } from '@material-ui/core';
 import {
   BrowserRouter as Router,
@@ -25,6 +27,7 @@ export default function App() {
         const location = useLocation();
         const isLogin = location.pathname === "/";
         const [value, setValue] = React.useState('luotchoi');
+        const [darkMode, setDarkMode] = useState(false);
 
         const handleChange = (event, newValue) => {
                 setValue(newValue);
@@ -36,12 +39,14 @@ export default function App() {
                 return <Login />
         }
 
+
+
         return (
         <div> 
         {!isLogin && (
         <div className='headerOut'>
-        <div className='header'>
-                <Link to ="/luotchoi"><img  src="https://thumbs.dreamstime.com/b/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg"></img></Link>
+        <div className={darkMode ? "header-dark" : "header"}>
+                <Link to ="/luotchoi"><img  src={darkMode ? "https://cdn.discordapp.com/attachments/916240096196431892/929744287074230362/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" : "https://thumbs.dreamstime.com/b/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg"}></img></Link>
         
                 <div className="btn-group">
                         <Tabs value={value} onChange={handleChange} variant='fullWidth'>
@@ -54,14 +59,14 @@ export default function App() {
                         </Tabs>
                 </div>
                 <label>
-                        <input type="checkbox"></input>
+                        <input type="checkbox" onChange={()=> setDarkMode(!darkMode)}></input>
                         <span class="check"></span>
                 </label>
 
         </div>
         </div>
         )}
-        <div className="pageMain">
+        <div className={darkMode ? "pageMain-dark" : "pageMain"}>
         <Routes>
           <Route path="/luotchoi/*"
                   element = {<LuotChoi />}>
