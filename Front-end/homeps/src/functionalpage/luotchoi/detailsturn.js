@@ -4,6 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
+import formatTime from '../../utility/formattime.js'
 let addS = 0, removeS = 0
 
 const DetailsTurn = (props) => {
@@ -145,8 +146,8 @@ const DetailsTurn = (props) => {
                         <ul className="top-bar-details-inf">
                             <li className="row">{turn.billId}</li>
                             <li className="row">{turn.playStation && turn.playStation.psName}</li>
-                            <li className="row">{turn.timeStart}</li>
-                            {props.type || <li className="row">{turn.timeEnd}</li>}
+                            <li className="row">{formatTime(turn.timeStart)}</li>
+                            {props.type || <li className="row">{formatTime(turn.timeEnd)}</li>}
                             <table>
                                 <tbody>
                                     <tr>

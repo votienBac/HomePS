@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import SearchBar from './search.js'
+import formatTime from '../../utility/formattime.js'
 const CurrentTurnList = () => {
     const [data, setData] = useState({
         currentPage: 1,
@@ -20,7 +21,7 @@ const CurrentTurnList = () => {
         <div>
             <Link to=''>Lượt chơi hiện tại</Link>
             <Link to='finished-turn'>Lượt chơi đã kết thúc</Link>
-            <SearchBar type = 'unpaid'/>
+            {/* <SearchBar type = 'unpaid'/> */}
 
             <table id='current-turns-list'>
                 <tbody>
@@ -36,7 +37,7 @@ const CurrentTurnList = () => {
                             <td>{currentTurn.billId}</td>
                             <td>{currentTurn.playStation.psName}</td>
                             <td>{currentTurn.playStation.psState}</td>
-                            <td>{currentTurn.timeStart}</td>
+                            <td>{formatTime(currentTurn.timeStart)}</td>
                             <td>
                                 <Link to={`current-turn/${currentTurn.billId}`} >Xem chi tiết</Link>
                             </td>
