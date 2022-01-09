@@ -53,6 +53,11 @@ export default function App() {
                                 <Tab value = 'taikhoan' label="Tài khoản" />
                         </Tabs>
                 </div>
+                <label>
+                        <input type="checkbox"></input>
+                        <span class="check"></span>
+                </label>
+
         </div>
         </div>
         )}
