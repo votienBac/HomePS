@@ -31,10 +31,10 @@
   position: absolute;
   top: 2px;
   left: 164px;
-  width: 100%;
+  width: 60%;
   height: 60px;
   display: flex;
-  align-items: center;
+  align-items: left;
   font-size: 16px;
   line-height: 26px;
   opacity: 1;
@@ -71,8 +71,8 @@ body{
 .pageMain{
   position: absolute;
   top: 100px;
-  left: 72px;
-  width: 1200px;
+  left: 10%;
+  width: calc(78%);
   height: 100%px;
   background: #FFFFFFFF;
   border-radius: 6px;
