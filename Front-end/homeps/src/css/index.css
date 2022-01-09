@@ -31,7 +31,7 @@
   position: absolute;
   top: 2px;
   left: 164px;
-  width: 70%;
+  width: 100%;
   height: 60px;
   display: flex;
   align-items: left;
@@ -62,9 +62,10 @@ button:focus,button:visited {
     font-weight: 600;
 }
 body{
+  margin: 0;
   margin-right: 0px;
   background-color: rgb(221, 215, 215);
-  margin-top: 100px;
+  margin-top: 0px;
   margin-bottom: 0px;
   background: #F9F9FA;
 }
@@ -97,6 +98,11 @@ button {
   background-color: #019160;
  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+.header label{
+  padding:20px;
+  display: flex;
+  float: right;
+}
 .header input[type="checkbox"] {
   -webkit-appearance: none;
   visibility: hidden;
@@ -104,6 +110,7 @@ button {
 }
 .check{
   position:relative;
+
   display: block;
   width:40px;
   height: 20px;
@@ -115,7 +122,7 @@ button {
 }
 .header input[type="checkbox"]:checked ~ .check{
   background: #FFF;
-  box-shadow: 0 0 0 1200px #092c3e;
+  box-shadow: 0 0 0 2px #092c3e;
 }
 .check:before{
   content: ' ';
@@ -128,9 +135,7 @@ button {
   border-radius: 50% ;
   transition: 0.5s;
 }
-.header input[type="checkbox"]:checked ~ .check{
-  transform: translateX(-50px);
-}
+
 .check:after{
   content: ' ';
   position: absolute;
@@ -141,8 +146,4 @@ button {
   height: 16px;
   border-radius: 50% ;
   transition: 0.5s;
-  transform: translateX(50px);
-}
-.header input[type="checkbox"]:checked ~ .check:after{
-  transform: translateX(0px);
 }

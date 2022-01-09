@@ -1,0 +1,129 @@
+
+.header-dark {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 62px;
+    background: #092c3e;
+    border-radius: 0px;
+    box-shadow: 0px 0px 7px #333a47, 0px 0px 2px #333a47;
+}
+  .header-dark img{
+    position: absolute;
+    top: 7px;
+    left: 53px;
+    width: 53px;
+    height: 53px;
+    border-radius: 0px;
+  }
+  .header-dark :link{
+    text-decoration: none ;
+    font-size: 35px;
+  }
+  
+  .header-dark .btn-group :link{
+    text-decoration: none;
+  }
+  .header-dark .btn-group {
+    position: absolute;
+    top: 2px;
+    left: 164px;
+    width: 70%;
+    height: 60px;
+    display: flex;
+    align-items: left;
+    font-size: 16px;
+    line-height: 26px;
+    opacity: 1;
+  }
+  .header-dark .btn-group button {
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(226, 233, 245);
+    background: transparent;
+    border-radius: 0px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-weight: 700;
+  }
+  .header-dark .btn-group button:hover {
+    color: rgb(210, 219, 235);
+    background: rgb(41, 68, 116);
+  }
+  .header-dark .btn-group 
+  button:focus,button:visited {
+      color:  #DF5173FF;
+      font-weight: 600;
+  }
+  body{
+    margin-right: 0px;
+    background-color: rgb(221, 215, 215);
+    margin-top: 100px;
+    margin-bottom: 0px;
+    background: #F9F9FA;
+  }
+  .pageMain-dark{
+    position: absolute;
+    top: 100px;
+    left: 10%;
+    width: calc(78%);
+    height: 100%px;
+    background: rgb(236, 243, 245);
+    border-radius: 6px;
+    box-shadow: 0px 0px 7px #333a47, 0px 0px 2px #333a47;
+    padding: 20px;
+  }
+
+  .header-dark label{
+    padding:20px;
+    display: flex;
+    float: right;
+  }
+  .header-dark input[type="checkbox"] {
+    -webkit-appearance: none;
+    visibility: hidden;
+    display: none;
+  }
+  .check{
+    position:relative;
+  
+    display: block;
+    width:40px;
+    height: 20px;
+    background: #092c3e;
+    cursor: pointer;
+    border-radius: 20px;
+    overflow:hidden;
+    transition: ease-in 0.5s;
+  }
+  .header-dark input[type="checkbox"]:checked ~ .check{
+    background: #FFF;
+    box-shadow: 0 0 0 2px #092c3e;
+  }
+  .check:before{
+    content: ' ';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background: #FFF;
+    width: 16px;
+    height: 16px;
+    border-radius: 50% ;
+    transition: 0.5s;
+  }
+  
+  .check:after{
+    content: ' ';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #092c3e;
+    width: 16px;
+    height: 16px;
+    border-radius: 50% ;
+    transition: 0.5s;
+  }
+  

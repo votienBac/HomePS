@@ -9,7 +9,6 @@ const CurrentTurnList = () => {
         currentTurns: [],
         totalPage: 1
     });
-    //const [currentTurns, setCurrentTurns] = useState([])
     var currentTurns = data.currentTurns;
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/bills?page=${1}&size=${10}&status=${'unpaid'}`, {
@@ -17,10 +16,6 @@ const CurrentTurnList = () => {
         })
             .then(res => res.json())
             .then(data => setData(data))
-        //    .then(data => data.currentTurns)
-        //    .then(currentTurns => { setCurrentTurns(currentTurns) })
-        //console.log(data.currentTurns)
-        //setCurrentTurns(data.currentTurns)
     }, [])
     return (
         <div>
