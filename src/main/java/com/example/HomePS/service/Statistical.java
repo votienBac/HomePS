@@ -27,30 +27,7 @@ import java.util.List;
 public class Statistical {
 
     private final DailyTurnOverRepository dailyTurnOverRepository;
-    //    private final BillRepository billRepository;
-//    public Iterable<Bill> getBillFromTime(String timeBegin, String timeEnd){
-//        List<Bill> listBill=new ArrayList<>();
-//        if(timeBegin==""){
-//            if(timeEnd==""){
-//                listBill=billRepository.findAll();
-//            }else{
-//                Instant ins=Instant.parse(timeEnd+t);
-//                Instant insEnd=ins.plus(1, ChronoUnit.DAYS);
-//                listBill=billRepository.findAllByTimeStartBefore(insEnd);
-//            }
-//        }else{
-//            if(timeEnd==""){
-//                Instant ins=Instant.parse(timeBegin+t);
-//                listBill=billRepository.findAllByTimeStartAfter(ins);
-//            }else{
-//                Instant insBegin=Instant.parse(timeBegin+t);
-//                Instant ins=Instant.parse(timeEnd+t);
-//                Instant insEnd=ins.plus(1, ChronoUnit.DAYS);
-//                listBill=billRepository.findAllByTimeStartBetween(insBegin,insEnd);
-//            }
-//        }
-//        return listBill;
-//    }
+
     public List<Daily_TurnOver> getRenevueDay(LocalDate dateBegin, LocalDate dateEnd) {
 
 

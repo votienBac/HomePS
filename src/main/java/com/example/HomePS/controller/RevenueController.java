@@ -65,11 +65,15 @@ public class RevenueController {
           }else{
               numberMonths=timeEnd.getMonthValue()-timeBegin.getMonthValue()+1;
           }
-
+          boolean check=false;
           List<MonthRevenue> listMonthRevenue=new ArrayList<>();
           for(int i=0;i<numberMonths;i++){
               double revenueMonth=statistical.getSumTurnOver(statistical.getRenevueDay(timeBegin,timeBegin.plusDays(-1+timeBegin.lengthOfMonth())));
               if(revenueMonth>0) {
+                  check=true;
+
+              }
+              if(check){
                   MonthRevenue monthRevenue=new MonthRevenue(timeBegin.getYear()+"-"+timeBegin.getMonthValue(),revenueMonth);
                   listMonthRevenue.add(monthRevenue);
               }
