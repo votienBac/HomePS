@@ -12,6 +12,8 @@ export default function ThongKe(){
     const isQueryNgay = (queryType === 'ngay')
     const handleChange = (event) => {
         setQueryType(event.target.value);
+        setDateEnd(new Date());
+        setDateBegin(new Date("2021/12/23"));
     }
     var stringBegin;
     var stringEnd
@@ -20,29 +22,29 @@ export default function ThongKe(){
         stringEnd = getParsedDate(dateEnd);
     }
     else{
-        stringBegin = getParsedDate(dateBegin);
-        stringEnd = getParsedDate(dateEnd);
+        stringBegin = getParsedMonth(dateBegin);
+        stringEnd = getParsedMonth(dateEnd);
     }
     return(
         <div>
             {isQueryNgay? (
             <div className="queryBox">
-                <pre>Chọn ngày bắt đầu  </pre>
+                <label>Chọn ngày bắt đầu  </label>
                 <DatePicker className = 'startTime' 
                             selected={dateBegin} 
                             onChange={(date) => setDateBegin(date)} 
                             dateFormat={'dd-MM-yyyy'} 
                             minDate = {new Date("2021/12/23")}
-                            maxDate={dateEnd}
+                            maxDate={new Date()}
                             />
-                <pre>Chọn ngày kết thúc  </pre>
+                <label>Chọn ngày kết thúc  </label>
                 <DatePicker className= 'endTime'
                             selected={dateEnd} 
                             onChange={(date) => setDateEnd(date)} 
                             dateFormat={'dd-MM-yyyy'} 
                             minDate={dateBegin}
                             />
-                <pre>Chọn loại thống kê  </pre>
+                <label>Chọn loại thống kê  </label>
                 <Select 
                     value={queryType}
                     label="Chọn loại thống kê"
@@ -56,21 +58,26 @@ export default function ThongKe(){
             )
             :(
             <div className="queryBox">
-                <pre>Chọn tháng bắt đầu  </pre>
+                <label>Chọn tháng bắt đầu  </label>
                 <DatePicker className = 'startTime' 
                             selected={dateBegin} 
                             onChange={(date) => setDateBegin(date)} 
                             dateFormat= "MM-yyyy" 
+                            minDate={new Date("2021/12")}
+                            maxDate={dateEnd}
                             showMonthYearPicker
+                            label = 'start'
                             />
-                <pre>Chọn tháng kết thúc  </pre>
+                <label>Chọn tháng kết thúc  </label>
                 <DatePicker className= 'endTime'
                             selected={dateEnd} 
                             onChange={(date) => setDateEnd(date)} 
                             dateFormat="MM-yyyy"
+                            minDate={dateBegin}
+                            maxDate={new Date()}
                             showMonthYearPicker
                             />
-                <pre>Chọn loại thống kê  </pre>
+                <label>Chọn loại thống kê  </label>
                 <Select 
                     value={queryType}
                     label="Chọn loại thống kê"
@@ -112,6 +119,6 @@ function getParsedMonth(date){
     if (mm < 10) {
         mm = '0' + mm;
     }
-    date =  yyyy + "/" + mm;
+    date =  yyyy + "-" + mm;
     return date.toString();
 }

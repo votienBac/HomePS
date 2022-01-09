@@ -11,7 +11,11 @@ const DetailsTurn = (props) => {
     let params = useParams();
     const billId = params.id
     const [turn, setTurn] = useState([])
-    const [extraServices, setExtraServices] = useState([])
+    const [extraServices, setExtraServices] = useState({
+        currentPage : 1,
+        serviceList: [],
+        totalPage: 1
+    })
     const [checkChangeServices, setCheckChangeServices] = useState(false)
     let services = []
 
@@ -34,22 +38,24 @@ const DetailsTurn = (props) => {
 
     //Change Service Dialog
     const [changeServicesDialog, setChangeServicesDialog] = useState(false)
-
+    var deleteDialog = false;
     const openChangeServicesDialog =(add, remove) => {
+        if(remove == 1) deleteDialog = true;
+        else deleteDialog = false;
         setChangeServicesDialog(true)
         addS = add
         removeS = remove
-        console.log('42', addS, removeS);
+        //console.log('42', addS, removeS);
         fetch(`https://homeps.herokuapp.com/api/extraservice?page=${1}&size=${10}`, {
             method: 'GET'
         })
             .then(res => res.json())
             .then(res => setExtraServices(res))
     }
-    extraServices.map(service => (
+    extraServices.serviceList.map(service => (
         services = [...services, { esId: service.serviceId, quantity: 0 }]
     ))
-    console.log(services);
+    //console.log(services);
 
     const handleChangeServices = async () => {
         services = services.filter(service => service.quantity != 0)
@@ -173,7 +179,7 @@ const DetailsTurn = (props) => {
                                 <th>Giá</th>
                                 <th>Số lượng</th>
                             </tr>
-                            {extraServices.map((extraService, index) => {
+                            {extraServices.serviceList.map((extraService, index) => {
                                 return (
                                     <tr key={extraService.serviceId}>
                                         <td>{extraService.serviceName}</td>

@@ -2,12 +2,15 @@
     margin-top: 10px;
     display:inline-flex;
 }
-.queryBox pre{
-    margin-left: 50px;
-    margin-right: 10px;
-    margin-top: 3px;
+.queryBox label{
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    white-space: pre;
+    margin-left: 10px;
+    font-size: medium;
 }
 .doanhthu{
     margin-top: 15px;
+}
+input{
+    width: 60%;
 }

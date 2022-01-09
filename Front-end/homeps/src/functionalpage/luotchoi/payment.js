@@ -1,19 +1,20 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 const Payment = () => {
-    const params = useParams()
+    let params = useParams()
     const navigate = useNavigate()
     const billId = params.id
-    const [turn, setTurn] = useState([])
+    const [turn, setTurn] = useState({})
     useEffect(()=>{
+        console.log("success");
         fetch(`https://homeps.herokuapp.com/api/bills/${billId}`, {
             method: 'GET'
         })
             .then(res => res.json())
             .then(turn => setTurn(turn))
     }, [])
-    console.log(turn);
-    console.log(turn.orderServices);
+    //console.log(turn);
+    //console.log(turn.orderServices);
     
     return (
         <section className="body">
@@ -49,7 +50,7 @@ const Payment = () => {
                                 })}
                             </tbody>
                         </table>
-                        <ul className="row">{turn.event || 'Không có'}</ul>
+                        <ul className="row">{turn.event&&turn.event.eventName || 'Không có'}</ul>
                         <ul className="row">{turn.totalPrice || 'Không có'}</ul>
                     </div>
                 </div>
