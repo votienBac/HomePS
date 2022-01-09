@@ -35,7 +35,7 @@ export default function ThongKe(){
                             onChange={(date) => setDateBegin(date)} 
                             dateFormat={'dd-MM-yyyy'} 
                             minDate = {new Date("2021/12/23")}
-                            maxDate={new Date()}
+                            maxDate={dateEnd}
                             />
                 <label>Chọn ngày kết thúc  </label>
                 <DatePicker className= 'endTime'
@@ -43,6 +43,7 @@ export default function ThongKe(){
                             onChange={(date) => setDateEnd(date)} 
                             dateFormat={'dd-MM-yyyy'} 
                             minDate={dateBegin}
+                            maxDate={new Date()}
                             />
                 <label>Chọn loại thống kê  </label>
                 <Select 
