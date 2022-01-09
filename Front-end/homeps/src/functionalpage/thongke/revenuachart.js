@@ -7,28 +7,44 @@ const BarChart = (props) => {
     //const [date, setDate] = useState([]);
     const [turnOver, setTurnOver] = useState();
     var baseUrl
+    var begin, end
     if(props.type){
         baseUrl = `https://homeps.herokuapp.com/api/revenue`
+        begin = `dateBegin`
+        end = `dateEnd`
     }
     else{
-        baseUrl = `https://homeps.herokuapp.com/api/revenue`
+        baseUrl = `https://homeps.herokuapp.com/api/revenue/months`
+        begin = `monthBegin`
+        end = `monthEnd` 
     }
     useEffect(() => {
         let dateList = [];
         let turnOverList = [];
+        let total = 0;
         const fetchData = async () => {
-            await fetch(baseUrl+`?dateBegin=${props.stringBegin}&dateEnd=${props.stringEnd}`, {
+            await fetch(baseUrl+`?${begin}=${props.stringBegin}&${end}=${props.stringEnd}`, {
             //await fetch(baseUrl,{
                 method: 'GET'
             }).then(res => {
                 res.json().then(json => {
-                    console.log(json)
-                    json.revenueList.sort((a, b) => { return new Date(a.date) - new Date(b.date)})
-                    for (const dataOjb of json.revenueList) {
-                        dateList.push(dataOjb.date)
-                        turnOverList.push(dataOjb.turnOver)
+                    if(props.type){
+                        json.revenueList.sort((a, b) => { return new Date(a.date) - new Date(b.date)})
+                        for (const dataOjb of json.revenueList) {
+                            dateList.push(dataOjb.date)
+                            turnOverList.push(dataOjb.turnOver)
+                        }
+                        setTurnOver(json.revenue);
                     }
-                    setTurnOver(json.revenue);
+                    else{
+                        json.sort((a,b) => {return new Date(a.month) - new Date(b.month)})
+                        for (const dataOjb of json){
+                            dateList.push(dataOjb.month)
+                            turnOverList.push(dataOjb.revenue)
+                            total = total + dataOjb.revenue
+                        }
+                        setTurnOver(total);
+                    }
                     setChartData({
                         labels: dateList,
                         datasets: [{

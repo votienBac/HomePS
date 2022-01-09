@@ -12,6 +12,8 @@ export default function ThongKe(){
     const isQueryNgay = (queryType === 'ngay')
     const handleChange = (event) => {
         setQueryType(event.target.value);
+        setDateEnd(new Date());
+        setDateBegin(new Date("2021/12/23"));
     }
     var stringBegin;
     var stringEnd
@@ -20,8 +22,8 @@ export default function ThongKe(){
         stringEnd = getParsedDate(dateEnd);
     }
     else{
-        stringBegin = getParsedDate(dateBegin);
-        stringEnd = getParsedDate(dateEnd);
+        stringBegin = getParsedMonth(dateBegin);
+        stringEnd = getParsedMonth(dateEnd);
     }
     return(
         <div>
@@ -33,7 +35,7 @@ export default function ThongKe(){
                             onChange={(date) => setDateBegin(date)} 
                             dateFormat={'dd-MM-yyyy'} 
                             minDate = {new Date("2021/12/23")}
-                            maxDate={dateEnd}
+                            maxDate={new Date}
                             />
                 <pre>Chọn ngày kết thúc  </pre>
                 <DatePicker className= 'endTime'
@@ -61,6 +63,8 @@ export default function ThongKe(){
                             selected={dateBegin} 
                             onChange={(date) => setDateBegin(date)} 
                             dateFormat= "MM-yyyy" 
+                            minDate={new Date("2021/12")}
+                            maxDate={dateEnd}
                             showMonthYearPicker
                             />
                 <pre>Chọn tháng kết thúc  </pre>
@@ -68,6 +72,8 @@ export default function ThongKe(){
                             selected={dateEnd} 
                             onChange={(date) => setDateEnd(date)} 
                             dateFormat="MM-yyyy"
+                            minDate={dateBegin}
+                            maxDate={new Date}
                             showMonthYearPicker
                             />
                 <pre>Chọn loại thống kê  </pre>
@@ -112,6 +118,6 @@ function getParsedMonth(date){
     if (mm < 10) {
         mm = '0' + mm;
     }
-    date =  yyyy + "/" + mm;
+    date =  yyyy + "-" + mm;
     return date.toString();
 }
