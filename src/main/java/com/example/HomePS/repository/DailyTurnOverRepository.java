@@ -13,4 +13,5 @@ public interface DailyTurnOverRepository extends JpaRepository<Daily_TurnOver, L
     Daily_TurnOver findDaily_TurnOverByDate(LocalDate date);
     List<Daily_TurnOver> findDaily_TurnOverByDateBetween(LocalDate dateStart, LocalDate dateEnd);
 
+    Daily_TurnOver findTopByOrderByDateDesc();
 }

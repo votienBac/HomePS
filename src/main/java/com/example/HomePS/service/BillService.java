@@ -111,7 +111,18 @@ public class BillService {
         ZonedDateTime zonedDateTime = bill.getTimeStart().atZone(ZoneId.systemDefault());
         LocalDate date = LocalDate.of(zonedDateTime.getYear(), zonedDateTime.getMonth(), zonedDateTime.getDayOfMonth());
         if (dailyTurnOverRepository.findDaily_TurnOverByDate(date) == null) {
+            Daily_TurnOver lastDaily_TurnOver=dailyTurnOverRepository.findTopByOrderByDateDesc();
             Daily_TurnOver daily_turnOver = new Daily_TurnOver(date, bill.getTotalPrice());
+            LocalDate lastDate=lastDaily_TurnOver.getDate();
+
+            long days= Duration.between( lastDaily_TurnOver.getDate().atStartOfDay(),daily_turnOver.getDate().atStartOfDay()).toDays();
+            if(days>0) {
+                for (long i = 0; i < days; i++) {
+                    Daily_TurnOver turnOver = new Daily_TurnOver(lastDate.plusDays(1), 0.0);
+                    lastDate = lastDate.plusDays(1);
+                    dailyTurnOverRepository.save(turnOver);
+                }
+            }
             dailyTurnOverRepository.save(daily_turnOver);
         } else {
             Daily_TurnOver daily_turnOver = dailyTurnOverRepository.findDaily_TurnOverByDate(date);
