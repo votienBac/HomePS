@@ -30,7 +30,9 @@ export default function App() {
                 setValue(newValue);
                 navigate('/'+newValue);
         };
-
+        const change =() =>{
+                setValue('luotchoi')
+        }
         if(!localStorage.getItem("access_token") && !isLogin) {
                 window.location.href = "/"
                 return <Login />
@@ -41,7 +43,8 @@ export default function App() {
         {!isLogin && (
         <div className='headerOut'>
         <div className='header'>
-                <Link to ="/luotchoi"><img  src="https://thumbs.dreamstime.com/b/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg"></img></Link>
+                <Link to ="/luotchoi"><img  onClick={change}
+                        src="https://thumbs.dreamstime.com/b/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg"></img></Link>
         
                 <div className="btn-group">
                         <Tabs value={value} onChange={handleChange} variant='fullWidth'>
@@ -55,7 +58,7 @@ export default function App() {
                 </div>
                 <label>
                         <input type="checkbox"></input>
-                        <span class="check"></span>
+                        <span className="check"></span>
                 </label>
 
         </div>
