@@ -5,10 +5,7 @@ import com.example.HomePS.model.Daily_TurnOver;
 import com.example.HomePS.service.Statistical;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -45,12 +42,13 @@ public class RevenueController {
         }
         return ResponseEntity.ok(new StatisticResponse(revenueList, statistical.getSumTurnOver(revenueList)));
     }
-      @GetMapping("/{month}")
-    public List<Daily_TurnOver> monthRevenue(@PathVariable  String month){
-            month=month+"-01";
-            LocalDate dateBegin=LocalDate.parse(month, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        System.out.println(statistical.getRenevueDay(dateBegin,dateBegin.plusDays(-1+dateBegin.lengthOfMonth())));
-            return statistical.getRenevueDay(dateBegin,dateBegin.plusDays(-1+dateBegin.lengthOfMonth()));
+
+    @GetMapping("/{month}")
+    public List<Daily_TurnOver> monthRevenue(@PathVariable String month) {
+        month = month + "-01";
+        LocalDate dateBegin = LocalDate.parse(month, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        System.out.println(statistical.getRevenueDay(dateBegin, dateBegin.plusDays(-1 + dateBegin.lengthOfMonth())));
+        return statistical.getRevenueDay(dateBegin, dateBegin.plusDays(-1 + dateBegin.lengthOfMonth()));
     }
 
 }
