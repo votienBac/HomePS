@@ -3,25 +3,28 @@ import { useState, useEffect } from "react"
 import SearchBar from './search.js'
 import formatTime from '../../utility/formattime.js'
 const CurrentTurnList = () => {
-    const [data, setData] = useState({
+    const [currentTurns, setCurrentTurns] = useState({
         currentPage: 1,
         currentPlaying: 0,
         currentTurns: [],
         totalPage: 1
     });
-    var currentTurns = data.currentTurns;
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/bills?page=${1}&size=${10}&status=${'unpaid'}`, {
             method: 'GET'
         })
             .then(res => res.json())
-            .then(data => setData(data))
+            .then(res => setCurrentTurns(res))
     }, [])
     return (
         <div>
             <Link to=''>Lượt chơi hiện tại</Link>
             <Link to='finished-turn'>Lượt chơi đã kết thúc</Link>
-            {/* <SearchBar type = 'unpaid'/> */}
+            <SearchBar 
+            type = 'unpaid'
+            query = {currentTurns}
+            setQuery = {setCurrentTurns}
+            />
 
             <table id='current-turns-list'>
                 <tbody>
@@ -32,7 +35,7 @@ const CurrentTurnList = () => {
                         <th style={{ width: '30%' }}>Bắt đầu</th>
                         <th style={{ width: '30%' }}></th>
                     </tr>
-                    {currentTurns.map(currentTurn => {
+                    {currentTurns.currentTurns.map(currentTurn => {
                         return (<tr key={currentTurn.billId}>
                             <td>{currentTurn.billId}</td>
                             <td>{currentTurn.playStation.psName}</td>

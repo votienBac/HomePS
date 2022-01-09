@@ -24,6 +24,7 @@ function FinishedTurn() {
             <u onClick={() => navigate(-1)}>Lượt chơi hiện tại</u>
             <Link to=''>Lượt chơi đã kết thúc</Link>
             <SearchBar 
+            type = 'paid'
             query = {finishedTurns}
             setQuery = {setFinishedTurns}
             />
