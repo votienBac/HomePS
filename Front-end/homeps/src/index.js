@@ -29,6 +29,9 @@ export default function App() {
         const [value, setValue] = React.useState('luotchoi');
         const [darkMode, setDarkMode] = useState(false);
 
+        const mql = window.matchMedia('(max-width: 2000px)');
+        const smallScreen = mql.matches;
+        
         const handleChange = (event, newValue) => {
                 setValue(newValue);
                 navigate('/'+newValue);
@@ -39,17 +42,20 @@ export default function App() {
                 return <Login />
         }
 
-
+        const change =() =>{
+                setValue('luotchoi')
+        }
 
         return (
         <div> 
         {!isLogin && (
         <div className='headerOut'>
         <div className={darkMode ? "header-dark" : "header"}>
-                <Link to ="/luotchoi"><img  src={darkMode ? "https://cdn.discordapp.com/attachments/916240096196431892/929744287074230362/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" : "https://thumbs.dreamstime.com/b/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg"}></img></Link>
+                <Link to ="/luotchoi"><img onClick={change} 
+                        src={darkMode ? "https://cdn.discordapp.com/attachments/916240096196431892/929744287074230362/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" : "https://thumbs.dreamstime.com/b/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg"}></img></Link>
         
                 <div className="btn-group">
-                        <Tabs value={value} onChange={handleChange} variant='fullWidth'>
+                        <Tabs value={value} onChange={handleChange} variant={smallScreen ? 'scrollable' : 'standard'}>
                                 <Tab value = 'luotchoi' label="Lượt chơi" />
                                 <Tab value = 'mayps' label="Máy PS" />
                                 <Tab value = 'sukien' label="Sự kiện" />

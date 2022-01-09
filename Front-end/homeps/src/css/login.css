@@ -88,6 +88,7 @@ form .form-inner input[type="submit"] {
     font-weight: 700;
     cursor: pointer;
     transition: 0.4s;
+    width: 30%;
     background-image: linear-gradient(to right,#0c723f 50%, #19b667 50%,#043a1b);
 }
 form .form-inner input[type="submit"]:hover {
