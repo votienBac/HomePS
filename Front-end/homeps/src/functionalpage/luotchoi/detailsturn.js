@@ -38,12 +38,14 @@ const DetailsTurn = (props) => {
 
     //Change Service Dialog
     const [changeServicesDialog, setChangeServicesDialog] = useState(false)
-
+    var deleteDialog = false;
     const openChangeServicesDialog =(add, remove) => {
+        if(remove == 1) deleteDialog = true;
+        else deleteDialog = false;
         setChangeServicesDialog(true)
         addS = add
         removeS = remove
-        console.log('42', addS, removeS);
+        //console.log('42', addS, removeS);
         fetch(`https://homeps.herokuapp.com/api/extraservice?page=${1}&size=${10}`, {
             method: 'GET'
         })
@@ -53,7 +55,7 @@ const DetailsTurn = (props) => {
     extraServices.serviceList.map(service => (
         services = [...services, { esId: service.serviceId, quantity: 0 }]
     ))
-    console.log(services);
+    //console.log(services);
 
     const handleChangeServices = async () => {
         services = services.filter(service => service.quantity != 0)

@@ -75,7 +75,7 @@ const BarChart = (props) => {
             })
         }
         fetchData()
-    }, [props,baseUrl])
+    }, [props])
 
     return (
         <div>
