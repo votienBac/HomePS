@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import SearchBar from './search.js'
+import formatTime from '../../utility/formattime.js'
 function FinishedTurn() {
     const navigate = useNavigate()
     const [finishedTurns, setFinishedTurns] = useState({
@@ -22,7 +23,10 @@ function FinishedTurn() {
         <div>
             <u onClick={() => navigate(-1)}>Lượt chơi hiện tại</u>
             <Link to=''>Lượt chơi đã kết thúc</Link>
-            <SearchBar type='paid' />
+            <SearchBar 
+            query = {finishedTurns}
+            setQuery = {setFinishedTurns}
+            />
             <table id='finished-turns-list'>
                 <tbody>
                     <tr>
@@ -36,8 +40,8 @@ function FinishedTurn() {
                         return (<tr key={finishedTurn.billId}>
                             <td>{finishedTurn.billId}</td>
                             <td>{finishedTurn.playStation.psName}</td>
-                            <td>{finishedTurn.timeStart}</td>
-                            <td>{finishedTurn.timeEnd}</td>
+                            <td>{formatTime(finishedTurn.timeStart)}</td>
+                            <td>{formatTime(finishedTurn.timeEnd)}</td>
                             <td><Link to={`${finishedTurn.billId}`} >Xem chi tiết</Link> </td>
                         </tr>)
                     })}

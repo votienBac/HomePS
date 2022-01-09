@@ -1,16 +1,20 @@
 import React, {useState} from 'react'
 
-const SearchBar = () => {
-    const [details, setDetails] = useState({searchValue:''})
+const SearchBar = ({query, setQuery}) => {
+    const [details, setDetails] = useState('')
     console.log(details);
-    const [billsQuery, setBillsQuery] = useState([])
+    const handleChange = (props)=>{
+        setDetails(props)
+        if (props == '') handleSearch()
+    }
     const handleSearch = ()=>{
-        fetch(`https://homeps.herokuapp.com/api/bills/search/${details.searchValue}?status=${'paid'}`, {
+        fetch(`https://homeps.herokuapp.com/api/bills/search/${details}?status=${'paid'}`, {
             method: 'GET',
         })
             .then(res => res.json())
-            .then(res => setBillsQuery(res))
-            console.log(billsQuery);
+            .then(res => setQuery(res))
+            console.log(query);
+            console.log(typeof(setQuery));
     }
 
     return(
@@ -24,8 +28,8 @@ const SearchBar = () => {
                 type = 'text'
                 name = 'input'
                 placeholder = 'Enter psID'
-                onChange = {e=>setDetails({searchValue: e.target.value})}
-                value = {details.searchValue}
+                onChange = {e=>handleChange(e.target.value)}
+                value = {details}
                 />
             </div>
             <div className="col">
