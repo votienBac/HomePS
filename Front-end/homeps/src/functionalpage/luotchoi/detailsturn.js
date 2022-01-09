@@ -11,7 +11,11 @@ const DetailsTurn = (props) => {
     let params = useParams();
     const billId = params.id
     const [turn, setTurn] = useState([])
-    const [extraServices, setExtraServices] = useState([])
+    const [extraServices, setExtraServices] = useState({
+        currentPage : 1,
+        serviceList: [],
+        totalPage: 1
+    })
     const [checkChangeServices, setCheckChangeServices] = useState(false)
     let services = []
 
@@ -46,7 +50,7 @@ const DetailsTurn = (props) => {
             .then(res => res.json())
             .then(res => setExtraServices(res))
     }
-    extraServices.map(service => (
+    extraServices.serviceList.map(service => (
         services = [...services, { esId: service.serviceId, quantity: 0 }]
     ))
     console.log(services);
@@ -173,7 +177,7 @@ const DetailsTurn = (props) => {
                                 <th>Giá</th>
                                 <th>Số lượng</th>
                             </tr>
-                            {extraServices.map((extraService, index) => {
+                            {extraServices.serviceList.map((extraService, index) => {
                                 return (
                                     <tr key={extraService.serviceId}>
                                         <td>{extraService.serviceName}</td>
