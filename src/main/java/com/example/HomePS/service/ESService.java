@@ -18,9 +18,22 @@ import java.util.List;
 public class ESService {
     private final ServiceRepository serviceRepository;
 
-    public Iterable<ExtraService> getServicesByPage(Integer pageNumber, Integer pageSize, String sortBy){
+    public List<ExtraService> getAllService() {
+        return serviceRepository.findAll();
+    }
+    public List<ExtraService> getServicesByPage(Integer pageNumber, Integer pageSize, String sortBy){
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<ExtraService> result = serviceRepository.findAll(pageable);
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
+    }
+
+    public List<ExtraService> getESByName(String query, Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Page<ExtraService> result = serviceRepository.search(query, pageable);
         if (result.hasContent()) {
             return result.getContent();
         } else {
@@ -43,8 +56,15 @@ public class ESService {
         serviceRepository.deleteById(id);
     }
 
-    public List<ExtraService> getESByName(String query) {
-        return serviceRepository.search(query);
-    }
 
+
+    public ExtraService update(Long id, ExtraService service) {
+        var oldService = getService(id);
+        if (service.getServiceName() != null)
+            oldService.setServiceName((oldService.getServiceName()));
+        if (service.getPrice() != 0.0)
+            oldService.setPrice((oldService.getPrice()));
+        return save(oldService);
+    }
 }
+

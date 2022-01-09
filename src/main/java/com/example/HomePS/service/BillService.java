@@ -27,8 +27,20 @@ public class BillService {
     private final DailyEventRepository dailyEventRepository;
     private final DailyTurnOverRepository dailyTurnOverRepository;
 
-    public Iterable<Bill> getBillsByPage(Integer pageNumber, Integer pageSize, String sortBy) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+    public List<Bill> findAll() {
+        return billRepository.findAll();
+    }
+
+    public List<Bill> findPaidBill() {
+        return billRepository.findAllByTimeEndIsNotNull();
+    }
+
+    public List<Bill> findUnpaidBill() {
+        return billRepository.findAllByTimeEndIsNull();
+    }
+
+    public List<Bill> getBillsByPage(Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         Page<Bill> result = billRepository.findAll(pageable);
         if (result.hasContent()) {
             return result.getContent();
@@ -37,8 +49,8 @@ public class BillService {
         }
     }
 
-    public Iterable<Bill> getPaidBillsByPage(Integer pageNumber, Integer pageSize, String sortBy) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+    public List<Bill> getPaidBillsByPage(Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         Page<Bill> result = billRepository.findAllByTimeEndIsNotNull(pageable);
 
         if (result.hasContent()) {
@@ -48,8 +60,8 @@ public class BillService {
         }
     }
 
-    public Iterable<Bill> getUnpaidBillByPage(Integer pageNumber, Integer pageSize, String sortBy) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+    public List<Bill> getUnpaidBillByPage(Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         Page<Bill> result = billRepository.findAllByTimeEndIsNull(pageable);
 
         if (result.hasContent()) {
@@ -58,6 +70,17 @@ public class BillService {
             return List.of();
         }
     }
+
+    public List<Bill> searchByPS(String query, Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+        Page<Bill> result = billRepository.search(query, pageable);
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
+    }
+
 
     public Bill getBill(Long id) {
         return billRepository
@@ -73,7 +96,6 @@ public class BillService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "PS not found!"));
         if (ps.getPsStatus() != PlayStation.FREE)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This PlayStation is in use.");
-
         ps.setPsStatus(PlayStation.BUSY);
         bill.setPlayStation(ps);
         bill.setTimeStart(Instant.now());
@@ -131,9 +153,9 @@ public class BillService {
     public Double getTotalBillPrice(Bill bill) {
         double sum = 0;
         if (bill.getEvent() != null) {
-            sum = getTotalHourPlayed(bill) * PricePerHour * (1 - bill.getEvent().getPercentDiscount());
+            sum = getTotalHourPlayed(bill) * PricePerHour * (100f - bill.getEvent().getPercentDiscount()) / 100f;
         } else if (bill.getDailyEvent() != null) {
-            sum = getTotalHourPlayed(bill) * PricePerHour * (1 - bill.getDailyEvent().getPercentDiscount());
+            sum = getTotalHourPlayed(bill) * PricePerHour * (100f - bill.getDailyEvent().getPercentDiscount()) / 100f;
 
         } else {
             sum = getTotalHourPlayed(bill) * PricePerHour;
@@ -173,11 +195,13 @@ public class BillService {
 
     public void deleteBill(Bill bill) {
         if (!bill.isPaid()) bill.getPlayStation().setPsStatus(0);
+        ZonedDateTime zonedDateTime1 = bill.getTimeStart().atZone(ZoneId.systemDefault());
+        LocalDate date = LocalDate.of(zonedDateTime1.getYear(), zonedDateTime1.getMonth(), zonedDateTime1.getDayOfMonth());
+        Daily_TurnOver daily_turnOverBefore = dailyTurnOverRepository.findDaily_TurnOverByDate(date);
+        if (bill.getTotalPrice() != null) {
+            daily_turnOverBefore.setTurnOver(daily_turnOverBefore.getTurnOver() - bill.getTotalPrice());
+            dailyTurnOverRepository.save(daily_turnOverBefore);
+        }
         billRepository.delete(bill);
     }
-
-    public List<Bill> searchByPS(String query) {
-        return billRepository.search(query);
-    }
-
 }

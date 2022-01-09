@@ -11,8 +11,10 @@ import java.util.List;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
+    List<Bill> findAllByTimeEndIsNull();
     Page<Bill> findAllByTimeEndIsNull(Pageable pageable);
+    List<Bill> findAllByTimeEndIsNotNull();
     Page<Bill> findAllByTimeEndIsNotNull(Pageable pageable);
     @Query("SELECT b FROM Bill b WHERE b.playStation.psName LIKE %?1%")
-    List<Bill> search(String query);
+    Page<Bill> search(String query, Pageable pageable);
 }

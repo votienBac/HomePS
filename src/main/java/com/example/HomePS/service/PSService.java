@@ -22,10 +22,27 @@ public class PSService {
 
     private final PSRepository psRepository;
 
-
-    public Iterable<PlayStation> getPSByPage(Integer pageNumber, Integer pageSize, String sortBy){
+    public List<PlayStation> getAll() {
+        return psRepository.findAll();
+    }
+    public List<PlayStation> getPSByPage(Integer pageNumber, Integer pageSize, String sortBy){
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<PlayStation> result = psRepository.findAll(pageable);
+
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
+    }
+
+    public List<PlayStation> getAllByStatus(Integer psStatus) {
+        return psRepository.findAllByPsStatus(psStatus);
+    }
+
+    public List<PlayStation> getPSByStatus(Integer psStatus, Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Page<PlayStation> result = psRepository.findAllByPsStatus(psStatus, pageable);
 
         if (result.hasContent()) {
             return result.getContent();
@@ -40,9 +57,9 @@ public class PSService {
                 .orElseThrow(()->new IllegalStateException("PS not found!"));
     }
 
-    public Iterable<PlayStation> getPSByStatus(Integer psStatus, Integer pageNumber, Integer pageSize, String sortBy) {
+    public List<PlayStation> searchPSByName(String query, Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
-        Page<PlayStation> result = psRepository.findAllByPsStatus(psStatus, pageable);
+        Page<PlayStation> result = psRepository.search(query, pageable);
 
         if (result.hasContent()) {
             return result.getContent();
@@ -60,7 +77,14 @@ public class PSService {
         psRepository.deleteById(id);
     }
 
-    public List<PlayStation> searchPSByName(String query) {
-        return psRepository.search(query);
+
+
+    public PlayStation update(Long id, PlayStation playStation) {
+        var oldPS = getPS(id);
+        if (playStation.getPsName() != null)
+            oldPS.setPsName(playStation.getPsName());
+        if (playStation.getPsStatus() != null)
+            oldPS.setPsStatus(playStation.getPsStatus());
+        return save(oldPS);
     }
 }
