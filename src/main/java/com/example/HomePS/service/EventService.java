@@ -20,9 +20,23 @@ import java.util.List;
 public class EventService {
     private final EventRepository eventRepository;
 
-    public Iterable<Event> getEventsByPage(Integer pageNumber, Integer pageSize, String sortBy){
+    public List<Event> getAllEvents() {
+        return eventRepository.findAll();
+    }
+
+    public List<Event> getEventsByPage(Integer pageNumber, Integer pageSize, String sortBy){
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Event> result = eventRepository.findAll(pageable);
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
+    }
+
+    public List<Event> searchEventByName(String query, Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Page<Event> result = eventRepository.search(query, pageable);
         if (result.hasContent()) {
             return result.getContent();
         } else {
@@ -36,15 +50,34 @@ public class EventService {
                 .orElseThrow(()->new IllegalStateException("Event not found!"));
     }
     public Event save(Event event){
-        return eventRepository.save(event);
+        if (event.getTimeStart().compareTo(event.getTimeEnd()) > 0)
+            throw new IllegalArgumentException("Start date cannot be after end date.");
+        if (0 > event.getPercentDiscount() || event.getPercentDiscount() > 100)
+            throw new IllegalArgumentException("Discount percent cannot be negative or greater than 100");
+        else return eventRepository.save(event);
     }
 
     public void delete(long id){
         eventRepository.deleteById(id);
     }
 
-    public List<Event> searchEventByName(String query) {
-        return eventRepository.search(query);
+    public Event update(long id, Event event) {
+        if (event.getTimeStart().compareTo(event.getTimeEnd()) > 0)
+            throw new IllegalArgumentException("Start date cannot be after end date.");
+        if (0 > event.getPercentDiscount() || event.getPercentDiscount() > 100)
+            throw new IllegalArgumentException("Discount percent cannot be negative or greater than 100");
+
+        var oldEvent = getEvent(id);
+        if (event.getEventName() != null)
+            oldEvent.setEventName((event.getEventName()));
+        if (event.getPercentDiscount() != 0.0)
+            oldEvent.setPercentDiscount((event.getPercentDiscount()));
+        if (event.getTimeStart() != null)
+            oldEvent.setTimeStart((event.getTimeStart()));
+        if (event.getTimeEnd() != null)
+            oldEvent.setTimeEnd((event.getTimeEnd()));
+        return save(oldEvent);
     }
+
 
 }

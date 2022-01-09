@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,56 +30,58 @@ public class RevenueController {
         List<Daily_TurnOver> revenueList;
         switch (status) {
             case "7 days":
-                revenueList = statistical.getRenevueDay(end.minusDays(8), end.minusDays(1));
+                revenueList = statistical.getRevenueDay(end.minusDays(8), end.minusDays(1));
+                break;
             case "30 days":
-                revenueList = statistical.getRenevueDay(end.minusDays(31), end.minusDays(1));
+                revenueList = statistical.getRevenueDay(end.minusDays(31), end.minusDays(1));
+                break;
             default:
                 LocalDate dateBegin2 = LocalDate.parse(dateBegin, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
                 if (dateEnd.equals("")) {
-                    revenueList = statistical.getRenevueDay(dateBegin2, end);
+                    revenueList = statistical.getRevenueDay(dateBegin2, end);
                 } else {
                     LocalDate dateEnd2 = LocalDate.parse(dateEnd, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-                    revenueList = statistical.getRenevueDay(dateBegin2, dateEnd2);
+                    revenueList = statistical.getRevenueDay(dateBegin2, dateEnd2);
                 }
         }
         return ResponseEntity.ok(new StatisticResponse(revenueList, statistical.getSumTurnOver(revenueList)));
     }
 
-      @GetMapping("/months")
+    @GetMapping("/months")
     public List<MonthRevenue> monthRevenue(@RequestParam(required = false, defaultValue = "1970-01") String monthBegin,
-                                             @RequestParam(required = false, defaultValue = "") String monthEnd){
-            monthBegin=monthBegin+"-01";
-            LocalDate timeBegin=LocalDate.parse(monthBegin, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            LocalDate timeEnd;
-       if(monthEnd.equals("")){
-           timeEnd=LocalDate.now();
-       }else{
-           monthEnd=monthEnd+"-01";
-           timeEnd=LocalDate.parse(monthEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-       }
-          int numberMonths;
-          if(timeEnd.getYear()-timeBegin.getYear()>=1){
+                                           @RequestParam(required = false, defaultValue = "") String monthEnd){
+        monthBegin=monthBegin+"-01";
+        LocalDate timeBegin=LocalDate.parse(monthBegin, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate timeEnd;
+        if(monthEnd.equals("")){
+            timeEnd=LocalDate.now();
+        }else{
+            monthEnd=monthEnd+"-01";
+            timeEnd=LocalDate.parse(monthEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
+        int numberMonths;
+        if(timeEnd.getYear()-timeBegin.getYear()>=1){
 
-              numberMonths=-timeBegin.getMonthValue()+12+1+(timeEnd.getYear()-timeBegin.getYear()-1)*12+timeEnd.getMonthValue();
-          }else{
-              numberMonths=timeEnd.getMonthValue()-timeBegin.getMonthValue()+1;
-          }
-          boolean check=false;
-          List<MonthRevenue> listMonthRevenue=new ArrayList<>();
-          for(int i=0;i<numberMonths;i++){
-              double revenueMonth=statistical.getSumTurnOver(statistical.getRenevueDay(timeBegin,timeBegin.plusDays(-1+timeBegin.lengthOfMonth())));
-              if(revenueMonth>0) {
-                  check=true;
+            numberMonths=-timeBegin.getMonthValue()+12+1+(timeEnd.getYear()-timeBegin.getYear()-1)*12+timeEnd.getMonthValue();
+        }else{
+            numberMonths=timeEnd.getMonthValue()-timeBegin.getMonthValue()+1;
+        }
+        boolean check=false;
+        List<MonthRevenue> listMonthRevenue=new ArrayList<>();
+        for(int i=0;i<numberMonths;i++){
+            double revenueMonth=statistical.getSumTurnOver(statistical.getRevenueDay(timeBegin,timeBegin.plusDays(-1+timeBegin.lengthOfMonth())));
+            if(revenueMonth>0) {
+                check=true;
 
-              }
-              if(check){
-                  MonthRevenue monthRevenue=new MonthRevenue(timeBegin.getYear()+"-"+timeBegin.getMonthValue(),revenueMonth);
-                  listMonthRevenue.add(monthRevenue);
-              }
-              timeBegin=timeBegin.plusDays(timeBegin.lengthOfMonth());
+            }
+            if(check){
+                MonthRevenue monthRevenue=new MonthRevenue(timeBegin.getYear()+"-"+timeBegin.getMonthValue(),revenueMonth);
+                listMonthRevenue.add(monthRevenue);
+            }
+            timeBegin=timeBegin.plusDays(timeBegin.lengthOfMonth());
 
-          }
-            return listMonthRevenue;
+        }
+        return listMonthRevenue;
     }
 
 }
