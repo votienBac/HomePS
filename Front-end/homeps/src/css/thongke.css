@@ -1,6 +1,6 @@
 .queryBox{
     margin-top: 10px;
-    display: inline-flex;
+    display:inline-flex;
 }
 .queryBox pre{
     margin-left: 50px;

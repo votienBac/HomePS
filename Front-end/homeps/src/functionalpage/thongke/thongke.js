@@ -6,7 +6,7 @@ import { Select, MenuItem } from "@material-ui/core";
 import '../../css/thongke.css';
 
 export default function ThongKe(){
-    const [dateBegin, setDateBegin] = useState(new Date("2021/01/01"));
+    const [dateBegin, setDateBegin] = useState(new Date("2021/12/23"));
     const [dateEnd, setDateEnd] = useState(new Date());
     const [queryType, setQueryType] = useState('ngay');
     const isQueryNgay = (queryType === 'ngay')
@@ -32,6 +32,7 @@ export default function ThongKe(){
                             selected={dateBegin} 
                             onChange={(date) => setDateBegin(date)} 
                             dateFormat={'dd-MM-yyyy'} 
+                            minDate = {new Date("2021/12/23")}
                             maxDate={dateEnd}
                             />
                 <pre>Chọn ngày kết thúc  </pre>
