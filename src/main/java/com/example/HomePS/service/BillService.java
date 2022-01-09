@@ -73,6 +73,7 @@ public class BillService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "PS not found!"));
         if (ps.getPsStatus() != PlayStation.FREE)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This PlayStation is in use.");
+
         ps.setPsStatus(PlayStation.BUSY);
         bill.setPlayStation(ps);
         bill.setTimeStart(Instant.now());
