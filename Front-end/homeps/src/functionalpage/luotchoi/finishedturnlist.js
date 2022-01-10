@@ -22,31 +22,36 @@ function FinishedTurn() {
     }, [finishedTurns.currentPage, sizePage])
     console.log(111);
     return (
-        <div>
-            <u onClick={() => navigate(-1)}>Lượt chơi hiện tại</u>
-            <Link to=''>Lượt chơi đã kết thúc</Link>
+        <div className="luot-choi">
+            <div className="header-luot-choi" >
+            <u onClick={() => navigate(-1)} className="hien-tai"><button>Lượt chơi hiện tại</button></u>
+            <Link to=''><button>Lượt chơi đã kết thúc</button></Link>
+            <div className="search-bar">
             <SearchBar
                 type='paid'
                 query={finishedTurns}
                 setQuery={setFinishedTurns}
                 size={sizePage}
             />
-            <table id='finished-turns-list'>
-                <tbody>
-                    <tr>
-                        <th style={{ width: '10%' }}>ID</th>
-                        <th style={{ width: '10%' }}>Máy</th>
-                        <th style={{ width: '25%' }}>Bắt đầu</th>
-                        <th style={{ width: '25%' }}>Kết thúc</th>
-                        <th style={{ width: '30%' }}></th>
+            </div>
+            </div>
+
+            <table className="tb">
+                <tbody className="t">
+                    <tr className="table-list">
+                        <th>ID</th>
+                        <th>Máy</th>
+                        <th>Bắt đầu</th>
+                        <th>Kết thúc</th>
+                        <th></th>
                     </tr>
                     {finishedTurns.currentTurns.map(finishedTurn => {
-                        return (<tr key={finishedTurn.billId}>
+                        return (<tr key={finishedTurn.billId}  className="list-turn">
                             <td>{finishedTurn.billId}</td>
                             <td>{finishedTurn.playStation.psName}</td>
                             <td>{formatTime(finishedTurn.timeStart)}</td>
                             <td>{formatTime(finishedTurn.timeEnd)}</td>
-                            <td><Link to={`${finishedTurn.billId}`} >Xem chi tiết</Link> </td>
+                            <td><Link to={`${finishedTurn.billId}`} className="xem-ct">Xem chi tiết</Link> </td>
                         </tr>)
                     })}
                 </tbody>
@@ -87,6 +92,8 @@ function FinishedTurn() {
                 >
                     {">>"}
                 </button>
+                
+                <div className="item">
                 <label>Items per page</label>
                 <Select 
                     value={sizePage}
@@ -96,6 +103,7 @@ function FinishedTurn() {
                     <MenuItem value={10}>10</MenuItem>
                     <MenuItem value={20}>20</MenuItem>
                 </Select>
+                </div>
             </div>
         </div>
     )

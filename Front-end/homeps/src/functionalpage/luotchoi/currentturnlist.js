@@ -51,7 +51,7 @@ const CurrentTurnList = () => {
                             <td>{currentTurn.playStation.psState}</td>
                             <td>{formatTime(currentTurn.timeStart)}</td>
                             <td>
-                                <Link to={`current-turn/${currentTurn.billId}`} >Xem chi tiết</Link>
+                                <Link to={`current-turn/${currentTurn.billId}`} className="xem-ct" >Xem chi tiết</Link>
                             </td>
                         </tr>)
                     })}
@@ -59,8 +59,7 @@ const CurrentTurnList = () => {
             </table>
             <div className='paging'>
                 <button
-                    onClick={() => setCurrentTurns({ ...currentTurns, currentPage: 1 })}
-                >
+                    onClick={() => setCurrentTurns({ ...currentTurns, currentPage: 1 })}>
                     {"<<"}
                 </button>
                 <button
@@ -91,6 +90,7 @@ const CurrentTurnList = () => {
                 >
                     {">>"}
                 </button>
+                <div className="item">
                 <label>Items per page</label>
                 <Select 
                     value={sizePage}
@@ -100,6 +100,7 @@ const CurrentTurnList = () => {
                     <MenuItem value={10}>10</MenuItem>
                     <MenuItem value={20}>20</MenuItem>
                 </Select>
+                </div>
             </div>
             <Link to="addturn"><button>Thêm lượt chơi</button></Link>
         </div>)

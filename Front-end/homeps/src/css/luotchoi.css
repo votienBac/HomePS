@@ -5,11 +5,10 @@
 .table-list {
     width: 100%;
     height: 45px;
-    background: rgb(142, 142, 173);
-    border-radius: 6px 6px 0px 0px;
+    background: rgb(212, 212, 238);
+    border-radius: 6px 6px 0px
   }
 .table-list th{
-    border: none;
     font-size: 15px;
     line-height: 24px;
     color: #3A414DFF;
@@ -17,12 +16,10 @@
 }
 .list-turn {
     height:45px;
-    background: rgb(243, 199, 199);
+    background: rgb(220, 227, 243);
     border-radius: 0px;
 }
 .list-turn td{
-    border: none;
-
     font-size: 15px;
     line-height: 24px;
     color: #21262EFF;
@@ -42,4 +39,20 @@
 }
 .hien-tai{
     margin-right: 1%;
+}
+.paging {
+    margin-bottom: 2%; 
+}
+.paging button{
+    font-weight: 700;
+}
+.paging .item{
+    margin-right: 2%;
+    float: right;
+}
+.paging .item label{
+    margin-right: 10px;
+}
+.xem-ct {
+    text-decoration: none;
 }
