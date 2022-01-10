@@ -51,7 +51,6 @@ export default function App() {
                         document.body.style.background = "#F9F9FA";
                 }else{
                         document.body.style.background = "rgba(0, 0, 0, 0.8)";
-                        // document.queryselector('').style.backgroundcolor
                 }
         }
 
@@ -61,10 +60,11 @@ export default function App() {
         <div className='headerOut'>
         <div className={darkMode ? "header-dark" : "header"}>
                 <Link to ="/luotchoi"><img onClick={change} 
-                        src={darkMode ? "https://cdn.discordapp.com/attachments/916240096196431892/929744287074230362/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" : "https://thumbs.dreamstime.com/b/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg"}></img></Link>
+                        src={darkMode ? "https://cdn.discordapp.com/attachments/916240096196431892/929912871620575272/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" : "https://cdn.discordapp.com/attachments/916240096196431892/929744287074230362/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" }></img></Link>
         
                 <div className="btn-group">
-                        <Tabs value={value} onChange={handleChange} variant={smallScreen ? 'scrollable' : 'standard'}>
+                        <Tabs value={value} onChange={handleChange} variant={smallScreen ? 'scrollable' : 'standard'}
+                                TabIndicatorProps={{style: {backgroundColor: "white"}}}>
                                 <Tab value = 'luotchoi' label="Lượt chơi" />
                                 <Tab value = 'mayps' label="Máy PS" />
                                 <Tab value = 'sukien' label="Sự kiện" />

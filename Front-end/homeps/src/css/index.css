@@ -7,7 +7,7 @@
   left: 0px;
   width: 100%;
   height: 62px;
-  background: #FFFFFFFF;
+  background: #092c3e;
   border-radius: 0px;
   box-shadow: 0px 0px 7px #333a47, 0px 0px 2px #333a47;
 }
@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #5A6372FF;
+  color: rgb(226, 233, 245);
   background: transparent;
   border-radius: 0px;
   cursor: pointer;
@@ -53,13 +53,13 @@
   width: calc(10%);
 }
 .header .btn-group button:hover {
-  color: #8F95A0FF;
-  background: #DEE1E6FF;
+  color: rgb(210, 219, 235);
+  background: rgb(41, 68, 116);
 }
 .header .btn-group 
 button:focus,button:visited {
-    color:  #DF5173FF;
-    font-weight: 600;
+  color:  #DF5173FF;
+  font-weight: 600;
 }
 
 
@@ -117,22 +117,22 @@ button {
   display: block;
   width:40px;
   height: 20px;
-  background: #092c3e;
+  background: white;
   cursor: pointer;
   border-radius: 20px;
   overflow:hidden;
   transition: ease-in 0.5s;
 }
 .header input[type="checkbox"]:checked ~ .check{
-  background: #FFF;
-  box-shadow: 0 0 0 2px #092c3e;
+  background: #092c3e;
+  box-shadow: 0 0 0 2px white;
 }
 .check:before{
   content: ' ';
   position: absolute;
   top: 2px;
   left: 2px;
-  background: #FFF;
+  background: #092c3e;
   width: 16px;
   height: 16px;
   border-radius: 50% ;
@@ -144,7 +144,7 @@ button {
   position: absolute;
   top: 2px;
   right: 2px;
-  background: #092c3e;
+  background: white;
   width: 16px;
   height: 16px;
   border-radius: 50% ;
