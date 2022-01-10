@@ -119,6 +119,7 @@ export default function App() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                                 MenuListProps={{ onMouseLeave: handleClose }}
+                                marginThreshold={40}
                         >
                                 <MenuItem onClick={handleDMK}>Đổi mật khẩu</MenuItem>
                                 <MenuItem onClick={Logout}>Logout</MenuItem>
