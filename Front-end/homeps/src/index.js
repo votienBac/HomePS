@@ -10,7 +10,7 @@ import Login from './functionalpage/login/login.js';
 import './css/index.css';
 import './css/index_dark.css';
 
-import { Tab,Tabs } from '@material-ui/core';
+import { Tab,Tabs ,Menu, MenuItem} from '@material-ui/core';
 import {
   BrowserRouter as Router,
   Routes,
@@ -26,21 +26,10 @@ export default function App() {
         const navigate = useNavigate()
         const location = useLocation();
         const isLogin = location.pathname === "/";
+
         const [value, setValue] = React.useState('luotchoi');
+
         const [darkMode, setDarkMode] = useState(false);
-
-        const mql = window.matchMedia('(max-width: 2000px)');
-        const smallScreen = mql.matches;
-        
-        const handleChange = (event, newValue) => {
-                setValue(newValue);
-                navigate('/'+newValue);
-        };
-
-        const change =() =>{
-                setValue('luotchoi')
-        }
-
         const changeMode =() =>{
                 if(darkMode){
                         document.body.style.background = "#F9F9FA";
@@ -48,6 +37,52 @@ export default function App() {
                         document.body.style.background = "rgba(0, 0, 0, 0.8)";
                 }
         }
+
+        const mql = window.matchMedia('(max-width: 2000px)');
+        const smallScreen = mql.matches;
+
+        const [anchorEl, setAnchorEl] = React.useState(null);
+        function handleClick(event) {
+                if (anchorEl !== event.currentTarget) {
+                  setAnchorEl(event.currentTarget);
+                }
+              }
+            
+        function handleClose() {
+                setAnchorEl(null);
+        }
+
+        const handleChange = (event, newValue) => {
+                setValue(newValue);
+                navigate('/'+newValue);
+        };
+        const change = () =>{
+                setValue('luotchoi')
+        }
+        const handleDMK = () => {
+                setValue('taikhoan')
+                navigate('/taikhoan');
+        }
+        const Logout = () => {
+                localStorage.clear();
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+                var urlencoded = new URLSearchParams();
+                var requestOptions = {
+                  method: 'POST',
+                  headers: myHeaders,
+                  body: urlencoded,
+                  redirect: 'follow'
+                };
+                fetch("http://homeps.herokuapp.com/logout", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => {
+                    console.log('error', error)
+                  });
+        
+                navigate('/', {replace: true});
+            }
 
         if(!localStorage.getItem("access_token") && !isLogin) {
                 window.location.href = "/"
@@ -73,9 +108,23 @@ export default function App() {
                                 <Tab value = 'sukien' label="Sự kiện" />
                                 <Tab value = 'dichvu' label="Dịch vụ" />
                                 <Tab value = 'thongke' label="Thống kê" />
-                                <Tab value = 'taikhoan' label="Tài khoản" />
+                                <Tab value = 'taikhoan' label="Tài khoản" 
+                                        onClick = {handleClick} 
+                                        onMouseOver={handleClick}
+                                />
                         </Tabs>
+                        <Menu
+                                id="simple-menu"
+                                anchorEl={anchorEl}
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                                MenuListProps={{ onMouseLeave: handleClose }}
+                        >
+                                <MenuItem onClick={handleDMK}>Đổi mật khẩu</MenuItem>
+                                <MenuItem onClick={Logout}>Logout</MenuItem>
+                        </Menu>
                 </div>
+                
                 <label>
                         <input type="checkbox" onChange={()=> {
                                 setDarkMode(!darkMode);
