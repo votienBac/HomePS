@@ -10,7 +10,7 @@ import Login from './functionalpage/login/login.js';
 import './css/index.css';
 import './css/index_dark.css';
 
-import { Tab,Tabs } from '@material-ui/core';
+import { Tab,Tabs ,Menu, MenuItem} from '@material-ui/core';
 import {
   BrowserRouter as Router,
   Routes,
@@ -26,46 +26,111 @@ export default function App() {
         const navigate = useNavigate()
         const location = useLocation();
         const isLogin = location.pathname === "/";
+
         const [value, setValue] = React.useState('luotchoi');
+
         const [darkMode, setDarkMode] = useState(false);
+        const changeMode =() =>{
+                if(darkMode){
+                        document.body.style.background = "#F9F9FA";
+                }else{
+                        document.body.style.background = "rgba(0, 0, 0, 0.8)";
+                }
+        }
 
         const mql = window.matchMedia('(max-width: 2000px)');
         const smallScreen = mql.matches;
-        
+
+        const [anchorEl, setAnchorEl] = React.useState(null);
+        function handleClick(event) {
+                if (anchorEl !== event.currentTarget) {
+                  setAnchorEl(event.currentTarget);
+                }
+              }
+            
+        function handleClose() {
+                setAnchorEl(null);
+        }
+
         const handleChange = (event, newValue) => {
                 setValue(newValue);
                 navigate('/'+newValue);
         };
+        const change = () =>{
+                setValue('luotchoi')
+        }
+        const handleDMK = () => {
+                setValue('taikhoan')
+                navigate('/taikhoan');
+        }
+        const Logout = () => {
+                localStorage.clear();
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+                var urlencoded = new URLSearchParams();
+                var requestOptions = {
+                  method: 'POST',
+                  headers: myHeaders,
+                  body: urlencoded,
+                  redirect: 'follow'
+                };
+                fetch("http://homeps.herokuapp.com/logout", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => {
+                    console.log('error', error)
+                  });
+        
+                navigate('/', {replace: true});
+            }
 
         if(!localStorage.getItem("access_token") && !isLogin) {
                 window.location.href = "/"
                 return <Login />
         }
 
-        const change =() =>{
-                setValue('luotchoi')
-        }
-
+        if(isLogin) {
+                return <Login />
+        }else
         return (
         <div> 
         {!isLogin && (
         <div className='headerOut'>
         <div className={darkMode ? "header-dark" : "header"}>
                 <Link to ="/luotchoi"><img onClick={change} 
-                        src={darkMode ? "https://cdn.discordapp.com/attachments/916240096196431892/929744287074230362/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" : "https://thumbs.dreamstime.com/b/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg"}></img></Link>
+                        src={darkMode ? "https://cdn.discordapp.com/attachments/916240096196431892/929912871620575272/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" : "https://cdn.discordapp.com/attachments/916240096196431892/929744287074230362/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" }></img></Link>
         
                 <div className="btn-group">
-                        <Tabs value={value} onChange={handleChange} variant={smallScreen ? 'scrollable' : 'standard'}>
+                        <Tabs value={value} onChange={handleChange} variant={smallScreen ? 'scrollable' : 'standard'}
+                                TabIndicatorProps={{style: {backgroundColor: "white"}}}>
                                 <Tab value = 'luotchoi' label="Lượt chơi" />
                                 <Tab value = 'mayps' label="Máy PS" />
                                 <Tab value = 'sukien' label="Sự kiện" />
                                 <Tab value = 'dichvu' label="Dịch vụ" />
                                 <Tab value = 'thongke' label="Thống kê" />
-                                <Tab value = 'taikhoan' label="Tài khoản" />
+                                <Tab value = 'taikhoan' label="Tài khoản" 
+                                        onClick = {handleClick} 
+                                        onMouseOver={handleClick}
+                                />
                         </Tabs>
+                        <Menu
+                                id="simple-menu"
+                                anchorEl={anchorEl}
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                                MenuListProps={{ onMouseLeave: handleClose }}
+                                marginThreshold={40}
+                        >
+                                <MenuItem onClick={handleDMK}>Đổi mật khẩu</MenuItem>
+                                <MenuItem onClick={Logout}>Logout</MenuItem>
+                        </Menu>
                 </div>
+                
                 <label>
-                        <input type="checkbox" onChange={()=> setDarkMode(!darkMode)}></input>
+                        <input type="checkbox" onChange={()=> {
+                                setDarkMode(!darkMode);
+                                changeMode()
+                                }}></input>
                         <span class="check"></span>
                 </label>
 

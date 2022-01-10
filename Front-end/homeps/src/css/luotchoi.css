@@ -1,0 +1,45 @@
+.luot-choi {
+    padding-bottom: 20px;
+}
+
+.table-list {
+    width: 100%;
+    height: 45px;
+    background: rgb(142, 142, 173);
+    border-radius: 6px 6px 0px 0px;
+  }
+.table-list th{
+    border: none;
+    font-size: 15px;
+    line-height: 24px;
+    color: #3A414DFF;
+    padding-left: 10px;
+}
+.list-turn {
+    height:45px;
+    background: rgb(243, 199, 199);
+    border-radius: 0px;
+}
+.list-turn td{
+    border: none;
+
+    font-size: 15px;
+    line-height: 24px;
+    color: #21262EFF;
+    padding-left: 10px;
+}
+.header-luot-choi{
+    margin-bottom: 3%;
+}
+.header-luot-choi .search-bar{
+    display: flex;
+    float: right;
+}
+
+.tb {
+    width: 100%;
+    margin-bottom: 2%;
+}
+.hien-tai{
+    margin-right: 1%;
+}

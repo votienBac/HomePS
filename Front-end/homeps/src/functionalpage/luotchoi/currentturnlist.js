@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import SearchBar from './search.js'
 import formatTime from '../../utility/formattime.js'
+import '../../css/luotchoi.css';
 const CurrentTurnList = () => {
     const [currentTurns, setCurrentTurns] = useState({
         currentPage: 1,
@@ -18,26 +19,29 @@ const CurrentTurnList = () => {
     }, [currentTurns.currentPage])
     console.log(currentTurns);
     return (
-        <div>
-            <Link to=''>Lượt chơi hiện tại</Link>
-            <Link to='finished-turn'>Lượt chơi đã kết thúc</Link>
-            <SearchBar
-                type='unpaid'
-                query={currentTurns}
-                setQuery={setCurrentTurns}
-            />
+        <div className="luot-choi">
+            <div className="header-luot-choi" >
+            <Link to='' className="hien-tai"><button>Lượt chơi hiện tại</button></Link>
+            <Link to='finished-turn'><button>Lượt chơi đã kết thúc</button></Link>
+            <div className="search-bar">
+                <SearchBar 
+                type = 'unpaid'
+                query = {currentTurns}
+                setQuery = {setCurrentTurns}/>                
+            </div>
 
-            <table id='current-turns-list'>
-                <tbody>
-                    <tr>
-                        <th style={{ width: '10%' }}>ID</th>
-                        <th style={{ width: '10%' }}>Máy</th>
-                        <th style={{ width: '20%' }}>Tình trạng</th>
-                        <th style={{ width: '30%' }}>Bắt đầu</th>
-                        <th style={{ width: '30%' }}></th>
+            </div>
+            <table className="tb">
+                <tbody className="t">
+                    <tr className="table-list">
+                        <th>ID</th>
+                        <th>Máy</th>
+                        <th >Tình trạng</th>
+                        <th>Bắt đầu</th>
+                        <th></th>
                     </tr>
                     {currentTurns.currentTurns.map(currentTurn => {
-                        return (<tr key={currentTurn.billId}>
+                        return (<tr key={currentTurn.billId} className="list-turn">
                             <td>{currentTurn.billId}</td>
                             <td>{currentTurn.playStation.psName}</td>
                             <td>{currentTurn.playStation.psState}</td>
