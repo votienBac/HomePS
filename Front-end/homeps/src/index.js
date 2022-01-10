@@ -37,11 +37,6 @@ export default function App() {
                 navigate('/'+newValue);
         };
 
-        if(!localStorage.getItem("access_token") && !isLogin) {
-                window.location.href = "/"
-                return <Login />
-        }
-
         const change =() =>{
                 setValue('luotchoi')
         }
@@ -54,6 +49,14 @@ export default function App() {
                 }
         }
 
+        if(!localStorage.getItem("access_token") && !isLogin) {
+                window.location.href = "/"
+                return <Login />
+        }
+
+        if(isLogin) {
+                return <Login />
+        }else
         return (
         <div> 
         {!isLogin && (
