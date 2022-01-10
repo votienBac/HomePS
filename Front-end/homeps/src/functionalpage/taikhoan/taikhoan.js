@@ -4,7 +4,7 @@ import ChangePassword from "./ChangePassword";
 import '../../css/taikhoan.css';
 import '../../css/popup.css';
 export default function TaiKhoan(){
-    const [page, setPage] = useState({page: "account"});
+    const [page, setPage] = useState({page: "change"});
     let navigate = useNavigate();
     const Logout = () => {
         localStorage.clear();
