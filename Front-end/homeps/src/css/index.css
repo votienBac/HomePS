@@ -24,10 +24,10 @@
   font-size: 35px;
 }
 
-.btn-group :link{
+.header .btn-group :link{
   text-decoration: none;
 }
-.btn-group {
+.header .btn-group {
   position: absolute;
   top: 2px;
   left: 164px;
@@ -39,7 +39,7 @@
   line-height: 26px;
   opacity: 1;
 }
-.btn-group button {
+.header .btn-group button {
   padding: 15px 25px;
   display: flex;
   align-items: center;
@@ -52,15 +52,17 @@
   font-weight: 700;
   width: calc(10%);
 }
-.btn-group button:hover {
+.header .btn-group button:hover {
   color: #8F95A0FF;
   background: #DEE1E6FF;
 }
-.btn-group 
+.header .btn-group 
 button:focus,button:visited {
     color:  #DF5173FF;
     font-weight: 600;
 }
+
+
 body{
   margin: 0;
   margin-right: 0px;
@@ -69,6 +71,7 @@ body{
   margin-bottom: 0px;
   background: #F9F9FA;
 }
+
 
 .pageMain{
   position: absolute;
@@ -99,7 +102,7 @@ button {
  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .header label{
-  padding:20px;
+  padding-right: 15px;
   display: flex;
   float: right;
 }

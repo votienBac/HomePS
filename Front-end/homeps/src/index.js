@@ -46,6 +46,15 @@ export default function App() {
                 setValue('luotchoi')
         }
 
+        const changeMode =() =>{
+                if(darkMode){
+                        document.body.style.background = "#F9F9FA";
+                }else{
+                        document.body.style.background = "rgba(0, 0, 0, 0.8)";
+                        // document.queryselector('').style.backgroundcolor
+                }
+        }
+
         return (
         <div> 
         {!isLogin && (
@@ -65,7 +74,10 @@ export default function App() {
                         </Tabs>
                 </div>
                 <label>
-                        <input type="checkbox" onChange={()=> setDarkMode(!darkMode)}></input>
+                        <input type="checkbox" onChange={()=> {
+                                setDarkMode(!darkMode);
+                                changeMode()
+                                }}></input>
                         <span class="check"></span>
                 </label>
 
