@@ -2,7 +2,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import SearchBar from "./search.js"
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { DialogActions } from '@material-ui/core';
+import { DialogActions, Select, MenuItem} from '@material-ui/core';
 import { useEffect, useRef, useState } from 'react'
 
 const UnusedPsList = () => {
@@ -36,20 +36,20 @@ const UnusedPsList = () => {
     }
 
     //Load the free PS list
+    const [sizePage, setSizePage] = useState(10)
     useEffect(() => {
-        fetch(`https://homeps.herokuapp.com/api/ps?page=${1}&size=${10}&status=${'free'}`, {
+        fetch(`https://homeps.herokuapp.com/api/ps?page=${unusedPs.currentPage}&size=${sizePage}&status=${'free'}`, {
             method: 'GET'
         })
             .then(res => res.json())
             .then(unusedPs => setUnusedPs(unusedPs))
-    }, [])
+    }, [unusedPs.currentPage, sizePage])
     const psId = useRef()
 
     //Pop-up
 
     return (
         <div>
-            <SearchBar />
             <table>
                 <tbody>
                     <tr>
@@ -83,6 +83,50 @@ const UnusedPsList = () => {
             >
                 Quay lại
             </button>
+            <div className='paging'>
+                <button
+                    onClick={() => setUnusedPs({ ...unusedPs, currentPage: 1 })}
+                >
+                    {"<<"}
+                </button>
+                <button
+                    onClick={() => {
+                        if (unusedPs.currentPage > 1)
+                        setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage - 1 })
+                    }}
+                >
+                    {"<"}
+                </button>
+                <button>{unusedPs.currentPage}</button>
+                {(unusedPs.currentPage == unusedPs.totalPage) || <button
+                    onClick={() => setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })}
+                >
+                    {unusedPs.currentPage + 1}
+                </button>}
+                <button
+
+                    onClick={() => {
+                        if (unusedPs.currentPage < unusedPs.totalPage)
+                        setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })
+                    }}
+                >
+                    {">"}
+                </button>
+                <button
+                    onClick={() => setUnusedPs({ ...unusedPs, currentPage: unusedPs.totalPage })}
+                >
+                    {">>"}
+                </button>
+                <label>Items per page</label>
+                <Select 
+                    value={sizePage}
+                    onChange={(e)=>setSizePage(e.target.value)}
+                >
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={20}>20</MenuItem>
+                </Select>
+            </div>
             <Dialog open={addTurnDialog} onClose={closeAddTurnDialog} >
                 <DialogTitle>Bạn có chắc chắn muốn thêm lượt chơi?</DialogTitle>
                 <DialogActions>
@@ -96,6 +140,7 @@ const UnusedPsList = () => {
                     <button onClick={() => navigate('/luotchoi')}>Quay về trang chủ</button>
                 </DialogActions>
             </Dialog>
+        
         </div>)
 }
 

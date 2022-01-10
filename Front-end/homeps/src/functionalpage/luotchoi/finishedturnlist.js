@@ -1,9 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { Select, MenuItem } from "@material-ui/core";
 import SearchBar from './search.js'
 import formatTime from '../../utility/formattime.js'
 function FinishedTurn() {
     const navigate = useNavigate()
+    const [sizePage, setSizePage] = useState(10)
     const [finishedTurns, setFinishedTurns] = useState({
         currentPage: 1,
         currentPlaying: 0,
@@ -12,12 +14,12 @@ function FinishedTurn() {
     })
     //Load the bill list
     useEffect(() => {
-        fetch(`https://homeps.herokuapp.com/api/bills?page=${finishedTurns.currentPage}&size=${10}&status=${'paid'}`, {
+        fetch(`https://homeps.herokuapp.com/api/bills?page=${finishedTurns.currentPage}&size=${sizePage}&status=${'paid'}`, {
             method: 'GET'
         })
             .then(res => res.json())
             .then(finishedTurns => { setFinishedTurns(finishedTurns) })
-    }, [finishedTurns.currentPage])
+    }, [finishedTurns.currentPage, sizePage])
     console.log(111);
     return (
         <div>
@@ -27,6 +29,7 @@ function FinishedTurn() {
                 type='paid'
                 query={finishedTurns}
                 setQuery={setFinishedTurns}
+                size={sizePage}
             />
             <table id='finished-turns-list'>
                 <tbody>
@@ -84,6 +87,15 @@ function FinishedTurn() {
                 >
                     {">>"}
                 </button>
+                <label>Items per page</label>
+                <Select 
+                    value={sizePage}
+                    onChange={(e)=>setSizePage(e.target.value)}
+                >
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={20}>20</MenuItem>
+                </Select>
             </div>
         </div>
     )

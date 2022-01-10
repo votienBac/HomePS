@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../../css/luotchoi.css';
-const SearchBar = ({ type, query, setQuery }) => {
+const SearchBar = ({ type, query, setQuery, size }) => {
     const [details, setDetails] = useState('')
     console.log(details);
     const handleChange = (props) => {
@@ -15,7 +15,7 @@ const SearchBar = ({ type, query, setQuery }) => {
 
     const handleSearch = () => {
         console.log(details);
-        fetch(`https://homeps.herokuapp.com/api/bills/search?query=${details}&status=${type}`, {
+        fetch(`https://homeps.herokuapp.com/api/bills/search?size=${size}&query=${details}&status=${type}`, {
             method: 'GET',
         })
             .then(res => res.json())

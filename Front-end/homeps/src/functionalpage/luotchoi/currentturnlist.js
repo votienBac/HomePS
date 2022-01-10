@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
+import { Select, MenuItem } from "@material-ui/core";
 import SearchBar from './search.js'
 import formatTime from '../../utility/formattime.js'
 import '../../css/luotchoi.css';
 const CurrentTurnList = () => {
+    const [sizePage, setSizePage] = useState(10)
     const [currentTurns, setCurrentTurns] = useState({
         currentPage: 1,
         currentPlaying: 0,
@@ -11,12 +13,12 @@ const CurrentTurnList = () => {
         totalPage: 1
     });
     useEffect(() => {
-        fetch(`https://homeps.herokuapp.com/api/bills?page=${currentTurns.currentPage}&size=${5}&status=${'unpaid'}`, {
+        fetch(`https://homeps.herokuapp.com/api/bills?page=${currentTurns.currentPage}&size=${sizePage}&status=${'unpaid'}`, {
             method: 'GET'
         })
             .then(res => res.json())
             .then(res => setCurrentTurns(res))
-    }, [currentTurns.currentPage])
+    }, [currentTurns.currentPage, sizePage])
     console.log(currentTurns);
     return (
         <div className="luot-choi">
@@ -27,7 +29,9 @@ const CurrentTurnList = () => {
                 <SearchBar 
                 type = 'unpaid'
                 query = {currentTurns}
-                setQuery = {setCurrentTurns}/>                
+                setQuery = {setCurrentTurns}
+                size={sizePage}
+                />                
             </div>
 
             </div>
@@ -87,6 +91,15 @@ const CurrentTurnList = () => {
                 >
                     {">>"}
                 </button>
+                <label>Items per page</label>
+                <Select 
+                    value={sizePage}
+                    onChange={(e)=>setSizePage(e.target.value)}
+                >
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={20}>20</MenuItem>
+                </Select>
             </div>
             <Link to="addturn"><button>Thêm lượt chơi</button></Link>
         </div>)
