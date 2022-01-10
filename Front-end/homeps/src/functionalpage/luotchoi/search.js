@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import '../../css/luotchoi.css';
 const SearchBar = ({ type, query, setQuery }) => {
     const [details, setDetails] = useState('')
     console.log(details);
@@ -28,24 +28,17 @@ const SearchBar = ({ type, query, setQuery }) => {
         <section className="search">
             <div className="container">
                 <div className="row">
-                    <div className="col">Search</div>
                     <div className="col">
                         <input
                             id='input'
                             type='text'
                             name='input'
-                            placeholder='Enter psID'
+                            placeholder='Nhập tên máy'
                             onChange={e => handleChange(e.target.value)}
                             onKeyPress = {handleKeypress} 
                             value={details}
                         />
-                    </div>
-                    <div className="col">
-                        <button
-                            onClick={handleSearch}
-                        >
-                            Search
-                        </button>
+                        <button onClick={handleSearch}> Search </button>                        
                     </div>
                 </div>
             </div>
