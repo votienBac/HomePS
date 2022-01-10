@@ -39,7 +39,6 @@ public class PSService {
     public List<PlayStation> getAllByStatus(Integer psStatus) {
         return psRepository.findAllByPsStatus(psStatus);
     }
-
     public List<PlayStation> getPSByStatus(Integer psStatus, Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<PlayStation> result = psRepository.findAllByPsStatus(psStatus, pageable);
@@ -57,10 +56,25 @@ public class PSService {
                 .orElseThrow(()->new IllegalStateException("PS not found!"));
     }
 
+    public List<PlayStation> searchPSByName(String query) {
+        return psRepository.search(query);
+    }
     public List<PlayStation> searchPSByName(String query, Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<PlayStation> result = psRepository.search(query, pageable);
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
+    }
 
+    public List<PlayStation> searchPSByNameAndStatus(String query, int status) {
+        return psRepository.searchByStatus(query, status);
+    }
+    public List<PlayStation> searchPSByNameAndStatus(String query, int status, Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Page<PlayStation> result = psRepository.searchByStatus(query, status, pageable);
         if (result.hasContent()) {
             return result.getContent();
         } else {

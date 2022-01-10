@@ -6,7 +6,10 @@ import com.example.HomePS.model.MonthRevenue;
 import com.example.HomePS.service.Statistical;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +24,7 @@ public class RevenueController {
     private Statistical statistical;
 
     @GetMapping
-    public ResponseEntity<StatisticResponse> getRevenue(
+    public StatisticResponse getRevenue(
             @RequestParam(required = false, defaultValue = "full") String status,
             @RequestParam(required = false, defaultValue = "1970/01/01") String dateBegin,
             @RequestParam(required = false, defaultValue = "") String dateEnd
@@ -44,7 +47,7 @@ public class RevenueController {
                     revenueList = statistical.getRevenueDay(dateBegin2, dateEnd2);
                 }
         }
-        return ResponseEntity.ok(new StatisticResponse(revenueList, statistical.getSumTurnOver(revenueList)));
+        return new StatisticResponse(revenueList, statistical.getSumTurnOver(revenueList));
     }
 
     @GetMapping("/months")

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/bills")
@@ -51,7 +50,7 @@ public class BillController {
     }
 
     @GetMapping
-    public ResponseEntity<BillResponse> getBillsByPage(
+    public BillResponse getBillsByPage(
             @RequestParam(required = false, defaultValue = "full") String status,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size,
@@ -75,26 +74,52 @@ public class BillController {
                 totalPage = (int) Math.ceil(billService.findAll().size() * 1.0 / size);
                 break;
         }
-        return ResponseEntity.ok(new BillResponse(currentPlaying, page, totalPage, currentTurns));
+        return new BillResponse(currentPlaying, page, totalPage, currentTurns);
     }
 
-    @GetMapping("/search/{query}")
-    public List<Bill> searchByPS(
-            @PathVariable String query,
+    @GetMapping("/search")
+    public BillResponse searchByPS(
+            @RequestParam(required = false, defaultValue = "") String query,
             @RequestParam(required = false, defaultValue = "full") String status,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size,
             @RequestParam(required = false, defaultValue = "timeStart") String sortBy
     ) {
-        var searchList = billService.searchByPS(query, page - 1, size, sortBy);
+        List<Bill> currentTurns;
+        int totalPage;
+
         switch (status) {
-            case "paid":
-                return searchList.stream().filter(Bill::isPaid).collect(Collectors.toList());
             case "unpaid":
-                return searchList.stream().filter(b -> !b.isPaid()).collect(Collectors.toList());
+                if (query.equals("")) {
+                    currentTurns = billService.getUnpaidBillByPage(page - 1, size, sortBy);
+                    totalPage = (int) Math.ceil(billService.findUnpaidBill().size() * 1.0 / size);
+                    return new BillResponse(-1, page, totalPage, currentTurns);
+                }
+                currentTurns = billService.searchUnpaidByPS(query, page - 1, size, sortBy);
+                totalPage = (int) Math.ceil(billService.searchUnpaidByPS(query).size() * 1.0 / size);
+                break;
+
+            case "paid":
+                if (query.equals("")) {
+                    currentTurns = billService.getPaidBillsByPage(page - 1, size, sortBy);
+                    totalPage = (int) Math.ceil(billService.findPaidBill().size() * 1.0 / size);
+                    return new BillResponse(-1, page, totalPage, currentTurns);
+                }
+                currentTurns = billService.searchPaidByPS(query, page - 1, size, sortBy);
+                totalPage = (int) Math.ceil(billService.searchPaidByPS(query).size() * 1.0 / size);
+                break;
+
             default:
-                return searchList;
+                if (query.equals("")) {
+                    currentTurns = billService.getBillsByPage(page - 1, size, sortBy);
+                    totalPage = (int) Math.ceil(billService.findAll().size() * 1.0 / size);
+                    return new BillResponse(-1, page, totalPage, currentTurns);
+                }
+                currentTurns = billService.searchBillByPs(query, page - 1, size, sortBy);
+                totalPage = (int) Math.ceil(billService.searchBillByPs(query).size() * 1.0 / size);
+                break;
         }
+        return new BillResponse(-1, page, totalPage, currentTurns);
     }
 
     @DeleteMapping("/{billId}")

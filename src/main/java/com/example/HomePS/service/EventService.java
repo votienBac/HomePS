@@ -34,6 +34,9 @@ public class EventService {
         }
     }
 
+    public List<Event> searchEventByName(String query) {
+        return eventRepository.search(query);
+    }
     public List<Event> searchEventByName(String query, Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Event> result = eventRepository.search(query, pageable);

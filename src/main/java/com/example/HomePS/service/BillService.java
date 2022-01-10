@@ -71,9 +71,38 @@ public class BillService {
         }
     }
 
-    public List<Bill> searchByPS(String query, Integer pageNumber, Integer pageSize, String sortBy) {
+    public List<Bill> searchBillByPs(String query) {
+        return billRepository.searchBill(query);
+    }
+    public List<Bill> searchBillByPs(String query, Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
-        Page<Bill> result = billRepository.search(query, pageable);
+        Page<Bill> result = billRepository.searchBill(query, pageable);
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
+    }
+
+    public List<Bill> searchPaidByPS(String query) {
+        return billRepository.searchPaidBill(query);
+    }
+    public List<Bill> searchPaidByPS(String query, Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+        Page<Bill> result = billRepository.searchPaidBill(query, pageable);
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
+    }
+
+    public List<Bill> searchUnpaidByPS(String query) {
+        return billRepository.searchUnpaidBill(query);
+    }
+    public List<Bill> searchUnpaidByPS(String query, Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+        Page<Bill> result = billRepository.searchUnpaidBill(query, pageable);
         if (result.hasContent()) {
             return result.getContent();
         } else {
@@ -206,6 +235,7 @@ public class BillService {
 
     public void deleteBill(Bill bill) {
         if (!bill.isPaid()) bill.getPlayStation().setPsStatus(0);
+
         ZonedDateTime zonedDateTime1 = bill.getTimeStart().atZone(ZoneId.systemDefault());
         LocalDate date = LocalDate.of(zonedDateTime1.getYear(), zonedDateTime1.getMonth(), zonedDateTime1.getDayOfMonth());
         Daily_TurnOver daily_turnOverBefore = dailyTurnOverRepository.findDaily_TurnOverByDate(date);
@@ -213,6 +243,7 @@ public class BillService {
             daily_turnOverBefore.setTurnOver(daily_turnOverBefore.getTurnOver() - bill.getTotalPrice());
             dailyTurnOverRepository.save(daily_turnOverBefore);
         }
+
         billRepository.delete(bill);
     }
 }

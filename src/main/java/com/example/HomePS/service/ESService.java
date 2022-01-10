@@ -31,6 +31,10 @@ public class ESService {
         }
     }
 
+    public List<ExtraService> getESByName(String query) {
+        return serviceRepository.search(query);
+    }
+
     public List<ExtraService> getESByName(String query, Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<ExtraService> result = serviceRepository.search(query, pageable);

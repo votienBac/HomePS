@@ -21,14 +21,14 @@ public class EventController {
     }
 
     @GetMapping
-    public ResponseEntity<EventResponse> getEventsByPage(
+    public EventResponse getEventsByPage(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size,
             @RequestParam(required = false, defaultValue = "eventId") String sortBy
     ){
         int totalPage = (int) Math.ceil(eventService.getAllEvents().size() * 1.0 / size);
         List<Event> eventList = eventService.getEventsByPage(page - 1, size, sortBy);
-        return ResponseEntity.ok(new EventResponse(page, totalPage, eventList));
+        return new EventResponse(page, totalPage, eventList);
     }
 
     @GetMapping("/{id}")
@@ -41,14 +41,21 @@ public class EventController {
         eventService.delete(id);
     }
 
-    @GetMapping("/search/{query}")
-    public List<Event> searchEventByName(
-            @PathVariable String query,
+    @GetMapping("/search")
+    public EventResponse searchEventByName(
+            @RequestParam(required = false, defaultValue = "") String query,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size,
             @RequestParam(required = false, defaultValue = "eventId") String sortBy
     ) {
-        return eventService.searchEventByName(query, page - 1, size, sortBy);
+        if (query.equals("")) {
+            int totalPage = (int) Math.ceil(eventService.getAllEvents().size() * 1.0 / size);
+            List<Event> eventList = eventService.getEventsByPage(page - 1, size, sortBy);
+            return new EventResponse(page, totalPage, eventList);
+        }
+        int totalPage = (int) Math.ceil(eventService.searchEventByName(query).size() * 1.0 / size);
+        List<Event> eventList = eventService.searchEventByName(query, page - 1, size, sortBy);
+        return new EventResponse(page, totalPage, eventList);
     }
 
     @PutMapping("/{id}")

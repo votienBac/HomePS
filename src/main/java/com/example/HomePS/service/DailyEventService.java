@@ -2,6 +2,7 @@ package com.example.HomePS.service;
 
 import com.example.HomePS.model.DailyEvent;
 import com.example.HomePS.model.Event;
+import com.example.HomePS.model.ExtraService;
 import com.example.HomePS.repository.DailyEventRepository;
 import com.example.HomePS.repository.EventRepository;
 import lombok.AllArgsConstructor;
@@ -34,13 +35,25 @@ public class DailyEventService {
         }
     }
 
+    public List<DailyEvent> searchEventByName(String query) {
+        return dailyEventRepository.search(query);
+    }
+    public List<DailyEvent> searchEventByName(String query, Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Page<DailyEvent> result = dailyEventRepository.search(query, pageable);
+        if (result.hasContent()) {
+            return result.getContent();
+        } else {
+            return List.of();
+        }
+    }
+
     public DailyEvent getDailyEvent(long id){
         return dailyEventRepository
                 .findById(id)
                 .orElseThrow(()->new IllegalStateException("Event not found!"));
-
-
     }
+
     public DailyEvent save(DailyEvent dailyEvent){
         if (dailyEvent.getTimeStart().compareTo(dailyEvent.getTimeEnd()) > 0)
             throw new IllegalArgumentException("Start date cannot be after end date.");

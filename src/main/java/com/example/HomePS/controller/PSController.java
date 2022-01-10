@@ -8,10 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.example.HomePS.model.PlayStation.*;
-import static com.example.HomePS.model.PlayStation.BROKEN;
 
 @RestController
 @RequestMapping("/api/ps")
@@ -25,7 +23,7 @@ public class PSController {
     }
 
     @GetMapping
-    public ResponseEntity<PsResponse> getPSByPage(
+    public PsResponse getPSByPage(
             @RequestParam(required = false, defaultValue = "full") String status,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size,
@@ -52,7 +50,7 @@ public class PSController {
                 totalPage = (int) Math.ceil(psService.getAll().size() * 1.0 / size);
                 break;
         }
-        return ResponseEntity.ok(new PsResponse(page, totalPage, psList));
+        return new PsResponse(page, totalPage, psList);
     }
 
     @GetMapping("/{id}")
@@ -65,21 +63,56 @@ public class PSController {
         psService.delete(id);
     }
 
-    @GetMapping("/search/{query}")
-    public List<PlayStation> searchPSByName(
-            @PathVariable String query,
+    @GetMapping("/search")
+    public PsResponse searchPSByName(
+            @RequestParam(required = false, defaultValue = "") String query,
             @RequestParam(required = false, defaultValue = "full") String status,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size,
             @RequestParam(required = false, defaultValue = "psId") String sortBy
     ) {
-        var searchList = psService.searchPSByName(query, page - 1, size, sortBy);
+        List<PlayStation> psList;
+        int totalPage;
+
         switch(status) {
-            case "free": return searchList.stream().filter(p -> p.getPsStatus() == 0).collect(Collectors.toList());
-            case "busy": return searchList.stream().filter(p -> p.getPsStatus() == 1).collect(Collectors.toList());
-            case "broken": return searchList.stream().filter(p -> p.getPsStatus() == 2).collect(Collectors.toList());
-            default: return searchList;
+            case "free":
+                if (query.equals("")) {
+                    psList = psService.getPSByStatus(FREE, page - 1, size, sortBy);
+                    totalPage = (int) Math.ceil(psService.getAllByStatus(FREE).size() * 1.0 / size);
+                    return new PsResponse(page, totalPage, psList);
+                }
+                psList = psService.searchPSByNameAndStatus(query, FREE, page - 1, size, sortBy);
+                totalPage = (int) Math.ceil(psService.searchPSByNameAndStatus(query, FREE).size() * 1.0 / size);
+                break;
+            case "busy":
+                if (query.equals("")) {
+                    psList = psService.getPSByStatus(BUSY, page - 1, size, sortBy);
+                    totalPage = (int) Math.ceil(psService.getAllByStatus(BUSY).size() * 1.0 / size);
+                    return new PsResponse(page, totalPage, psList);
+                }
+                psList = psService.searchPSByNameAndStatus(query, BUSY, page - 1, size, sortBy);
+                totalPage = (int) Math.ceil(psService.searchPSByNameAndStatus(query, BUSY).size() * 1.0 / size);
+                break;
+            case "broken":
+                if (query.equals("")) {
+                    psList = psService.getPSByStatus(BROKEN, page - 1, size, sortBy);
+                    totalPage = (int) Math.ceil(psService.getAllByStatus(BROKEN).size() * 1.0 / size);
+                    return new PsResponse(page, totalPage, psList);
+                }
+                psList = psService.searchPSByNameAndStatus(query, BROKEN, page - 1, size, sortBy);
+                totalPage = (int) Math.ceil(psService.searchPSByNameAndStatus(query, BROKEN).size() * 1.0 / size);
+                break;
+            default:
+                if (query.equals("")) {
+                    psList = psService.getPSByPage(page - 1, size, sortBy);
+                    totalPage = (int) Math.ceil(psService.getAll().size() * 1.0 / size);
+                    return new PsResponse(page, totalPage, psList);
+                }
+                psList = psService.searchPSByName(query, page - 1, size, sortBy);
+                totalPage = (int) Math.ceil(psService.searchPSByName(query).size() * 1.0 / size);
+                break;
         }
+        return new PsResponse(page, totalPage, psList);
     }
 
     @PutMapping("/{id}")
