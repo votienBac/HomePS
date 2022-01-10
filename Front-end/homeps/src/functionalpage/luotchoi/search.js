@@ -37,8 +37,15 @@ const SearchBar = ({ type, query, setQuery }) => {
                             onChange={e => handleChange(e.target.value)}
                             onKeyPress = {handleKeypress} 
                             value={details}
+                            style={{    fontFamily: "inherit",
+                                border: "2px solid green",
+                                borderRadius: "50px",
+                                fontSize: "14px",
+                                padding: "0.5rem 1.5rem",
+                                backgroundColor: "white",
+                                width:'100px'}}
                         />
-                        <button onClick={handleSearch}> Search </button>                        
+                        {/* <button onClick={handleSearch}> Search </button>                         */}
                     </div>
                 </div>
             </div>

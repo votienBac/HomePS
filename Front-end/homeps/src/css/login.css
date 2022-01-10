@@ -12,6 +12,10 @@
 form {
     display: block;
     position: relative;
+    width: 25%;
+}
+.forms{
+    width: 31.5%;
 }
 form:after{
     content: '';
@@ -33,6 +37,7 @@ form .form-inner{
     display: block;
     padding: 30px;
     z-index: 2;
+
 }
 form .form-inner h2{
     color: rgb(175, 162, 162);

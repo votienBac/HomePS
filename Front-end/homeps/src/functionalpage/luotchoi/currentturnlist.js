@@ -22,21 +22,22 @@ const CurrentTurnList = () => {
             <div className="header-luot-choi" >
             <Link to='' className="hien-tai"><button>Lượt chơi hiện tại</button></Link>
             <Link to='finished-turn'><button>Lượt chơi đã kết thúc</button></Link>
-
-            <SearchBar 
-            type = 'unpaid'
-            query = {currentTurns}
-            setQuery = {setCurrentTurns}
-            />
+            <div className="search-bar">
+                <SearchBar 
+                type = 'unpaid'
+                query = {currentTurns}
+                setQuery = {setCurrentTurns}/>                
             </div>
-            <table >
-                <tbody >
+
+            </div>
+            <table className="tb">
+                <tbody className="t">
                     <tr className="table-list">
-                        <th style={{ width: '10%' }}>ID</th>
-                        <th style={{ width: '20%' }}>Máy</th>
-                        <th style={{ width: '30%' }}>Tình trạng</th>
-                        <th style={{ width: '30%' }}>Bắt đầu</th>
-                        <th style={{ width: '50%' }}></th>
+                        <th>ID</th>
+                        <th>Máy</th>
+                        <th >Tình trạng</th>
+                        <th>Bắt đầu</th>
+                        <th></th>
                     </tr>
                     {currentTurns.currentTurns.map(currentTurn => {
                         return (<tr key={currentTurn.billId} className="list-turn">
