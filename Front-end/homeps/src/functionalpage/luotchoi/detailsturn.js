@@ -147,7 +147,6 @@ const DetailsTurn = (props) => {
                             <li className="row">{turn.billId}</li>
                             <li className="row">{turn.playStation && turn.playStation.psName}</li>
                             <li className="row">{formatTime(turn.timeStart)}</li>
-                            {props.type || <li className="row">{formatTime(turn.timeEnd)}</li>}
                             <table>
                                 <tbody>
                                     <tr>

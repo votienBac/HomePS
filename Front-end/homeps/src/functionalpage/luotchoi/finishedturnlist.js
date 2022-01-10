@@ -12,21 +12,21 @@ function FinishedTurn() {
     })
     //Load the bill list
     useEffect(() => {
-        fetch(`https://homeps.herokuapp.com/api/bills?page=${1}&size=${10}&status=${'paid'}`, {
+        fetch(`https://homeps.herokuapp.com/api/bills?page=${finishedTurns.currentPage}&size=${10}&status=${'paid'}`, {
             method: 'GET'
         })
             .then(res => res.json())
             .then(finishedTurns => { setFinishedTurns(finishedTurns) })
-    }, [])
-
+    }, [finishedTurns.currentPage])
+    console.log(111);
     return (
         <div>
             <u onClick={() => navigate(-1)}>Lượt chơi hiện tại</u>
             <Link to=''>Lượt chơi đã kết thúc</Link>
-            <SearchBar 
-            type = 'paid'
-            query = {finishedTurns}
-            setQuery = {setFinishedTurns}
+            <SearchBar
+                type='paid'
+                query={finishedTurns}
+                setQuery={setFinishedTurns}
             />
             <table id='finished-turns-list'>
                 <tbody>
@@ -48,6 +48,43 @@ function FinishedTurn() {
                     })}
                 </tbody>
             </table>
+            <div className='paging'>
+                <button
+                    onClick={() => setFinishedTurns({ ...finishedTurns, currentPage: 1 })}
+                >
+                    {"<<"}
+                </button>
+                <button
+                    onClick={() => {
+                        if (finishedTurns.currentPage > 1)
+                            setFinishedTurns({ ...finishedTurns, currentPage: finishedTurns.currentPage - 1 });
+                    }
+                    }
+                >
+                    {"<"}
+                </button>
+                <button>{finishedTurns.currentPage}</button>
+                {(finishedTurns.currentPage == finishedTurns.totalPage) || <button
+                    onClick={() => setFinishedTurns({ ...finishedTurns, currentPage: finishedTurns.currentPage + 1 })}
+                >
+                    {finishedTurns.currentPage + 1}
+                </button>}
+                <button
+                    onClick={() => {
+                        if (finishedTurns.currentPage < finishedTurns.totalPage)
+                            setFinishedTurns({ ...finishedTurns, currentPage: finishedTurns.currentPage + 1 })
+                    }
+
+                    }
+                >
+                    {">"}
+                </button>
+                <button
+                    onClick={() => setFinishedTurns({ ...finishedTurns, currentPage: finishedTurns.totalPage })}
+                >
+                    {">>"}
+                </button>
+            </div>
         </div>
     )
 }

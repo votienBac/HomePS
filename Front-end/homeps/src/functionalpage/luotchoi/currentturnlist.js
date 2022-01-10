@@ -10,20 +10,21 @@ const CurrentTurnList = () => {
         totalPage: 1
     });
     useEffect(() => {
-        fetch(`https://homeps.herokuapp.com/api/bills?page=${1}&size=${10}&status=${'unpaid'}`, {
+        fetch(`https://homeps.herokuapp.com/api/bills?page=${currentTurns.currentPage}&size=${5}&status=${'unpaid'}`, {
             method: 'GET'
         })
             .then(res => res.json())
             .then(res => setCurrentTurns(res))
-    }, [])
+    }, [currentTurns.currentPage])
+    console.log(currentTurns);
     return (
         <div>
             <Link to=''>Lượt chơi hiện tại</Link>
             <Link to='finished-turn'>Lượt chơi đã kết thúc</Link>
-            <SearchBar 
-            type = 'unpaid'
-            query = {currentTurns}
-            setQuery = {setCurrentTurns}
+            <SearchBar
+                type='unpaid'
+                query={currentTurns}
+                setQuery={setCurrentTurns}
             />
 
             <table id='current-turns-list'>
@@ -48,6 +49,41 @@ const CurrentTurnList = () => {
                     })}
                 </tbody>
             </table>
+            <div className='paging'>
+                <button
+                    onClick={() => setCurrentTurns({ ...currentTurns, currentPage: 1 })}
+                >
+                    {"<<"}
+                </button>
+                <button
+                    onClick={() => {
+                        if (currentTurns.currentPage > 1)
+                            setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage - 1 })
+                    }}
+                >
+                    {"<"}
+                </button>
+                <button>{currentTurns.currentPage}</button>
+                {(currentTurns.currentPage == currentTurns.totalPage) || <button
+                    onClick={() => setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage + 1 })}
+                >
+                    {currentTurns.currentPage + 1}
+                </button>}
+                <button
+
+                    onClick={() => {
+                        if (currentTurns.currentPage < currentTurns.totalPage)
+                            setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage + 1 })
+                    }}
+                >
+                    {">"}
+                </button>
+                <button
+                    onClick={() => setCurrentTurns({ ...currentTurns, currentPage: currentTurns.totalPage })}
+                >
+                    {">>"}
+                </button>
+            </div>
             <Link to="addturn"><button>Thêm lượt chơi</button></Link>
         </div>)
 }
