@@ -13,11 +13,17 @@ import java.util.List;
 
 @Repository
 public interface PSRepository extends JpaRepository<PlayStation, Long> {
-    List<PlayStation> findAllByPsStatus(Integer psStatus);
-    Page<PlayStation> findAllByPsStatus(Integer psStatus, Pageable pageable);
-    @Query("SELECT p FROM PlayStation p WHERE lower(p.psName) LIKE lower(concat('%', :query, '%'))")
+    @Query("SELECT p FROM PlayStation p WHERE p.psStatus <> 3")
+    List<PlayStation> findAllPs();
+    @Query("SELECT p FROM PlayStation p WHERE p.psStatus <> 3")
+    Page<PlayStation> findAllPs(Pageable pageable);
+
+    List<PlayStation> findAllByPsStatus(int status);
+    Page<PlayStation> findAllByPsStatus(int psStatus, Pageable pageable);
+
+    @Query("SELECT p FROM PlayStation p WHERE lower(p.psName) LIKE lower(concat('%', :query, '%')) AND p.psStatus <> 3")
     Page<PlayStation> search(@Param("query") String query, Pageable pageable);
-    @Query("SELECT p FROM PlayStation p WHERE lower(p.psName) LIKE lower(concat('%', :query, '%'))")
+    @Query("SELECT p FROM PlayStation p WHERE lower(p.psName) LIKE lower(concat('%', :query, '%')) AND p.psStatus <> 3")
     List<PlayStation> search(@Param("query") String query);
 
     @Query("SELECT p FROM PlayStation p WHERE lower(p.psName) LIKE lower(concat('%', :query, '%')) AND p.psStatus = :status")
