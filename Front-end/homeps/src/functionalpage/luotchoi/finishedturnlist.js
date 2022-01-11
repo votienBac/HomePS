@@ -16,31 +16,30 @@ function FinishedTurn() {
     })
     //Load the bill list
     useEffect(() => {
-        if(!isQuery)
-        fetch(`https://homeps.herokuapp.com/api/bills?page=${finishedTurns.currentPage}&size=${sizePage}&status=${'paid'}`, {
-            method: 'GET'
-        })
-            .then(res => res.json())
-            .then(finishedTurns => { setFinishedTurns(finishedTurns) })
+        if (!isQuery)
+            fetch(`https://homeps.herokuapp.com/api/bills?page=${finishedTurns.currentPage}&size=${sizePage}&status=${'paid'}`, {
+                method: 'GET'
+            })
+                .then(res => res.json())
+                .then(finishedTurns => { setFinishedTurns(finishedTurns) })
     }, [finishedTurns.currentPage, sizePage, isQuery])
-    console.log(111);
     return (
         <div className="luot-choi">
             <div className="header-luot-choi" >
-            <u onClick={() => navigate(-1)} className="hien-tai"><button>Lượt chơi hiện tại</button></u>
-            <Link to=''><button>Lượt chơi đã kết thúc</button></Link>
-            <div className="search-bar">
-            <SearchBar
-                type='paid'
-                query={finishedTurns}
-                setQuery={setFinishedTurns}
-                isQuery = {isQuery}
-                setIsQuery = {setIsQuery}
-                isChangePageQuery = {isChangePageQuery}
-                setChangePageQuery = {setChangePageQuery}
-                size={sizePage}
-            />
-            </div>
+                <u onClick={() => navigate(-1)} className="hien-tai"><button>Lượt chơi hiện tại</button></u>
+                <Link to=''><button>Lượt chơi đã kết thúc</button></Link>
+                <div className="search-bar">
+                    <SearchBar
+                        type='paid'
+                        query={finishedTurns}
+                        setQuery={setFinishedTurns}
+                        isQuery={isQuery}
+                        setIsQuery={setIsQuery}
+                        isChangePageQuery={isChangePageQuery}
+                        setChangePageQuery={setChangePageQuery}
+                        size={sizePage}
+                    />
+                </div>
             </div>
 
             <table className="tb">
@@ -53,7 +52,7 @@ function FinishedTurn() {
                         <th></th>
                     </tr>
                     {finishedTurns.currentTurns.map(finishedTurn => {
-                        return (<tr key={finishedTurn.billId}  className="list-turn">
+                        return (<tr key={finishedTurn.billId} className="list-turn">
                             <td>{finishedTurn.billId}</td>
                             <td>{finishedTurn.playStation.psName}</td>
                             <td>{formatTime(finishedTurn.timeStart)}</td>
@@ -69,13 +68,13 @@ function FinishedTurn() {
                         setFinishedTurns({ ...finishedTurns, currentPage: 1 })
                         setChangePageQuery(isQuery)
                     }
-                }
+                    }
                 >
                     {"<<"}
                 </button>
                 <button
                     onClick={() => {
-                        if (finishedTurns.currentPage > 1){
+                        if (finishedTurns.currentPage > 1) {
                             setFinishedTurns({ ...finishedTurns, currentPage: finishedTurns.currentPage - 1 });
                             setChangePageQuery(isQuery)
                         }
@@ -96,7 +95,7 @@ function FinishedTurn() {
                 </button>}
                 <button
                     onClick={() => {
-                        if (finishedTurns.currentPage < finishedTurns.totalPage){
+                        if (finishedTurns.currentPage < finishedTurns.totalPage) {
                             setFinishedTurns({ ...finishedTurns, currentPage: finishedTurns.currentPage + 1 })
                             setChangePageQuery(isQuery)
                         }
@@ -115,17 +114,17 @@ function FinishedTurn() {
                 >
                     {">>"}
                 </button>
-                
+
                 <div className="item">
-                <label>Items per page</label>
-                <Select 
-                    value={sizePage}
-                    onChange={(e)=>setSizePage(e.target.value)}
-                >
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={10}>10</MenuItem>
-                    <MenuItem value={20}>20</MenuItem>
-                </Select>
+                    <label>Items per page</label>
+                    <Select
+                        value={sizePage}
+                        onChange={(e) => setSizePage(e.target.value)}
+                    >
+                        <MenuItem value={5}>5</MenuItem>
+                        <MenuItem value={10}>10</MenuItem>
+                        <MenuItem value={20}>20</MenuItem>
+                    </Select>
                 </div>
             </div>
         </div>

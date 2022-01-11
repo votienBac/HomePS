@@ -2,7 +2,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import SearchBar from "./search.js"
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { DialogActions, Select, MenuItem} from '@material-ui/core';
+import { DialogActions, Select, MenuItem } from '@material-ui/core';
 import { useEffect, useRef, useState } from 'react'
 const UnusedPsList = () => {
     const navigate = useNavigate()
@@ -18,7 +18,6 @@ const UnusedPsList = () => {
 
     //Add new turn
     const handleAddTurn = async (psId) => {
-        console.log(psId);
         const postNewBillData = {
             psId: psId
         }
@@ -67,7 +66,7 @@ const UnusedPsList = () => {
                                     onClick={() => {
                                         psId.current = unusedPs.psId
                                         setAddTurnDialog(true);
-                                    }} style={{float:'right',marginRight:'3%'}}
+                                    }} style={{ float: 'right', marginRight: '3%' }}
                                 >
                                     Thêm lượt chơi
                                 </button>
@@ -85,7 +84,7 @@ const UnusedPsList = () => {
                 <button
                     onClick={() => {
                         if (unusedPs.currentPage > 1)
-                        setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage - 1 })
+                            setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage - 1 })
                     }}
                 >
                     {"<"}
@@ -100,7 +99,7 @@ const UnusedPsList = () => {
 
                     onClick={() => {
                         if (unusedPs.currentPage < unusedPs.totalPage)
-                        setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })
+                            setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })
                     }}
                 >
                     {">"}
@@ -111,15 +110,15 @@ const UnusedPsList = () => {
                     {">>"}
                 </button>
                 <div className="item">
-                <label>Items per page</label>
-                <Select 
-                    value={sizePage}
-                    onChange={(e)=>setSizePage(e.target.value)}
-                >
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={10}>10</MenuItem>
-                    <MenuItem value={20}>20</MenuItem>
-                </Select>
+                    <label>Items per page</label>
+                    <Select
+                        value={sizePage}
+                        onChange={(e) => setSizePage(e.target.value)}
+                    >
+                        <MenuItem value={5}>5</MenuItem>
+                        <MenuItem value={10}>10</MenuItem>
+                        <MenuItem value={20}>20</MenuItem>
+                    </Select>
                 </div>
             </div>
             <Dialog open={addTurnDialog} onClose={closeAddTurnDialog} >

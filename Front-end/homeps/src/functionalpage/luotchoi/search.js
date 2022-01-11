@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import '../../css/luotchoi.css';
 const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQuery, setChangePageQuery, size }) => {
     const [details, setDetails] = useState('')
-    console.log(details);
     const handleChange = (props) => {
         setDetails(props)
         if (props == '') {
@@ -15,7 +14,7 @@ const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQue
             handleSearch();
         }
     };
-    if(isQuery && isChangePageQuery){
+    if (isQuery && isChangePageQuery) {
         fetch(`https://homeps.herokuapp.com/api/bills/search?size=${size}&page=${query.currentPage}&query=${details}&status=${type}`, {
             method: 'GET',
         })
@@ -25,14 +24,11 @@ const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQue
     }
     const handleSearch = () => {
         setIsQuery(true);
-        console.log(details);
         fetch(`https://homeps.herokuapp.com/api/bills/search?size=${size}&query=${details}&status=${type}`, {
             method: 'GET',
         })
             .then(res => res.json())
             .then(res => setQuery(res))
-        console.log(query);
-        console.log(typeof (setQuery));
     }
 
     return (
@@ -46,13 +42,15 @@ const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQue
                             name='input'
                             placeholder='Nhập tên máy'
                             onChange={e => handleChange(e.target.value)}
-                            onKeyPress = {handleKeypress} 
+                            onKeyPress={handleKeypress}
                             value={details}
-                            style={{    fontFamily: "inherit",
+                            style={{
+                                fontFamily: "inherit",
                                 borderRadius: "50px",
                                 fontSize: "14px",
                                 padding: "0.5rem 1.5rem",
-                                width:'100px'}}
+                                width: '100px'
+                            }}
                         />
                         {/* <button onClick={handleSearch}> Search </button>                         */}
                     </div>

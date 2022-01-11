@@ -12,8 +12,7 @@ const formatTime = (str) =>{
     let minute = newDate.getMinutes();
     if(minute < 10) minute = '0' + minute;
 
-    let res = dd + '-' + mm + '-' + newDate.getFullYear() + ' '
-            + hh + ':' + minute;
+    let res =   hh + ':' + minute + ' ' + dd + '-' + mm + '-' + newDate.getFullYear();
     return res
 }
 export default formatTime

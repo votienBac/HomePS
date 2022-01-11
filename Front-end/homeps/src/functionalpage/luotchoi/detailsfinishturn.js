@@ -4,12 +4,12 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
-
+import formatTime from '../../utility/formattime';
 const DetailsFinishTurn = () => {
     const navigate = useNavigate()
     let params = useParams();
     const billId = params.id
-    const [turn, setTurn] = useState([])
+    const [turn, setTurn] = useState({ orderServices: [] })
 
 
     //Load the bill
@@ -46,17 +46,17 @@ const DetailsFinishTurn = () => {
                             <li>Tên máy</li>
                             <li>Thời điểm bắt đầu</li>
                             <li>Thời điểm kết thúc</li>
-                            <li>Danh sách dịch vụ</li>
+                            {(turn.orderServices.length != 0) && <li>Danh sách dịch vụ</li>}
                         </ul>
                         <ul className="top-bar-details-inf">
                             <li className="row">{turn.billId}</li>
                             <li className="row">{turn.playStation && turn.playStation.psName}</li>
-                            <li className="row">{turn.timeStart}</li>
-                          <li className="row">{turn.timeEnd}</li>
-                          </ul>
+                            <li className="row">{formatTime(turn.timeStart)}</li>
+                            <li className="row">{formatTime(turn.timeEnd)}</li>
+                        </ul>
                     </div>
-                    <div  className="list-service">
-                        <table className='tb' style={{width: '70%',}}>
+                    {(turn.orderServices.length != 0) && <div className="list-service">
+                        <table className='tb' style={{ width: '70%', }}>
                             <tbody className='t'>
                                 <tr className='table-list'>
                                     <th>Tên</th>
@@ -72,19 +72,18 @@ const DetailsFinishTurn = () => {
                                 })}
                             </tbody>
                         </table>
-
-                    </div>
-                    <div className='button-detail'> 
-                    <button className='back'
+                    </div>}
+                    <div className='button-detail'>
+                        <button className='back'
                             onClick={() => navigate(-1)}>
                             Quay lại</button>
-                    <button className="delete-turn"
-                                onClick={() => { setDeleteTurnDialog(true) }}>
-                                Xóa lượt chơi
-                            </button>
+                        <button className="delete-turn"
+                            onClick={() => { setDeleteTurnDialog(true) }}>
+                            Xóa lượt chơi
+                        </button>
                     </div>
                 </div>
-                
+
 
                 <Dialog open={deleteTurnDialog} onClose={closeDeleteTurnDialog} >
                     <DialogTitle>Bạn có chắc chắn muốn xóa lượt chơi?</DialogTitle>

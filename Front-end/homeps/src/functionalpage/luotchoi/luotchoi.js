@@ -16,8 +16,8 @@ export default function LuotChoi() {
         <Routes>
             <Route path='' element={<CurrentTurnList />} />
             <Route path='finished-turn'>
-                <Route path = '' element={<FinishedTurn />}></Route>
-                <Route path = {`:id`} element={<DetailsFinishTurn />}></Route>
+                <Route path='' element={<FinishedTurn />}></Route>
+                <Route path={`:id`} element={<DetailsFinishTurn />}></Route>
             </Route>
             <Route path='current-turn'>
                 <Route path={`:id`} element={<DetailsTurn type='1' />}></Route>

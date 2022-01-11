@@ -21,24 +21,23 @@ const CurrentTurnList = () => {
             .then(res => res.json())
             .then(res => setCurrentTurns(res))
     }, [currentTurns.currentPage, sizePage])
-    console.log(currentTurns);
     return (
         <div className="luot-choi">
             <div className="header-luot-choi" >
-            <Link to='' className="hien-tai"><button>Lượt chơi hiện tại</button></Link>
-            <Link to='finished-turn'><button>Lượt chơi đã kết thúc</button></Link>
-            <div className="search-bar">
-                <SearchBar 
-                type = 'unpaid'
-                query = {currentTurns}
-                setQuery = {setCurrentTurns}
-                isQuery = {isQuery}
-                setIsQuery = {setIsQuery}
-                isChangePageQuery = {isChangePageQuery}
-                setChangePageQuery = {setChangePageQuery}
-                size={sizePage}
-                />                
-            </div>
+                <Link to='' className="hien-tai"><button>Lượt chơi hiện tại</button></Link>
+                <Link to='finished-turn'><button>Lượt chơi đã kết thúc</button></Link>
+                <div className="search-bar">
+                    <SearchBar
+                        type='unpaid'
+                        query={currentTurns}
+                        setQuery={setCurrentTurns}
+                        isQuery={isQuery}
+                        setIsQuery={setIsQuery}
+                        isChangePageQuery={isChangePageQuery}
+                        setChangePageQuery={setChangePageQuery}
+                        size={sizePage}
+                    />
+                </div>
 
             </div>
             <table className="tb">
@@ -74,7 +73,7 @@ const CurrentTurnList = () => {
                 </button>
                 <button
                     onClick={() => {
-                        if (currentTurns.currentPage > 1){
+                        if (currentTurns.currentPage > 1) {
                             setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage - 1 })
                             setChangePageQuery(isQuery)
                         }
@@ -95,7 +94,7 @@ const CurrentTurnList = () => {
                 <button
 
                     onClick={() => {
-                        if (currentTurns.currentPage < currentTurns.totalPage){
+                        if (currentTurns.currentPage < currentTurns.totalPage) {
                             setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage + 1 })
                             setChangePageQuery(isQuery)
                         }
@@ -113,15 +112,15 @@ const CurrentTurnList = () => {
                     {">>"}
                 </button>
                 <div className="item">
-                <label>Items per page</label>
-                <Select 
-                    value={sizePage}
-                    onChange={(e)=>setSizePage(e.target.value)}
-                >
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={10}>10</MenuItem>
-                    <MenuItem value={20}>20</MenuItem>
-                </Select>
+                    <label>Items per page</label>
+                    <Select
+                        value={sizePage}
+                        onChange={(e) => setSizePage(e.target.value)}
+                    >
+                        <MenuItem value={5}>5</MenuItem>
+                        <MenuItem value={10}>10</MenuItem>
+                        <MenuItem value={20}>20</MenuItem>
+                    </Select>
                 </div>
             </div>
             <Link to="addturn"><button>Thêm lượt chơi</button></Link>
