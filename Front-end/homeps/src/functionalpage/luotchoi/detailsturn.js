@@ -5,6 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
 import formatTime from '../../utility/formattime.js'
+import '../../css/detail.css';
 let addS = 0, removeS = 0
 
 const DetailsTurn = (props) => {
@@ -123,54 +124,55 @@ const DetailsTurn = (props) => {
         <div>
             <section className="turn-details">
                 <div className="container">
-                    <div className="col">
+
+                    <div className="col-detail">
+                        <ul className="top-bar-detailsName">
+                            <li>ID lượt chơi:</li>
+                            <li>Tên máy:</li>
+                            <li>Thời điểm bắt đầu:</li>
+                            <li>Danh sách dịch vụ</li>
+                        </ul>
+                        <ul className="top-bar-details-inf">
+                            <li>{turn.billId}</li>
+                            <li>{turn.playStation && turn.playStation.psName}</li>
+                            <li>{formatTime(turn.timeStart)}</li>
+                        </ul>
+                    </div>
+                    <div className="list-service">
+                        <table className='tb' style={{width: '70%',}} >
+                            <tbody className='t'>
+                                <tr className='table-list'>
+                                    <th>Tên</th>
+                                    <th >Số lượng</th>
+                                    </tr>                                    {turn.orderServices && turn.orderServices.map(orderService => {
+                                    return (
+                                        <tr key={orderService.service.serviceId} className='list-turn'>
+                                            <td>{orderService.service.serviceName}</td>
+                                            <td>{orderService.quantity}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className='button-detail'>  
                         <button
                             className='back'
                             onClick={() => navigate(-1)}>
                             Quay lại</button>
-                    </div>
-                    <div className="col">
-                        <ul className="top-bar-detailsName">
-                            <li className="row">ID lượt chơi</li>
-                            <li className="row">Tên máy</li>
-                            <li className="row">Thời điểm bắt đầu</li>
-                            <li className="row">Danh sách dịch vụ</li>
-                        </ul>
                         <div className="top-bar-button-3">
-                            <button className="row" onClick={() => openChangeServicesDialog(1, 0)}>Thêm dịch vụ</button>
-                            <button className="row" onClick={() => openChangeServicesDialog(0, 1)}>Xóa dịch vụ</button>
-                            <button onClick={() => setPaymentDialog(true)} className="row">Thanh toán</button>
-                        </div>
+                        <button className="row" onClick={() => openChangeServicesDialog(1, 0)}>Thêm dịch vụ</button>
+                        <button className="row" onClick={() => openChangeServicesDialog(0, 1)}>Xóa dịch vụ</button>
+                        <button onClick={() => setPaymentDialog(true)} className="row">Thanh toán</button>
+                        <button
+                            className="delete-turn"
+                            onClick={() => { setDeleteTurnDialog(true) }}>
+                            Xóa lượt chơi
+                        </button>    
                     </div>
-                    <div className="col">
-                        <ul className="top-bar-details-inf">
-                            <li className="row">{turn.billId}</li>
-                            <li className="row">{turn.playStation && turn.playStation.psName}</li>
-                            <li className="row">{formatTime(turn.timeStart)}</li>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <th>Tên</th>
-                                        <th>Số lượng</th>
-                                    </tr>
-                                    {turn.orderServices && turn.orderServices.map(orderService => {
-                                        return (
-                                            <tr key={orderService.service.serviceId}>
-                                                <td>{orderService.service.serviceName}</td>
-                                                <td>{orderService.quantity}</td>
-                                            </tr>
-                                        )
-                                    })}
-                                </tbody>
-                            </table>
-                            <button
-                                className="delete-turn"
-                                onClick={() => { setDeleteTurnDialog(true) }}>
-                                Xóa lượt chơi
-                            </button>
-                        </ul>
-                    </div>
-                </div>
+                </div>      
+            </div>
+                
                 <Dialog open={changeServicesDialog} onClose={closeChangeServicesDialog} >
                     <table>
                         <tbody>
