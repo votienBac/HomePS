@@ -4,7 +4,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions, Select, MenuItem} from '@material-ui/core';
 import { useEffect, useRef, useState } from 'react'
-
 const UnusedPsList = () => {
     const navigate = useNavigate()
     const [unusedPs, setUnusedPs] = useState({
@@ -50,17 +49,16 @@ const UnusedPsList = () => {
 
     return (
         <div>
-            <table>
-                <tbody>
-                    <tr>
-                        <th className="text-align-left" style={{ width: '50px' }}>PS ID</th>
-                        <th className="text-align-left">Máy</th>
-                        <th className="text-align-left" style={{ width: "50px" }}>Tình trạng</th>
-                        <th className="text-align-center" style={{ width: "100px" }}>Hành động</th>
-                        <th className="text-align-right" style={{ width: "150px" }}></th>
+            <table className="tb">
+                <tbody className="t">
+                    <tr className="table-list">
+                        <th >PS ID</th>
+                        <th >Máy</th>
+                        <th >Tình trạng</th>
+                        <th >Hành động</th>
                     </tr>
                     {unusedPs.psList.map(unusedPs => {
-                        return (<tr key={unusedPs.psId}>
+                        return (<tr key={unusedPs.psId} className="list-turn">
                             <td>{unusedPs.psId}</td>
                             <td>{unusedPs.psName}</td>
                             <td>{unusedPs.psState}</td>
@@ -69,7 +67,7 @@ const UnusedPsList = () => {
                                     onClick={() => {
                                         psId.current = unusedPs.psId
                                         setAddTurnDialog(true);
-                                    }}
+                                    }} style={{float:'right',marginRight:'3%'}}
                                 >
                                     Thêm lượt chơi
                                 </button>
@@ -78,11 +76,6 @@ const UnusedPsList = () => {
                     })}
                 </tbody>
             </table>
-            <button
-                onClick={() => navigate(-1)}
-            >
-                Quay lại
-            </button>
             <div className='paging'>
                 <button
                     onClick={() => setUnusedPs({ ...unusedPs, currentPage: 1 })}
@@ -117,6 +110,7 @@ const UnusedPsList = () => {
                 >
                     {">>"}
                 </button>
+                <div className="item">
                 <label>Items per page</label>
                 <Select 
                     value={sizePage}
@@ -126,6 +120,7 @@ const UnusedPsList = () => {
                     <MenuItem value={10}>10</MenuItem>
                     <MenuItem value={20}>20</MenuItem>
                 </Select>
+                </div>
             </div>
             <Dialog open={addTurnDialog} onClose={closeAddTurnDialog} >
                 <DialogTitle>Bạn có chắc chắn muốn thêm lượt chơi?</DialogTitle>
@@ -140,7 +135,11 @@ const UnusedPsList = () => {
                     <button onClick={() => navigate('/luotchoi')}>Quay về trang chủ</button>
                 </DialogActions>
             </Dialog>
-        
+            <button
+                onClick={() => navigate(-1)}
+            >
+                Quay lại
+            </button>
         </div>)
 }
 
