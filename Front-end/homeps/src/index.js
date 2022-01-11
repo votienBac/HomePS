@@ -61,8 +61,9 @@ export default function App() {
                                 <Tab value = 'sukien' label="Sự kiện" />
                                 <Tab value = 'dichvu' label="Dịch vụ" />
                                 <Tab value = 'thongke' label="Thống kê" />
-                                <Tab value = 'taikhoan' label="Tài khoản" />
+                                <Tab value = 'taikhoan' label="Tài khoản"/>
                         </Tabs>
+
                 </div>
                 <label>
                         <input type="checkbox" onChange={()=> setDarkMode(!darkMode)}></input>
