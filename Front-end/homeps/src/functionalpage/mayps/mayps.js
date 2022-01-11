@@ -1,7 +1,7 @@
-import { Link,   Routes, Route, useNavigate } from "react-router-dom"
+import { Link,   Routes, Route} from "react-router-dom"
 import { useState, useEffect } from "react"
 import PsSearch from './PsSearch.js'
-import { Select, MenuItem, DialogActions } from "@material-ui/core";
+import { Select, MenuItem } from "@material-ui/core";
 import EditForm from "./editform";
 import AddForm from "./addform";
 
@@ -20,7 +20,7 @@ export default function MayPS(){
 )
 }
 function ExtraMayPS() {
-    const navigate = useNavigate()
+
     const [data, setData] = useState({
       psList:[],
       currentPage: 1,

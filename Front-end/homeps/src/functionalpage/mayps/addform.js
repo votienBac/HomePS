@@ -1,8 +1,6 @@
 import React,{} from 'react'
 import { useNavigate } from "react-router-dom";
-
-import { useParams} from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -13,10 +11,6 @@ const AddForm = () => {
   const Back = () => {
       navigate(-1, {replace: true});
   } 
-  let params = useParams();
-  const psId = params.id
-  // const psName = params.id
-  // const psStatus = params.id
     //change dataPs
 
     const [ details,setDetails] = useState({psName:"",psStatus:""});
