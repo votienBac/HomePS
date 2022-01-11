@@ -7,6 +7,7 @@ const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQue
         setDetails(props)
         if (props == '') {
             setIsQuery(false)
+            setQuery({ ...query, currentPage: 1 })
         }
     }
     const handleKeypress = e => {

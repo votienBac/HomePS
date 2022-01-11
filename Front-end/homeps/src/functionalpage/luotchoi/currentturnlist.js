@@ -6,6 +6,8 @@ import formatTime from '../../utility/formattime.js'
 import '../../css/luotchoi.css';
 const CurrentTurnList = () => {
     const [sizePage, setSizePage] = useState(10)
+    const [isQuery, setIsQuery] = useState(false)
+    const [isChangePageQuery, setChangePageQuery] = useState(false)
     const [currentTurns, setCurrentTurns] = useState({
         currentPage: 1,
         currentPlaying: 0,
@@ -30,6 +32,10 @@ const CurrentTurnList = () => {
                 type = 'unpaid'
                 query = {currentTurns}
                 setQuery = {setCurrentTurns}
+                isQuery = {isQuery}
+                setIsQuery = {setIsQuery}
+                isChangePageQuery = {isChangePageQuery}
+                setChangePageQuery = {setChangePageQuery}
                 size={sizePage}
                 />                
             </div>
@@ -59,34 +65,50 @@ const CurrentTurnList = () => {
             </table>
             <div className='paging'>
                 <button
-                    onClick={() => setCurrentTurns({ ...currentTurns, currentPage: 1 })}>
+                    onClick={() => {
+                        setCurrentTurns({ ...currentTurns, currentPage: 1 })
+                        setChangePageQuery(isQuery)
+                    }
+                    }>
                     {"<<"}
                 </button>
                 <button
                     onClick={() => {
-                        if (currentTurns.currentPage > 1)
+                        if (currentTurns.currentPage > 1){
                             setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage - 1 })
+                            setChangePageQuery(isQuery)
+                        }
                     }}
                 >
                     {"<"}
                 </button>
                 <button>{currentTurns.currentPage}</button>
                 {(currentTurns.currentPage == currentTurns.totalPage) || <button
-                    onClick={() => setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage + 1 })}
+                    onClick={() => {
+                        setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage + 1 })
+                        setChangePageQuery(isQuery)
+                    }
+                    }
                 >
                     {currentTurns.currentPage + 1}
                 </button>}
                 <button
 
                     onClick={() => {
-                        if (currentTurns.currentPage < currentTurns.totalPage)
+                        if (currentTurns.currentPage < currentTurns.totalPage){
                             setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage + 1 })
+                            setChangePageQuery(isQuery)
+                        }
                     }}
                 >
                     {">"}
                 </button>
                 <button
-                    onClick={() => setCurrentTurns({ ...currentTurns, currentPage: currentTurns.totalPage })}
+                    onClick={() => {
+                        setCurrentTurns({ ...currentTurns, currentPage: currentTurns.totalPage })
+                        setChangePageQuery(isQuery)
+                    }
+                    }
                 >
                     {">>"}
                 </button>
