@@ -123,4 +123,17 @@
     border-radius: 50% ;
     transition: 0.5s;
   }
-  
+.pageMain-dark button{
+  background-color: rgb(15, 55, 82);
+}
+.pageMain-dark .table-list{
+  background-color: rgb(133, 171, 243);
+}
+.pageMain-dark .table-list th{
+  color: aliceblue;
+}
+.pageMain-dark #input{
+  background-color: rgb(63, 62, 62);
+  border: 1px solid rgb(229, 233, 229);
+  color: #fff;
+}

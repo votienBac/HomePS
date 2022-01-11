@@ -1,7 +1,8 @@
 .queryBox{
-    margin-top: 1%px;
+    margin-top: 1%;
     margin-bottom: 2%;
     display:inline-flex;
+    position: relative;
 }
 .queryBox label{
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;

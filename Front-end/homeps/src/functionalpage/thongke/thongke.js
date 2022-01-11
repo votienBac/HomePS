@@ -31,7 +31,7 @@ export default function ThongKe(){
         <div>
             {isQueryNgay? (
             <div className="queryBox">
-                <label>Begin </label>
+                <label>Bắt đầu </label>
                 <DatePicker className = 'startTime' 
                             selected={dateBegin} 
                             onChange={(date) => setDateBegin(date)} 
@@ -39,7 +39,7 @@ export default function ThongKe(){
                             minDate = {new Date("2021/12/23")}
                             maxDate={dateEnd}
                             />
-                <label>End </label>
+                <label>Kết thúc </label>
                 <DatePicker className= 'endTime'
                             selected={dateEnd} 
                             onChange={(date) => setDateEnd(date)} 
@@ -47,7 +47,7 @@ export default function ThongKe(){
                             minDate={dateBegin}
                             maxDate={new Date()}
                             />
-                <label>Type </label>
+                <label>Kiểu </label>
                 <Select 
                     value={queryType}
                     label="Chọn loại thống kê"
@@ -62,7 +62,7 @@ export default function ThongKe(){
             )
             :(
             <div className="queryBox">
-                <label>Begin </label>
+                <label>Bắt đầu </label>
                 <DatePicker className = 'startTime' 
                             selected={dateBegin} 
                             onChange={(date) => setDateBegin(date)} 
@@ -72,7 +72,7 @@ export default function ThongKe(){
                             showMonthYearPicker
                             label = 'start'
                             />
-                <label>End </label>
+                <label>Kết thúc </label>
                 <DatePicker className= 'endTime'
                             selected={dateEnd} 
                             onChange={(date) => setDateEnd(date)} 
@@ -81,7 +81,7 @@ export default function ThongKe(){
                             maxDate={new Date()}
                             showMonthYearPicker
                             />
-                <label>Type </label>
+                <label>Kiểu </label>
                 <Select 
                     value={queryType}
                     label="Chọn loại thống kê"
@@ -129,6 +129,6 @@ function getParsedMonth(date){
 
 const useStyles = makeStyles((theme) => ({
     selectRoot: {
-        backgroundColor: "white"
+        backgroundColor: "white",
     }
   }));

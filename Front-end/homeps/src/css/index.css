@@ -99,7 +99,7 @@ button {
   font-weight: 500;
   cursor: pointer;
   transition: 0.4s;
-  background-color: #019160;
+  background-color: rgb(37, 156, 117);
  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .header label{
@@ -151,4 +151,8 @@ button {
   height: 16px;
   border-radius: 50% ;
   transition: 0.5s;
+}
+
+.pageMain #input{
+  border: 2px solid green;
 }

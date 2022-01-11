@@ -49,11 +49,9 @@ const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQue
                             onKeyPress = {handleKeypress} 
                             value={details}
                             style={{    fontFamily: "inherit",
-                                border: "2px solid green",
                                 borderRadius: "50px",
                                 fontSize: "14px",
                                 padding: "0.5rem 1.5rem",
-                                backgroundColor: "white",
                                 width:'100px'}}
                         />
                         {/* <button onClick={handleSearch}> Search </button>                         */}
