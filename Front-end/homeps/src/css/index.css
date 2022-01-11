@@ -156,3 +156,12 @@ button {
 .pageMain #input{
   border: 2px solid green;
 }
+.pageMain form:after{
+  background: #092c3e;
+}
+.pageMain form .form-inner h2{
+  color: #000;
+}
+.pageMain .form-inner .form-group label{
+  color: #000;
+}
