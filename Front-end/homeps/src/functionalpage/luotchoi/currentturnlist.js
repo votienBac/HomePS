@@ -15,11 +15,12 @@ const CurrentTurnList = () => {
         totalPage: 1
     });
     useEffect(() => {
-        fetch(`https://homeps.herokuapp.com/api/bills?page=${currentTurns.currentPage}&size=${sizePage}&status=${'unpaid'}`, {
-            method: 'GET'
-        })
-            .then(res => res.json())
-            .then(res => setCurrentTurns(res))
+        if (!isQuery)
+            fetch(`https://homeps.herokuapp.com/api/bills?page=${currentTurns.currentPage}&size=${sizePage}&status=${'unpaid'}`, {
+                method: 'GET'
+            })
+                .then(res => res.json())
+                .then(res => setCurrentTurns(res))
     }, [currentTurns.currentPage, sizePage])
     return (
         <div className="luot-choi">
@@ -115,7 +116,10 @@ const CurrentTurnList = () => {
                     <label>Items per page</label>
                     <Select
                         value={sizePage}
-                        onChange={(e) => setSizePage(e.target.value)}
+                        onChange={(e) => {
+                            setSizePage(e.target.value)
+                            setChangePageQuery(isQuery)
+                        }}
                     >
                         <MenuItem value={5}>5</MenuItem>
                         <MenuItem value={10}>10</MenuItem>

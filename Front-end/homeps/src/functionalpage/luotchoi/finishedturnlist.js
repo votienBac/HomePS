@@ -22,7 +22,7 @@ function FinishedTurn() {
             })
                 .then(res => res.json())
                 .then(finishedTurns => { setFinishedTurns(finishedTurns) })
-    }, [finishedTurns.currentPage, sizePage, isQuery])
+    }, [finishedTurns.currentPage, sizePage])
     return (
         <div className="luot-choi">
             <div className="header-luot-choi" >
@@ -119,7 +119,10 @@ function FinishedTurn() {
                     <label>Items per page</label>
                     <Select
                         value={sizePage}
-                        onChange={(e) => setSizePage(e.target.value)}
+                        onChange={(e) => {
+                            setSizePage(e.target.value)
+                            setChangePageQuery(isQuery)
+                        }}
                     >
                         <MenuItem value={5}>5</MenuItem>
                         <MenuItem value={10}>10</MenuItem>
