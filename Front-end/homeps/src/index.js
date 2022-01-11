@@ -132,7 +132,7 @@ export default function App() {
                                 setDarkMode(!darkMode);
                                 changeMode()
                                 }}></input>
-                        <span class="check"></span>
+                        <span className="check"></span>
                 </label>
 
         </div>

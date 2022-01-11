@@ -6,6 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Select, MenuItem, DialogActions } from "@material-ui/core";
 import AddEvent from './AddEvent.js'
+import '../../css/luotchoi.css';
 
 const CurrentEventList = () => {
     const [currentEvents, setCurrentEvents] = useState({
@@ -14,7 +15,10 @@ const CurrentEventList = () => {
         eventList: []
     });
     const [addEventDialog, setAddEventDialog] = useState(false)
-    const closeAddEventDialog = () => setAddEventDialog(false)
+    const closeAddEventDialog = () => {
+        setAddEventDialog(false)
+    }
+    const [isAdded, setAdded] = useState(false)
     const [sizePage, setSizePage] = useState(10)
     const [isQuery, setIsQuery] = useState(false)
     const [isChangePageQuery, setChangePageQuery] = useState(false)
@@ -26,9 +30,9 @@ const CurrentEventList = () => {
         })
             .then(res => res.json())
             .then(res => { setCurrentEvents(res) })
-    }, [currentEvents.currentPage, sizePage])
+    }, [currentEvents.currentPage, sizePage, isAdded])
     return (
-        <div>
+        <div className="luot-choi">
             <div className="search-bar">    
                 <EventSearch 
                 query = {currentEvents}
@@ -38,12 +42,13 @@ const CurrentEventList = () => {
                 isChangePageQuery = {isChangePageQuery}
                 setChangePageQuery = {setChangePageQuery}
                 size={sizePage}
+                style = {{display: 'flex', float: 'right'}}
                 />                
             </div>
 
-            <table id='current-services-list'>
-                <tbody>
-                    <tr>
+            <table className="tb">
+                <tbody className="t">
+                    <tr className="table-list">
                         <th >ID</th>
                         <th >Tên sự kiện</th>
                         <th >Tình trạng</th>
@@ -51,13 +56,13 @@ const CurrentEventList = () => {
                         <th ></th>
                     </tr>
                     {currentEvents.eventList.map(currentEvent => {
-                        return (<tr key={currentEvent.eventId}>
+                        return (<tr key={currentEvent.eventId} className="list-turn">
                             <td>{currentEvent.eventId}</td>
                             <td>{currentEvent.eventName}</td>
                             <td>{currentEvent.happenning?"Được áp dụng":"Không áp dụng"}</td>
                             <td>{currentEvent.percentDiscount}%</td>
                             <td>
-                                <Link to={`current-event/${currentEvent.eventId}`} >Xem Chi tiết</Link>
+                                <Link to={`current-event/${currentEvent.eventId}`} className="xem-ct">Xem Chi tiết</Link>
                             </td>
                         </tr>)
                     })}
@@ -134,7 +139,7 @@ const CurrentEventList = () => {
             <Dialog open={addEventDialog} onClose={closeAddEventDialog} >
                 <DialogTitle>Thêm sự kiện</DialogTitle>
                 <DialogActions>
-                    <AddEvent/>
+                    <AddEvent isAdded={isAdded} setAdded={setAdded} close = {closeAddEventDialog}/>
                 </DialogActions>
             </Dialog>
         </div>)

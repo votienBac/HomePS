@@ -4,8 +4,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
-import formatTime from '../../utility/formattime.js'
-
+import formatTime from '../../utility/formattime.js';
+import "../../css/luotchoi.css";
 const DetailsEvent = (props) => {
     const navigate = useNavigate()
     let params = useParams();
@@ -22,7 +22,12 @@ const DetailsEvent = (props) => {
             .then(event => setEvent(event))
     },[checkChangeEvent])
 
-    let eventTmp = event
+    let eventTmp = {
+        eventName: null,
+        percentDiscount: null,
+        timeEnd: null,
+        timeStart: null
+    }
 
     //Delete Event Dialog
     const [deleteEventDialog, setDeleteEventDialog] = useState(false)
@@ -44,13 +49,13 @@ const DetailsEvent = (props) => {
     }
     const handleChangeInforEvent = (key, infor) => {
         if(key=="EventName"){
-            eventTmp.EventName = infor;
+            eventTmp.eventName = infor;
         }
         else if(key=="timeStart"){
-            eventTmp.timeStart = infor;
+            eventTmp.timeStart = new Date(infor);
         }
         else if(key=="timeEnd"){
-            eventTmp.timeEnd = infor;
+            eventTmp.timeEnd = new Date(infor);
         }
         else if(key=="percentDiscount"){
             infor = parseInt(infor)
@@ -70,7 +75,7 @@ const DetailsEvent = (props) => {
                 "Content-Type": "application/json",
                 "x-access-token": "token-value",
             },
-            body: JSON.stringify({ eventTmp })
+            body: JSON.stringify(eventTmp)
         })
         setCheckChangeEvent(!checkChangeEvent)
         closeChangeEventsDialog()

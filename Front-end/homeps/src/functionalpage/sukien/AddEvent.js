@@ -1,28 +1,30 @@
 import { useState } from "react"
 
-function AddEvent(){
+function AddEvent({isAdded, setAdded, close}){
     const [checkChangeEvent, setCheckChangeEvent] = useState(false)
-    let event = []
+    let event = {
+        eventName: null,
+        percentDiscount: null,
+        timeEnd: null,
+        timeStart: null
+    }
     //Change Event 
     const handleChangeInforEvent = (key, infor) => {
         if(key=="EventName"){
-            event.EventName = infor;
+            event.eventName = infor;
         }
         else if(key=="timeStart"){
-            event.timeStart = infor;
+            event.timeStart = new Date(infor);
         }
         else if(key=="timeEnd"){
-            event.timeEnd = infor;
+            event.timeEnd = new Date(infor);
         }
         else if(key=="percentDiscount"){
             infor = parseInt(infor)
             event.percentDiscount = infor;
         }
     }
-    const [changeEventsDialog, setChangeEventsDialog] = useState(false)
-    const closeChangeEventsDialog = () => {
-        setChangeEventsDialog(false)
-    }
+    
     const handleChangeEvents = async () => {
         await fetch(`https://homeps.herokuapp.com/api/events`, {
             method: 'POST',
@@ -30,10 +32,11 @@ function AddEvent(){
                 "Content-Type": "application/json",
                 "x-access-token": "token-value",
             },
-            body: JSON.stringify({ event })
+            body: JSON.stringify(event)
         })
         setCheckChangeEvent(!checkChangeEvent)
-        closeChangeEventsDialog()
+        setAdded(!isAdded)
+        close()
     }
 
     return(
@@ -80,7 +83,7 @@ function AddEvent(){
                 </tbody>
             </table>
             <button onClick={handleChangeEvents}>Thay đổi</button>
-            <button onClick={closeChangeEventsDialog}>Quay lại</button>
+            <button onClick={close}>Quay lại</button>
         </div>
     )
 }
