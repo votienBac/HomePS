@@ -1,176 +1,147 @@
-import React, {useState} from "react";
-import { 
-    CButton,
-    CCardBody,
-    CCollapse,
-    CRow,CCol,
-    CSmartTable,
- } from '@coreui/react-pro';
-import {
-  Routes,
-  Route,
-  Link
-} from 'react-router-dom';
-//import '@coreui/coreui/dist/css/coreui.min.css';
-import Form from "./form";
+import { Link,   Routes, Route, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import PsSearch from './PsSearch.js'
+import { Select, MenuItem, DialogActions } from "@material-ui/core";
+import EditForm from "./editform";
+import AddForm from "./addform";
 
 export default function MayPS(){
   return (
     <Routes>
         <Route path='' element={<ExtraMayPS />} />
-        <Route path="/form" element={<Form />} />
+        <Route path ='editform'>
+            <Route path={`:id`} element={<EditForm />} />
+        </Route>
+        <Route path='addform'>
+            <Route path='' element={<AddForm />}></Route>
+        </Route>
     </Routes>
 
 )
 }
-function ExtraMayPS(){
-    const [details, setDetails] = useState([])
+function ExtraMayPS() {
+    const navigate = useNavigate()
+    const [data, setData] = useState({
+      psList:[],
+      currentPage: 1,
+      totalPage: 1,
+    });
+    const [sizePage, setSizePage] = useState(10)
+    const [isQuery, setIsQuery] = useState(false)
+    const [isChangePageQuery, setChangePageQuery] = useState(false)
+    var psList = data.psList;
+    useEffect(() => {
+        if(!isQuery)
+            fetch(`https://homeps.herokuapp.com/api/ps?page=${data.currentPage}&size=${sizePage}&status=${'full'}`, {
+           
+                method: 'GET'
+            })
+                .then(res => res.json())
+                .then(res => { setData(res) })
+        }, [data.currentPage, sizePage])
 
-    const columns = [
-      { key: 'psId',label: 'Mã máy',filter: false, sorter: false,_style: { wpsIdth: '5%' } },
-      {key: 'psName',label: 'Tên máy',_style: { wpsIdth: '20%' },_props: { color: 'primary', className: 'fw-semibold' },},
-      // 'registered',
-      // 'Thời_gian_cập_nhật',
-      { key: 'psStatus',label: 'Tình trạng máy', filter: false, sorter: false, _style: { wpsIdth: '30%' } },
-    
-      { key: 'psState',label: 'Trạng thái máy',_style: { wpsIdth: '10%' } },
-      {
-        key: 'show_details',label: '',
-        _style: { wpsIdth: '10%' },
-        filter: false,
-        sorter: false,
-        _props: { color: 'primary', className: 'fw-semibold' },
-      },
-    ]
-    const usersData = [
-      { psId: '#May01',
-        psName: '01',
-        Thời_gian_cập_nhật: '2018/01/01',
-        psStatus: 'PS5',
-        psState: 'Đang chơi' },
-        { psId: '#May02',
-        psName: '02',
-        Thời_gian_cập_nhật: '2018/01/02',
-        psStatus: 'PS5',
-        psState: 'Trống' },
-        { psId: '#May03',
-        psName: '03',
-        Thời_gian_cập_nhật: '2018/01/03',
-        psStatus: 'PS4',
-        psState: 'Đang chơi' },
-        { psId: '#May04',
-        psName: '04',
-        Thời_gian_cập_nhật: '2018/01/01',
-        psStatus: 'PS5',
-        psState: 'Đang chơi' },
-        { psId: '#May05',
-        psName: '05',
-        Thời_gian_cập_nhật: '2018/01/01',
-        psStatus: 'PS5',
-        psState: 'Trống' },
-        { psId: '#May06',
-        psName: '06',
-        Thời_gian_cập_nhật: '2018/01/03',
-        psStatus: 'PS5',
-        psState: 'Hỏng' },
-        { psId: '#May07',
-        psName: '07',
-        Thời_gian_cập_nhật: '2018/01/09',
-        psStatus: 'PS4',
-        psState: 'Đang chơi' },
-        { psId: '#May08',
-        psName: '08',
-        Thời_gian_cập_nhật: '2018/01/10',
-        psStatus: 'PS5',
-        psState: 'Trống' },
-        { psId: '#May09',
-        psName: '09',
-        Thời_gian_cập_nhật: '2018/01/05',
-        psStatus: 'PS5',
-        psState: 'Đang chơi' },
-        { psId: '#May10',
-        psName: '10',
-        Thời_gian_cập_nhật: '2018/01/01',
-        psStatus: 'PS4',
-        psState: 'Đang chơi' },
-    ]
- 
-const toggleDetails = (index) => {
-  const position = details.indexOf(index)
-  let newDetails = details.slice()
-  if (position !== -1) {
-    newDetails.splice(position, 1)
-  } else {
-    newDetails = [...details, index]
-  }
-  setDetails(newDetails)
-} // hiển thị show
-return (
-  <CRow>
-  <CSmartTable
-    activePage={1}
-    cleaner
-    clickableRows
-    columns={columns}
-    columnFilter
-    columnSorter
-    footer
-    items={usersData}
-    pagination
-    itemsPerPageSelect // số lượng item trong 1 bảng
-    itemsPerPage={5} // chọn trang
-    
-    scopedColumns={{
+    return (
+      
+        <div className="luot-choi">
+            {/* <SearchBar type = 'unpaid'/> */}
+            <div className="search-bar">    
+                <PsSearch
+                query = {data}
+                setQuery = {setData}
+                isQuery = {isQuery}
+                setIsQuery = {setIsQuery}
+                isChangePageQuery = {isChangePageQuery}
+                setChangePageQuery = {setChangePageQuery}
+                size={sizePage}
+                />                
+            </div> <br></br>
+            <table className="tb" >
+                <tbody className="t">
+                    <tr className="table-list"  >
+                        <th >ID</th>
+                        <th >Máy</th>
+                        <th >Trạng thái</th>
+                        <th >Tình trạng</th>
+                        <th ></th>
+                    </tr>
+                    {psList.map(psList => {
+                        return (
+                        <tr key={psList.psId}  className="list-turn">
+                            <td> {psList.psId}</td>
+                            <td> {psList.psName}</td>
+                            <td> {psList.psStatus}</td>
+                            <td> {psList.psState}</td>
+                            {/* <td> <Link to={`${psList.psId}`}>Sửa</Link></td> */}
+                            <td><Link to={`editform/${psList.psId}`} >Sửa</Link> </td>
+                        </tr>)
+                    })}
+                </tbody>
+            </table>
+            <div className='paging'>
+                <button
+                    onClick={() => {
+                        setData({ ...data, currentPage: 1 })
+                        setChangePageQuery(isQuery)
+                    }
+                    }>
+                    {"<<"}
+                </button>
+                <button
+                    onClick={() => {
+                        if (data.currentPage > 1){
+                            setData({ ...data, currentPage: data.currentPage - 1 })
+                            setChangePageQuery(isQuery)
+                        }
+                    }}
+                >
+                    {"<"}
+                </button>
+                <button>{data.currentPage}</button>
+                {(data.currentPage == data.totalPage) || <button
+                    onClick={() => {
+                        setData({ ...data, currentPage: data.currentPage + 1 })
+                        setChangePageQuery(isQuery)
+                    }
+                    }
+                >
+                    {data.currentPage + 1}
+                </button>}
+                <button
 
-      show_details: (item) => {
-        return (
-          <td className="py-2">
-            <CButton
-              color="primary"
-              variant="outline"
-              shape="square"
-              size="sm"
-              onClick={() => {
-                toggleDetails(item._id)
-              }}
-            >
-              {details.includes(item._id) ? 'Hide' : 'Show'}
-            </CButton>
-          </td>
-        )
-      },
-      details: (item) => {
-        return (
-          <CCollapse visible={details.includes(item._id)}>
-            <CCardBody>
-              {/* <p className="text-muted">Thời gian cập nhật: {item.Thời_gian_cập_nhật}</p> */}
-              <CButton href="./form" size="sm" color="info">
-                Sửa
-              </CButton>
-              <CButton size="sm" color="danger" >
-                Xóa
-              </CButton>
-            </CCardBody>
-          </CCollapse>
-        )
-      },
-    }}
-    // selectable
-    sorterValue={{ column: 'id', state: 'asc' }}
-    tableFilter 
-    tableFilterLabel="Tìm kiếm"
-    tableHeadProps={{
-      color: 'danger',
-    }}
-    tableProps={{
-      striped: true,
-      hover: true,
-    }}
-    
-  />
-    <CCol>
-    <Link to='/mayps/form'><CButton component="a"color="primary" size="lg" >Thêm máy</CButton></Link>
-    </CCol>
-  </CRow>
-)
+                    onClick={() => {
+                        if (data.currentPage < data.totalPage){
+                            data({ ...data, currentPage: data.currentPage + 1 })
+                            setChangePageQuery(isQuery)
+                        }
+                    }}
+                >
+                    {">"}
+                </button>
+                <button
+                    onClick={() => {
+                        setData({ ...data, currentPage: data.totalPage })
+                        setChangePageQuery(isQuery)
+                    }
+                    }
+                >
+                    {">>"}
+                </button>
+                <div className="item" >
+                <label>Items per page</label>
+                <Select 
+                    value={sizePage}
+                    onChange={(e) => {
+                        setSizePage(e.target.value)
+                        setChangePageQuery(isQuery)
+                    }}
+                >
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={20}>20</MenuItem>
+                </Select>
+                </div>
+            </div>
+            <Link to={`addform`}><button>Thêm máy</button></Link>
+        </div>)
 }
+
