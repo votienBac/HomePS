@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2'
 import '../../css/thongke.css';
-import formatMoney from '../../utility/formatmoney';
+
 const BarChart = (props) => {
     const [chartData, setChartData] = useState({});
     //const [date, setDate] = useState([]);
@@ -112,7 +112,7 @@ const BarChart = (props) => {
                 }}
             />
             <div className='doanhthu'>
-                Tổng doanh thu là: {formatMoney(turnOver)} vnđ
+                Tổng doanh thu là: {turnOver} vnđ
             </div>
         </div>
     )
