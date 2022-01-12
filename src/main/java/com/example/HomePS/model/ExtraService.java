@@ -1,5 +1,6 @@
 package com.example.HomePS.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,4 +24,12 @@ public class ExtraService {
     private String serviceName;
     @Column(nullable = false)
     private double price;
+
+    @JsonIgnore
+    @Column(nullable=false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean deleted = false;
+    @JsonIgnore
+    public boolean isDeleted() {
+        return deleted;
+    }
 }
