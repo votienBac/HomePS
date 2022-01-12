@@ -24,7 +24,7 @@ function ExtraMayPS() {
     const [data, setData] = useState({
       psList:[],
       currentPage: 1,
-      totalPage: 1,
+      totalPage: 3,
     });
     const [sizePage, setSizePage] = useState(10)
     const [isQuery, setIsQuery] = useState(false)
