@@ -113,7 +113,7 @@ const DetailsTurn = (props) => {
     }
     const closePaymentDialog = () => setPaymentDialog(false)
     return (
-        <div>
+        <div class="pageMain">
             <section className="turn-details">
                 <div className="container">
 
@@ -131,7 +131,7 @@ const DetailsTurn = (props) => {
                         </ul>
                     </div>
                     {turn.orderServices.length != 0 && <div className="list-service">
-                        <table className='tb' style={{ width: '70%', }} >
+                        <table className='tb' style={{ width: '36%', }} >
                             <tbody className='t'>
                                 <tr className='table-list'>
                                     <th>Tên</th>

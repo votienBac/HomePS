@@ -1,0 +1,92 @@
+.m-table-paging{
+    align-items: center;
+    justify-items: center;
+    display: flex;
+    width: 100%;
+    height: 56px;
+    /* border: 1px solid #ddd; */
+}
+.m-table-paging .m-paging-left{
+    width: 200px;
+    display: flex;
+    /* justify-content: right; */
+    align-items: center;
+    text-align: left;
+    flex-wrap: wrap;
+    height: 100%;
+}
+.m-table-paging .m-paging-center{
+    /* display: flex;
+    justify-content: center;
+    flex: 1; */
+    height: 100%;
+    align-items: center;
+    display: flex;
+    margin: auto;
+    
+    
+}
+.m-table-paging .m-paging-right{
+    display: flex;
+    /* justify-content: right; */
+    align-items: center;
+    text-align: right;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.m-paging-center .m-paging-first{
+    width: 24px;
+    height: 24px;
+    /* background-color: aliceblue; */
+    background-image: url(../../content/icon/btn-firstpage.svg);
+}
+.m-paging-center .m-paging-prev{
+    width: 24px;
+    height: 24px;
+    /* background-color: antiquewhite; */
+    background-image: url(../../content/icon/btn-prev-page.svg);
+}
+.m-paging-center .m-paging-number{
+    /* flex: 1;
+    display: flex;
+    justify-content: center;
+    width: 24px;
+    height: 24px; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+   
+    
+    
+}
+.m-paging-center .m-paging-next{
+    width: 24px;
+    height: 24px;
+    /* background-color: rgb(228, 220, 212); */
+    background-image: url(../../content/icon/btn-next-page.svg);
+}
+.m-paging-center .m-paging-last{
+    width: 24px;
+    height: 24px;
+    /* background-color: rgb(59, 155, 30); */
+    background-image: url(../../content/icon/btn-lastpage.svg);
+}
+
+.m-table-paging .page-number{
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    line-height: 24px;
+    text-align: center;
+    margin: 0 4px;
+    cursor: pointer;
+    background-color:#019160;
+    color: #fff;
+}
+.m-table-paging .page-number:hover{
+    background-color: #2FBE8E;
+}

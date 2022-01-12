@@ -37,6 +37,7 @@
 .tb {
     width: 100%;
     margin-bottom: 2%;
+    margin-left: 48px;
     border-collapse:collapse;
     box-shadow: 0px 0px 3px #333a47, 0px 0px 2px #333a47;
 }
@@ -70,4 +71,16 @@ td{
     margin-top: 10px;
     margin-left: 475px;
     width: 20px;
+}
+.m-table-paging {
+    width: unset;
+    position: unset;
+    left: 24px;
+    right: 24px;
+    bottom: 0px;
+}
+.m-grid {
+    flex: 1;
+    margin-bottom: 56px;
+    overflow: auto;
 }

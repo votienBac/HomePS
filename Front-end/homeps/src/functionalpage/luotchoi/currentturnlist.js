@@ -4,6 +4,10 @@ import { Select, MenuItem } from "@material-ui/core";
 import SearchBar from './search.js'
 import formatTime from '../../utility/formattime.js'
 import '../../css/luotchoi.css';
+import '../../css/components/paging-navigation.css'
+import '../../css/components/table.css'
+
+
 
 const CurrentTurnList = () => {
     const [sizePage, setSizePage] = useState(10)
@@ -24,7 +28,7 @@ const CurrentTurnList = () => {
                 .then(res => setCurrentTurns(res))
     }, [currentTurns.currentPage, sizePage])
     return (
-        <div className="luot-choi">
+        <div class= "pageMain">
             <div className="header-luot-choi" >
                 <Link to='' className="hien-tai"><button>Lượt chơi hiện tại</button></Link>
                 <Link to='finished-turn'><button>Lượt chơi đã kết thúc</button></Link>
@@ -42,93 +46,100 @@ const CurrentTurnList = () => {
                 </div>
 
             </div>
-            <table className="tb">
-                <tbody className="t">
-                    <tr className="table-list">
-                        <th>ID</th>
-                        <th>Máy</th>
-                        <th >Tình trạng</th>
-                        <th>Bắt đầu</th>
-                        <th></th>
-                    </tr>
-                    {currentTurns.currentTurns.map(currentTurn => {
-                        return (<tr key={currentTurn.billId} className="list-turn">
-                            <td>{currentTurn.billId}</td>
-                            <td>{currentTurn.playStation.psName}</td>
-                            <td>{currentTurn.playStation.psState}</td>
-                            <td>{formatTime(currentTurn.timeStart)}</td>
-                            <td>
-                                <Link to={`current-turn/${currentTurn.billId}`} className="xem-ct" >Xem chi tiết</Link>
-                            </td>
-                        </tr>)
-                    })}
-                </tbody>
-            </table>
-            <div className='paging'>
-                <button
-                    onClick={() => {
-                        setCurrentTurns({ ...currentTurns, currentPage: 1 })
-                        setChangePageQuery(isQuery)
-                    }
-                    }>
-                    {"<<"}
-                </button>
-                <button
-                    onClick={() => {
-                        if (currentTurns.currentPage > 1) {
-                            setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage - 1 })
+            <div class="m-grid">
+                <table className="m-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Máy</th>
+                            <th>Bắt đầu</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        {currentTurns.currentTurns.map(currentTurn => {
+                            return (<tr key={currentTurn.billId}>
+                                <td>{currentTurn.billId}</td>
+                                <td>{currentTurn.playStation.psName}</td>
+                                <td>{formatTime(currentTurn.timeStart)}</td>
+                                <td>
+                                    <Link to={`current-turn/${currentTurn.billId}`} className="xem-ct" >Xem chi tiết</Link>
+                                </td>
+                            </tr>)
+                        })}
+                    </tbody>
+                </table>
+            </div>
+            <Link to="addturn"><button>Thêm lượt chơi</button></Link>
+            <div class="m-table-paging">
+                <div className="m-paging-left">
+
+                </div>
+                <div class="m-paging-center">
+                    <div class = "m-paging-first"
+                        onClick={() => {
+                            setCurrentTurns({ ...currentTurns, currentPage: 1 })
                             setChangePageQuery(isQuery)
                         }
-                    }}
-                >
-                    {"<"}
-                </button>
-                <button>{currentTurns.currentPage}</button>
-                {(currentTurns.currentPage == currentTurns.totalPage) || <button
-                    onClick={() => {
-                        setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage + 1 })
-                        setChangePageQuery(isQuery)
-                    }
-                    }
-                >
-                    {currentTurns.currentPage + 1}
-                </button>}
-                <button
-
-                    onClick={() => {
-                        if (currentTurns.currentPage < currentTurns.totalPage) {
+                        }>
+                        
+                    </div>
+                    <div class = "m-paging-prev"
+                        onClick={() => {
+                            if (currentTurns.currentPage > 1) {
+                                setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage - 1 })
+                                setChangePageQuery(isQuery)
+                            }
+                        }}
+                    >
+                    </div>
+                    <div class="page-number">{currentTurns.currentPage}</div>
+                    {(currentTurns.currentPage == currentTurns.totalPage) || <div class="page-number"
+                        onClick={() => {
                             setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage + 1 })
                             setChangePageQuery(isQuery)
                         }
-                    }}
-                >
-                    {">"}
-                </button>
-                <button
-                    onClick={() => {
-                        setCurrentTurns({ ...currentTurns, currentPage: currentTurns.totalPage })
-                        setChangePageQuery(isQuery)
-                    }
-                    }
-                >
-                    {">>"}
-                </button>
-                <div className="item">
-                    <label>Items per page</label>
-                    <Select
-                        value={sizePage}
-                        onChange={(e) => {
-                            setSizePage(e.target.value)
-                            setChangePageQuery(isQuery)
+                        }
+                    >
+                        {currentTurns.currentPage + 1}
+                    </div>}
+                    <div class="m-paging-next"
+
+                        onClick={() => {
+                            if (currentTurns.currentPage < currentTurns.totalPage) {
+                                setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage + 1 })
+                                setChangePageQuery(isQuery)
+                            }
                         }}
                     >
-                        <MenuItem value={5}>5</MenuItem>
-                        <MenuItem value={10}>10</MenuItem>
-                        <MenuItem value={20}>20</MenuItem>
-                    </Select>
+                    </div>
+                    <div class="m-paging-last"
+                        onClick={() => {
+                            setCurrentTurns({ ...currentTurns, currentPage: currentTurns.totalPage })
+                            setChangePageQuery(isQuery)
+                        }
+                        }
+                    >
+
+                    </div>
+                  
                 </div>
-            </div>
-            <Link to="addturn"><button>Thêm lượt chơi</button></Link>
+                <div class="m-paging-right">
+                        <label>Items per page</label>
+                        <Select 
+                            value={sizePage}
+                            onChange={(e) => {
+                                setSizePage(e.target.value)
+                                setChangePageQuery(isQuery)
+                            }}
+                        >
+                            <MenuItem value={5}>5</MenuItem>
+                            <MenuItem value={10}>10</MenuItem>
+                            <MenuItem value={20}>20</MenuItem>
+                            
+                        </Select>
+                </div>
+            </div> 
         </div>)
 }
 

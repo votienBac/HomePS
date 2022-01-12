@@ -4,6 +4,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions, Select, MenuItem } from '@material-ui/core';
 import { useEffect, useRef, useState } from 'react'
+import '../../css/luotchoi.css';
+import '../../css/components/paging-navigation.css'
+import '../../css/components/table.css'
 const UnusedPsList = () => {
     const navigate = useNavigate()
     const [unusedPs, setUnusedPs] = useState({
@@ -47,69 +50,81 @@ const UnusedPsList = () => {
     //Pop-up
 
     return (
-        <div>
-            <table className="tb">
-                <tbody className="t">
-                    <tr className="table-list">
-                        <th >PS ID</th>
-                        <th >Máy</th>
-                        <th >Tình trạng</th>
-                        <th >Hành động</th>
-                    </tr>
-                    {unusedPs.psList.map(unusedPs => {
-                        return (<tr key={unusedPs.psId} className="list-turn">
-                            <td>{unusedPs.psId}</td>
-                            <td>{unusedPs.psName}</td>
-                            <td>{unusedPs.psState}</td>
-                            <td>
-                                <button
-                                    onClick={() => {
-                                        psId.current = unusedPs.psId
-                                        setAddTurnDialog(true);
-                                    }} style={{ float: 'right', marginRight: '3%' }}
-                                >
-                                    Thêm lượt chơi
-                                </button>
-                            </td>
-                        </tr>)
-                    })}
-                </tbody>
-            </table>
-            <div className='paging'>
-                <button
-                    onClick={() => setUnusedPs({ ...unusedPs, currentPage: 1 })}
-                >
-                    {"<<"}
-                </button>
-                <button
-                    onClick={() => {
-                        if (unusedPs.currentPage > 1)
-                            setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage - 1 })
-                    }}
-                >
-                    {"<"}
-                </button>
-                <button>{unusedPs.currentPage}</button>
-                {(unusedPs.currentPage == unusedPs.totalPage) || <button
-                    onClick={() => setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })}
-                >
-                    {unusedPs.currentPage + 1}
-                </button>}
-                <button
+        <div class="pageMain">
+            <div class="m-grid">
+                <table className="m-table">
+                    <thead>
+                        <tr className="table-list">
+                            <th >PS ID</th>
+                            <th >Máy</th>
+                            <th >Tình trạng</th>
+                            <th >Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {unusedPs.psList.map(unusedPs => {
+                            return (<tr key={unusedPs.psId}>
+                                <td>{unusedPs.psId}</td>
+                                <td>{unusedPs.psName}</td>
+                                <td>{unusedPs.psState}</td>
+                                <td>
+                                    <button
+                                        onClick={() => {
+                                            psId.current = unusedPs.psId
+                                            setAddTurnDialog(true);
+                                        }} style={{ float: 'right', marginRight: '30%' }}
+                                    >
+                                        Thêm lượt chơi
+                                    </button>
+                                </td>
+                            </tr>)
+                        })}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class = "m-table-paging">
+                <div className="m-paging-left">
+                        <button
+                        onClick={() => navigate(-1)}
+                        >
+                        Quay lại
+                        </button>
+                </div>
+                <div className='m-paging-center'>
+                    <div class = "m-paging-first"
+                        onClick={() => setUnusedPs({ ...unusedPs, currentPage: 1 })}
+                    >
+                    </div>
+                    <div class = "m-paging-prev"
+                        onClick={() => {
+                            if (unusedPs.currentPage > 1)
+                                setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage - 1 })
+                        }}
+                    >
+                    </div>
+                    <div class = "page-number">{unusedPs.currentPage}</div>
+                    {(unusedPs.currentPage == unusedPs.totalPage) || <div class = "page-number"
+                        onClick={() => setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })}
+                    >
+                        {unusedPs.currentPage + 1}
+                    </div>}
+                    <div class = "m-paging-next"
 
-                    onClick={() => {
-                        if (unusedPs.currentPage < unusedPs.totalPage)
-                            setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })
-                    }}
-                >
-                    {">"}
-                </button>
-                <button
-                    onClick={() => setUnusedPs({ ...unusedPs, currentPage: unusedPs.totalPage })}
-                >
-                    {">>"}
-                </button>
-                <div className="item">
+                        onClick={() => {
+                            if (unusedPs.currentPage < unusedPs.totalPage)
+                                setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })
+                        }}
+                    >
+ 
+                    </div>
+                    <div class = "m-paging-last"
+                        onClick={() => setUnusedPs({ ...unusedPs, currentPage: unusedPs.totalPage })}
+                    >
+                        
+                    </div>
+                </div>
+                <div className="m-paging-right">
                     <label>Items per page</label>
                     <Select
                         value={sizePage}
@@ -121,6 +136,7 @@ const UnusedPsList = () => {
                     </Select>
                 </div>
             </div>
+            
             <Dialog open={addTurnDialog} onClose={closeAddTurnDialog} >
                 <DialogTitle>Bạn có chắc chắn muốn thêm lượt chơi?</DialogTitle>
                 <DialogActions>
@@ -134,11 +150,7 @@ const UnusedPsList = () => {
                     <button onClick={() => navigate('/luotchoi')}>Quay về trang chủ</button>
                 </DialogActions>
             </Dialog>
-            <button
-                onClick={() => navigate(-1)}
-            >
-                Quay lại
-            </button>
+
         </div>)
 }
 

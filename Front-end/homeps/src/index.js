@@ -96,7 +96,6 @@ export default function App() {
         return (
         <div> 
         {!isLogin && (
-        <div className='headerOut'>
         <div className={darkMode ? "header-dark" : "header"}>
                 <Link to ="/luotchoi"><img onClick={change} 
                         src={darkMode ? "https://cdn.discordapp.com/attachments/916240096196431892/929912871620575272/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" : "https://cdn.discordapp.com/attachments/916240096196431892/929744287074230362/playstation-icon-logo-isolated-sign-symbol-vector-illustration-high-quality-black-style-icons-198185612.jpg" }></img></Link>
@@ -136,9 +135,8 @@ export default function App() {
                 </label>
 
         </div>
-        </div>
         )}
-        <div className={darkMode ? "pageMain-dark" : "pageMain"}>
+        
         <Routes>
           <Route path="/luotchoi/*"
                   element = {<LuotChoi />}>
@@ -166,7 +164,7 @@ export default function App() {
           </Route> 
         </Routes>
         </div>
-    </div>
+    
     )
 }
 

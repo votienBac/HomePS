@@ -38,6 +38,7 @@ export default function TaiKhoan(){
                     <input type="submit" value="Đăng xuất" onClick={Logout}/>
                     <input type="submit" value="Đổi mật khẩu"  onClick={change} />
                 </div>
+               
             )}
         </div>
     )
