@@ -33,9 +33,9 @@ export default function App() {
         const changeMode =() =>{
                 localStorage.setItem("dark-mode",darkMode)
                 if(darkMode){
-                        document.body.style.background = "#F9F9FA";
+                        document.body.style.background = "#FFFFFFFF";
                 }else{
-                        document.body.style.background = "#212121";
+                        document.body.style.background = "#303030";
                 }
         }
 

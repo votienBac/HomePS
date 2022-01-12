@@ -68,13 +68,12 @@ body{
   background-color: rgb(221, 215, 215);
   margin-top: 0px;
   margin-bottom: 0px;
-  background: #F9F9FA;
+  background: #FFFFFFFF;
 }
 
 .pageMain{
   background: #FFFFFFFF;
   border-radius: 6px;
-  box-shadow: 0px 0px 7px #333a47, 0px 0px 2px #333a47;
   padding-left: 5%;
   padding-top: 3%;
   padding-right: 5%;
@@ -162,7 +161,17 @@ button {
 }
 .pageMain form:after{
   background: #092c3e;
+  position: relative;
 }
+.pageMain form .form-inner .form-group input {
+  background: rgb(202, 226, 223);
+}
+
+.pageMain-dark form:after{
+  background: #092c3e;
+  position: relative;
+}
+
 .pageMain form .form-inner h2{
   color: #000;
 }

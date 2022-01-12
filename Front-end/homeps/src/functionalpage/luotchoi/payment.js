@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import formatTime from '../../utility/formattime'
+import formatMoney from '../../utility/formatmoney'
 const Payment = () => {
     let params = useParams()
     const navigate = useNavigate()
@@ -28,12 +29,12 @@ const Payment = () => {
                         {(turn.orderServices.length != 0) && (<li style={{ marginBottom: '7%' }}>Danh sách dịch vụ</li>)}
                     </ul>
                     <ul className="top-bar-details-inf">
-                        <li>{turn.billId}</li>
-                        <li>{turn.playStation && turn.playStation.psName}</li>
-                        <li>{formatTime(turn.timeStart)}</li>
-                        <li>{formatTime(turn.timeEnd)}</li>
-                        <li>{turn.event && turn.event.eventName || 'Không có'}</li>
-                        <li>{turn.totalPrice || 'Không có'}</li>
+                        <li style={{ marginBottom: '9%' }}>{turn.billId}</li>
+                        <li style={{ marginBottom: '9%' }}>{turn.playStation && turn.playStation.psName}</li>
+                        <li style={{ marginBottom: '9%' }}>{formatTime(turn.timeStart)}</li>
+                        <li style={{ marginBottom: '9%' }}>{formatTime(turn.timeEnd)}</li>
+                        <li style={{ marginBottom: '9%' }}>{turn.event && turn.event.eventName || 'Không có'}</li>
+                        <li style={{ marginBottom: '9%' }}>{formatMoney(turn.totalPrice)  || 'Không có'}</li>
                     </ul>
                 </div>
                 {(turn.orderServices.length != 0) && <div className="list-service">

@@ -50,7 +50,8 @@ const UnusedPsList = () => {
     //Pop-up
 
     return (
-        <div class="pageMain">
+        <div class="pageBody">
+            <div className="header-luot-choi" ></div>
             <div class="m-grid">
                 <table className="m-table">
                     <thead>
