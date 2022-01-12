@@ -4,12 +4,12 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
-
+import formatTime from '../../utility/formattime';
 const DetailsFinishTurn = () => {
     const navigate = useNavigate()
     let params = useParams();
     const billId = params.id
-    const [turn, setTurn] = useState([])
+    const [turn, setTurn] = useState({ orderServices: [] })
 
 
     //Load the bill
@@ -40,53 +40,50 @@ const DetailsFinishTurn = () => {
         <div>
             <section className="turn-details">
                 <div className="container">
-                    <div className="col">
-                        <button
-                            className='back'
-                            onClick={() => navigate(-1)}>
-                            Quay lại</button>
-                    </div>
-                    <div className="col">
+                    <div className="col-detail">
                         <ul className="top-bar-detailsName">
-                            <li className="row">ID lượt chơi</li>
-                            <li className="row">Tên máy</li>
-                            <li className="row">Thời điểm bắt đầu</li>
-                            <li className="row">Thời điểm kết thúc</li>
-                            <li className="row">Danh sách dịch vụ</li>
+                            <li>ID lượt chơi</li>
+                            <li>Tên máy</li>
+                            <li>Thời điểm bắt đầu</li>
+                            <li>Thời điểm kết thúc</li>
+                            {(turn.orderServices.length != 0) && <li>Danh sách dịch vụ</li>}
                         </ul>
-
-                    </div>
-                    <div className="col">
                         <ul className="top-bar-details-inf">
                             <li className="row">{turn.billId}</li>
                             <li className="row">{turn.playStation && turn.playStation.psName}</li>
-                            <li className="row">{turn.timeStart}</li>
-                          <li className="row">{turn.timeEnd}</li>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <th>Tên</th>
-                                        <th>Số lượng</th>
-                                    </tr>
-                                    {turn.orderServices && turn.orderServices.map(orderService => {
-                                        return (
-                                            <tr key={orderService.service.serviceId}>
-                                                <td>{orderService.service.serviceName}</td>
-                                                <td>{orderService.quantity}</td>
-                                            </tr>
-                                        )
-                                    })}
-                                </tbody>
-                            </table>
-                            <button
-                                className="delete-turn"
-                                onClick={() => { setDeleteTurnDialog(true) }}>
-                                Xóa lượt chơi
-                            </button>
+                            <li className="row">{formatTime(turn.timeStart)}</li>
+                            <li className="row">{formatTime(turn.timeEnd)}</li>
                         </ul>
                     </div>
+                    {(turn.orderServices.length != 0) && <div className="list-service">
+                        <table className='tb' style={{ width: '70%', }}>
+                            <tbody className='t'>
+                                <tr className='table-list'>
+                                    <th>Tên</th>
+                                    <th>Số lượng</th>
+                                </tr>
+                                {turn.orderServices && turn.orderServices.map(orderService => {
+                                    return (
+                                        <tr key={orderService.service.serviceId} className='list-turn'>
+                                            <td>{orderService.service.serviceName}</td>
+                                            <td>{orderService.quantity}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </div>}
+                    <div className='button-detail'>
+                        <button className='back'
+                            onClick={() => navigate(-1)}>
+                            Quay lại</button>
+                        <button className="delete-turn"
+                            onClick={() => { setDeleteTurnDialog(true) }}>
+                            Xóa lượt chơi
+                        </button>
+                    </div>
                 </div>
-                
+
 
                 <Dialog open={deleteTurnDialog} onClose={closeDeleteTurnDialog} >
                     <DialogTitle>Bạn có chắc chắn muốn xóa lượt chơi?</DialogTitle>

@@ -1,16 +1,19 @@
 .queryBox{
-    margin-top: 10px;
+    margin-top: 1%;
+    margin-bottom: 2%;
     display:inline-flex;
+    position: relative;
 }
 .queryBox label{
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     white-space: pre;
-    margin-left: 10px;
+    margin-right: 1%;
     font-size: medium;
 }
 .doanhthu{
-    margin-top: 15px;
+    margin-top: 5%;
 }
 input{
     width: 60%;
+    height: 10%;
 }

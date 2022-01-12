@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2'
 import '../../css/thongke.css';
-
+import formatMoney from '../../utility/formatmoney';
 const BarChart = (props) => {
     const [chartData, setChartData] = useState({});
     //const [date, setDate] = useState([]);
@@ -18,6 +18,22 @@ const BarChart = (props) => {
         begin = `monthBegin`
         end = `monthEnd` 
     }
+
+    const formatDay = (str) =>{
+        str = str.toString()
+        let dd = str.substr(8)
+        let MM = str.substr(5,2)
+        let yyyy = str.substr(0,4)
+        return dd+'/'+MM+'/'+yyyy;
+    }
+
+    const formatMonth = (str) =>{
+        str = str.toString()
+        let MM = str.substr(5,2)
+        let yyyy = str.substr(0,4)
+        return MM+'/'+yyyy;
+    }
+
     useEffect(() => {
         let dateList = [];
         let turnOverList = [];
@@ -31,7 +47,7 @@ const BarChart = (props) => {
                     if(props.type){
                         json.revenueList.sort((a, b) => { return new Date(a.date) - new Date(b.date)})
                         for (const dataOjb of json.revenueList) {
-                            dateList.push(dataOjb.date)
+                            dateList.push(formatDay(dataOjb.date))
                             turnOverList.push(dataOjb.turnOver)
                         }
                         setTurnOver(json.revenue);
@@ -39,7 +55,7 @@ const BarChart = (props) => {
                     else{
                         json.sort((a,b) => {return new Date(a.month) - new Date(b.month)})
                         for (const dataOjb of json){
-                            dateList.push(dataOjb.month)
+                            dateList.push(formatMonth(dataOjb.month))
                             turnOverList.push(dataOjb.revenue)
                             total = total + dataOjb.revenue
                         }
@@ -96,7 +112,7 @@ const BarChart = (props) => {
                 }}
             />
             <div className='doanhthu'>
-                Tổng doanh thu là: {turnOver} vnđ
+                Tổng doanh thu là: {formatMoney(turnOver)} vnđ
             </div>
         </div>
     )

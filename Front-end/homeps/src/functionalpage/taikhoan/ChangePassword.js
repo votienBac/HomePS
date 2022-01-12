@@ -46,11 +46,8 @@ function ChangePassword({setPage,Logout}) {
                 });
         }
       }
-    const back = () => {
-        setPage({page:"account"});
-    }
     return (
-        <form onSubmit={ submitHandler }>
+        <form onSubmit={ submitHandler } className='forms'>
             <div className="form-inner">
                 <h2>Đổi mật khẩu</h2>
                 <div className="form-group">
@@ -62,7 +59,6 @@ function ChangePassword({setPage,Logout}) {
                     <input type="password" name = "password" id = "password"  onChange={e => setDetails({...details,xn:e.target.value})} value={details.xn}/>
                     {(error !== "") ? (<div className="error">{error}</div>) : ""}                   
                 </div>
-                <input type="submit" value="Trở lại" onClick={back}/>
                 <input type="submit" className="submitt" value="Đổi mật khẩu"  onClick={Complete} />
                 <Dialog open={out} className="dialog">
                   <DialogTitle className="dialogTitle">Bạn đã đổi mật khẩu thành công</DialogTitle>

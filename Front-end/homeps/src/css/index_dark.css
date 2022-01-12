@@ -5,17 +5,16 @@
     left: 0px;
     width: 100%;
     height: 62px;
-    background: #092c3e;
+    background: rgb(27, 26, 26);
     border-radius: 0px;
-    box-shadow: 0px 0px 7px #333a47, 0px 0px 2px #333a47;
+    box-shadow: 0px 0px 3px #b6bbc7, 0px 0px 2px #989ba0;
 }
   .header-dark img{
     position: absolute;
     top: 7px;
-    left: 53px;
-    width: 53px;
+    left: 3%;
+    width: 100%px;
     height: 53px;
-    border-radius: 0px;
   }
   .header-dark :link{
     text-decoration: none ;
@@ -27,8 +26,8 @@
   }
   .header-dark .btn-group {
     position: absolute;
-    top: 2px;
-    left: 164px;
+    top: 3px;
+    left: 10%;
     width: 70%;
     height: 60px;
     display: flex;
@@ -48,6 +47,7 @@
     cursor: pointer;
     white-space: nowrap;
     font-weight: 700;
+    width: calc(10%);
   }
   .header-dark .btn-group button:hover {
     color: rgb(210, 219, 235);
@@ -58,23 +58,21 @@
       color:  #DF5173FF;
       font-weight: 600;
   }
-  body{
-    margin-right: 0px;
-    background-color: rgb(221, 215, 215);
-    margin-top: 100px;
-    margin-bottom: 0px;
-    background: #F9F9FA;
-  }
+
   .pageMain-dark{
     position: absolute;
     top: 100px;
-    left: 10%;
-    width: calc(78%);
+    left: 8.5%;
+    width: calc(73.5%);
     height: 100%px;
-    background: rgb(236, 243, 245);
+    background: #303030;
     border-radius: 6px;
-    box-shadow: 0px 0px 7px #333a47, 0px 0px 2px #333a47;
-    padding: 20px;
+    box-shadow: 0px 0px 4px hsl(220, 6%, 50%), 0px 0px 2px #101111;
+    color: rgb(230, 227, 227);
+    padding-left: 5%;
+    padding-top: 3%;
+    padding-right: 5%;
+    padding-bottom: 3%;
   }
 
   .header-dark label{
@@ -93,22 +91,21 @@
     display: block;
     width:40px;
     height: 20px;
-    background: #092c3e;
+    background: white;
     cursor: pointer;
     border-radius: 20px;
     overflow:hidden;
     transition: ease-in 0.5s;
   }
   .header-dark input[type="checkbox"]:checked ~ .check{
-    background: #FFF;
-    box-shadow: 0 0 0 2px #092c3e;
+    background: #092c3e;
   }
   .check:before{
     content: ' ';
     position: absolute;
     top: 2px;
     left: 2px;
-    background: #FFF;
+    background: #092c3e;
     width: 16px;
     height: 16px;
     border-radius: 50% ;
@@ -120,10 +117,34 @@
     position: absolute;
     top: 2px;
     right: 2px;
-    background: #092c3e;
+    background: white;
     width: 16px;
     height: 16px;
     border-radius: 50% ;
     transition: 0.5s;
   }
-  
+.pageMain-dark button{
+  background-color: #303030;
+  box-shadow: 0px 0px 3px #b6bbc7, 0px 0px 2px #989ba0;
+}
+.pageMain-dark .table-list{
+  background-color: rgb(27, 26, 26);
+  box-shadow: 0px 0px 3px #8b95a7, 0px 0px 2px #7081a1;
+
+}
+
+.pageMain-dark .table-list th{
+  color: rgb(204, 197, 197);
+}
+.pageMain-dark .list-turn{
+  background-color: #212121;
+  box-shadow: 0px 0px 3px #8b95a7, 0px 0px 2px #7081a1;
+}
+.pageMain-dark .list-turn td{
+  color: rgb(204, 197, 197);
+}
+.pageMain-dark #input{
+  background-color: rgb(63, 62, 62);
+  border: 1px solid rgb(200, 204, 200);
+  color: rgb(204, 197, 197);
+}

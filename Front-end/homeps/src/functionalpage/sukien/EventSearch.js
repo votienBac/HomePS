@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import '../../css/luotchoi.css';
-const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQuery, setChangePageQuery, size }) => {
+const EventSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, setChangePageQuery, size }) => {
     const [details, setDetails] = useState('')
+    console.log(details);
     const handleChange = (props) => {
         setDetails(props)
         if (props == '') {
@@ -14,8 +15,8 @@ const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQue
             handleSearch();
         }
     };
-    if (isQuery && isChangePageQuery) {
-        fetch(`https://homeps.herokuapp.com/api/bills/search?size=${size}&page=${query.currentPage}&query=${details}&status=${type}`, {
+    if(isQuery && isChangePageQuery){
+        fetch(`https://homeps.herokuapp.com/api/events/search?size=${size}&page=${query.currentPage}&query=${details}`, {
             method: 'GET',
         })
             .then(res => res.json())
@@ -24,11 +25,14 @@ const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQue
     }
     const handleSearch = () => {
         setIsQuery(true);
-        fetch(`https://homeps.herokuapp.com/api/bills/search?size=${size}&query=${details}&status=${type}`, {
+        console.log(details);
+        fetch(`https://homeps.herokuapp.com/api/events/search?size=${size}&query=${details}`, {
             method: 'GET',
         })
             .then(res => res.json())
             .then(res => setQuery(res))
+        console.log(query);
+        console.log(typeof (setQuery));
     }
 
     return (
@@ -40,23 +44,22 @@ const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQue
                             id='input'
                             type='text'
                             name='input'
-                            placeholder='Nhập tên máy'
+                            placeholder='Nhập tên sự kiện'
                             onChange={e => handleChange(e.target.value)}
-                            onKeyPress={handleKeypress}
+                            onKeyPress = {handleKeypress} 
                             value={details}
-                            style={{
-                                fontFamily: "inherit",
+                            style={{    fontFamily: "inherit",
+                                border: "2px solid green",
                                 borderRadius: "50px",
                                 fontSize: "14px",
                                 padding: "0.5rem 1.5rem",
-                                width: '100px'
-                            }}
+                                backgroundColor: "white",
+                                width:'100px'}}
                         />
-                        {/* <button onClick={handleSearch}> Search </button>                         */}
                     </div>
                 </div>
             </div>
-        </section>)
-
+        </section>
+    )
 }
-export default SearchBar
+export default EventSearch

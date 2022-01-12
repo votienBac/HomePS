@@ -1,0 +1,10 @@
+.content {
+    width: calc(100% - 226px);
+    height: calc(100vh - 64px);
+    float: left;
+    padding: 24px 24px 0px 24px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}

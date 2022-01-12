@@ -1,0 +1,24 @@
+li {
+    list-style-type: none;
+}
+.col-detail{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.col-detail .top-bar-detailsName li{
+    font-weight: 700;
+    margin-bottom: 5%;
+}
+.col-detail .top-bar-details-inf li{
+    font-weight: 700;
+    margin-bottom: 5%;
+}
+.button-detail {
+    display: flex;
+    flex-wrap: nowrap;
+    flex: inline-flex;
+    margin-top: 5%;
+}
+.button-detail button{
+    margin-right: 10px;
+}
