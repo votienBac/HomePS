@@ -28,7 +28,7 @@ const CurrentTurnList = () => {
                 .then(res => setCurrentTurns(res))
     }, [currentTurns.currentPage, sizePage])
     return (
-        <div class= "pageMain">
+        <div className="pageBody">
             <div className="header-luot-choi" >
                 <Link to='' className="hien-tai"><button>Lượt chơi hiện tại</button></Link>
                 <Link to='finished-turn'><button>Lượt chơi đã kết thúc</button></Link>

@@ -136,7 +136,7 @@ export default function App() {
 
         </div>
         )}
-        
+        <div className={darkMode ? "pageMain-dark" : "pageMain"}>
         <Routes>
           <Route path="/luotchoi/*"
                   element = {<LuotChoi />}>
@@ -164,7 +164,7 @@ export default function App() {
           </Route> 
         </Routes>
         </div>
-    
+        </div>
     )
 }
 

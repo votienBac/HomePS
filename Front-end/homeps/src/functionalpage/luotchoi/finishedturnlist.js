@@ -30,7 +30,7 @@ function FinishedTurn() {
                 .then(finishedTurns => { setFinishedTurns(finishedTurns) })
     }, [finishedTurns.currentPage, sizePage])
     return (
-        <div class="pageMain">
+        <div class="pageBody">
             <div className="header-luot-choi" >
                 <u onClick={() => navigate(-1)} className="hien-tai"><button>Lượt chơi hiện tại</button></u>
                 <Link to=''><button>Lượt chơi đã kết thúc</button></Link>
