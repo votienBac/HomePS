@@ -1,6 +1,5 @@
 import React,{} from 'react'
 import { useNavigate } from "react-router-dom";
-
 import { useParams} from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Dialog from '@material-ui/core/Dialog';
@@ -12,25 +11,27 @@ const EditForm = () => {
   const navigate = useNavigate();
   const Back = () => {
       navigate(-1, {replace: true});
+      setError("")
   } 
   let params = useParams();
   const psId = params.id
   const psStatus = params.status
-  // const psName = params.id
-  // const psStatus = params.id
+  //Load the psData
   const [psData, setdata] = useState([])
-  const [CheckDeletePsDialog, setCheckDeletePsDialog] = useState(false)
+  const [checkChangePs,setCheckChangePs] = useState(false)
   const [error, setError] = useState("")
-      //Load the psData
+
       useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/ps/${psId}`, {
             method: 'GET'
         })
             .then(res => res.json())
             .then(psData => setdata(psData))
-    }, [])
+    }, [checkChangePs])
+
     //Delete Ps Dialog
     const [deletePs, setDeletePs] = useState(false)
+    const [CheckDeletePsDialog, setCheckDeletePsDialog] = useState(false)
     const handleDeletePs = async () => {
        await fetch(`https://homeps.herokuapp.com/api/ps/${psId}`, {
             method: 'DELETE',
@@ -45,16 +46,27 @@ const EditForm = () => {
      const closeDeletePsDialog = () => setDeletePs(false)
 
     //change dataPs
-
     const [ details,setDetails] = useState({psName:"",psStatus:""});
     const [changePsDialog, setChangePsDialog] = useState(false)
+    const openChangePsDialog = () => {
+      setChangePsDialog(true)
+  }
+    const closeChangePsDialog = () => {
+    setChangePsDialog(false)
+    setError("")
+    // window.location.reload();
+  }
 
     const submitChange = () => {
-      if(details.psName==="" ||details.psStatus==="" ){
+    if(details.psName==="" ||details.psStatus==="" )
+    {
         setError("Hãy nhập đủ thông tin");
     }else if(psStatus ==="1"){
-      setError("Máy đang được chơi không thể sửa");
-    }else{
+      setError("Máy đang được sử dụng không thể sửa");
+    }else if(details.psStatus ==="1"){
+      setError("Trạng thái 1-Đang được sử dụng, không thể được lựa chọn")
+    }
+    else{
       fetch(`https://homeps.herokuapp.com/api/ps/${psId}?psName=${details.psName}&psStatus=${details.psStatus}`, {
         method: 'PUT',
         headers: {
@@ -64,47 +76,66 @@ const EditForm = () => {
       })
       .then(res => res.json())
       .then(details => setDetails(details))
-      setChangePsDialog(true)
+      setCheckChangePs(!checkChangePs)
+      closeChangePsDialog()
+      // window.location.reload();
 
 
   }
 }
   return ( 
     <div>
-        <p>
-          <strong>Thông tin máy ID: {psId} </strong> 
-        </p>
         <div className="container">
-                <label style={{fontWeight:'700'}}>Tên máy</label>
-                <input placeholder={psData.psName} onChange={e => setDetails({...details,psName:e.target.value})} value={details.psName}
-                  className='input1'  style={{marginLeft:'100px'}} id='input'/><p></p>
+                     <div className="col-detail">
+                        <ul className="top-bar-detailsName">
+                            <li className="row">ID</li>
+                            <li className="row">Tên máy</li>
+                            <li className="row">Trạng thái</li>
+                        </ul>
+                        <ul className="top-bar-details-inf">
+                            <li className="row">{psData.psId}</li>
+                            <li className="row">{psData.psName}</li>
+                            <li className="row">{psData.psState}</li>
+                        </ul>
+                    </div>
 
-                <label style={{fontWeight:'700'}}>Trạng thái</label> 
-                <input list ="status" placeholder={psData.psStatus} onChange={e => setDetails({...details,psStatus:e.target.value})} value={details.psStatus} 
-                className='input1'  style={{marginLeft:'88px'}}  id='input'/>
-                    <datalist id="status">
-                           <option value="0"> Có thể sử dụng</option>
-                           {/* <option value="1"> Đang sử dụng</option> */}
-                           <option value="2"> Đang hỏng</option>
-                    </datalist>
-                
-                <p></p>
-                {/* <label>Tình trạng</label> 
-                <input id= "psState" placeholder={psData.psState}   /><p></p> */}
-                {(error !=="") ? (<div className="error">{error} </div>): ""}
-             
         </div>
 
     <div className='button-detail'>
-      <button className="row"  type = 'submit' color="primary" onClick={submitChange}>Lưu</button>
+      <button className="row" onClick={() => openChangePsDialog(1, 0)}>Sửa thông tin</button>
       <button className="delete-turn" onClick={() => { 
           if(psStatus === "1"){
             setCheckDeletePsDialog(true)
           }else{
             setDeletePs(true)
           }}}> Xóa máy </button>
-      <button className="row" type = 'back' color= "danger"  onClick={Back}>Quay lại</button>
+      <button className="row" type = 'back'   onClick={Back}>Quay lại</button>
     </div>
+    <Dialog open={changePsDialog} onClose={closeChangePsDialog} >
+      <table>
+         <tbody>
+           <tr>
+                <td style={{fontSize:'20px'}} >Tên máy</td>
+                <td>
+                   <input className='input1'  style={{marginLeft:'20px'}}   type='text' placeholder={psData.psName} onChange={e => setDetails({...details,psName:e.target.value})} />
+                </td>
+            </tr><br></br>
+            <tr>
+                <td style={{fontSize:'20px'}} >Trạng thái</td>
+                <td>
+                   <input className='input1'  style={{marginLeft:'20px'}}type='text' list ="status" placeholder={psData.psState} onChange={e => setDetails({...details,psStatus:e.target.value})} />
+                   <datalist id="status">
+                           <option value="0"> Có thể sử dụng</option>
+                           <option value="2"> Đang hỏng</option>
+                    </datalist>
+                </td>
+            </tr><br></br>
+                {(error !=="") ? (<div className="error">{error} </div>): ""}
+                </tbody>      
+       </table>
+                    <button style={{ height: '20%', alignSelf: 'center', margin: '10px' }}  onClick={submitChange}>Thay đổi</button><br></br>
+                    {/* <button style={{ height: '20%', alignSelf: 'center', margin: '10px' }} onClick={Back}>Quay lại</button> */}
+                </Dialog>
     <Dialog  open={CheckDeletePsDialog} >
           <DialogTitle>Máy đang được sử dụng không thể xóa</DialogTitle>
               <DialogActions>
@@ -121,15 +152,7 @@ const EditForm = () => {
               </DialogActions>
            
     </Dialog>
-    <Dialog open={changePsDialog} className = "dialog">
-        <DialogTitle className="dialogTitle">Bạn đã đổi thông tin thành công</DialogTitle>
-        <DialogContent>Vui lòng quay trở lại</DialogContent>
-        <DialogActions>
-            <button onClick = {Back}>Đồng ý</button>
-        </DialogActions>
-    </Dialog>
 
-   
     </div>
   
 

@@ -58,8 +58,7 @@ const AddForm = () => {
                 <input id = "input" list='status' onChange={e => setDetails({...details,psStatus:e.target.value})} value={details.psStatus}
                 className='input1' style={{marginLeft:'88px'}}/>
                 <datalist id="status">
-                           <option value="0"> Trống </option>
-                           <option value="1"> Đang sử dụng</option>
+                           <option value="0"> Có thể sử dụng </option>
                            <option value="2"> Đang hỏng</option>
                     </datalist>
                 <p></p>
