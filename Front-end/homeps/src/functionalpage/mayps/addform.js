@@ -50,12 +50,13 @@ const AddForm = () => {
           <strong>Thông tin máy</strong> 
         </p>
         <div>
+                <label style={{fontWeight:'700'}}>Tên máy</label>
+                <input id ="input"  onChange={e => setDetails({...details,psName:e.target.value})} value={details.psName}  
+                className='input1'  style={{marginLeft:'100px'}}/><p></p>
 
-                <label>Tên máy</label>
-                <input id ="psName"  onChange={e => setDetails({...details,psName:e.target.value})} value={details.psName}   /><p></p>
-
-                <label>Trạng thái</label> 
-                <input id = "psVersion" list='status' onChange={e => setDetails({...details,psStatus:e.target.value})} value={details.psStatus}/>
+                <label style={{fontWeight:'700'}}>Trạng thái</label> 
+                <input id = "input" list='status' onChange={e => setDetails({...details,psStatus:e.target.value})} value={details.psStatus}
+                className='input1' style={{marginLeft:'88px'}}/>
                 <datalist id="status">
                            <option value="0"> Trống </option>
                            <option value="1"> Đang sử dụng</option>

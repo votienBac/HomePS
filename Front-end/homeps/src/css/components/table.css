@@ -11,7 +11,7 @@ table.m-table tr {
     cursor: pointer;
 }
 
-table.m-table tbody tr:nth-child(2n-1) {
+table.m-table tbody tr:nth-child(2n) {
     background-color: #E9EBEE;
 }
 
@@ -34,7 +34,7 @@ table.m-table tr th:first-child {
 table thead th {
     position: sticky;
     top: 0;
-    background-color: #fff;
+    background-color: #E9EBEE;
 }
 table tbody tr.row-selected{
     background-color: #ff0000 !important;
@@ -42,7 +42,7 @@ table tbody tr.row-selected{
 .pageMain-dark table thead th {
     background-color: rgb(27, 26, 26);
 }
-.pageMain-dark table.m-table tbody tr:nth-child(2n-1) {
+.pageMain-dark table.m-table tbody tr:nth-child(2n) {
     background-color: rgb(65, 66, 62);
 }
 .pageMain-dark table.m-table tbody tr:hover {

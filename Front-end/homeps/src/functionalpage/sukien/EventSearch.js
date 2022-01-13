@@ -48,13 +48,13 @@ const EventSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, 
                             onChange={e => handleChange(e.target.value)}
                             onKeyPress = {handleKeypress} 
                             value={details}
-                            style={{    fontFamily: "inherit",
-                                border: "2px solid green",
+                            style={{
+                                fontFamily: "inherit",
                                 borderRadius: "50px",
                                 fontSize: "14px",
                                 padding: "0.5rem 1.5rem",
-                                backgroundColor: "white",
-                                width:'100px'}}
+                                width: '100px'
+                            }}
                         />
                     </div>
                 </div>

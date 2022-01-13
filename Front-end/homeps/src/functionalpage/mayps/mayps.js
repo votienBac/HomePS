@@ -41,8 +41,8 @@ function ExtraMayPS() {
         }, [data.currentPage, sizePage])
 
     return (
-      
-        <div className="luot-choi">
+    <div className="pageBody">
+        <div className="header-luot-choi">
             {/* <SearchBar type = 'unpaid'/> */}
             <div className="search-bar">    
                 <PsSearch
@@ -54,39 +54,49 @@ function ExtraMayPS() {
                 setChangePageQuery = {setChangePageQuery}
                 size={sizePage}
                 />                
-            </div> <br></br>
-            <table className="tb" >
-                <tbody className="t">
-                    <tr className="table-list"  >
+            </div>
+            </div>
+            <div class="m-grid">
+            <table className="m-table" >
+                <thead>
+                    <tr>
                         <th >ID</th>
                         <th >Máy</th>
                         <th >Trạng thái</th>
                         <th >Tình trạng</th>
                         <th ></th>
                     </tr>
+                </thead>
+                <tbody>
                     {psList.map(psList => {
                         return (
-                        <tr key={psList.psId}  className="list-turn">
+                        <tr key={psList.psId}>
                             <td> {psList.psId}</td>
                             <td> {psList.psName}</td>
                             <td> {psList.psStatus}</td>
                             <td> {psList.psState}</td>
                             {/* <td> <Link to={`${psList.psId}`}>Sửa</Link></td> */}
-                            <td><Link to={`editform/${psList.psId}`} >Sửa</Link> </td>
+                            <td><Link to={`editform/${psList.psId}`} className="xem-ct">Sửa</Link> </td>
                         </tr>)
                     })}
-                </tbody>
+                </tbody>    
             </table>
-            <div className='paging'>
-                <button
+            </div>
+            <Link to={`addform`}><button>Thêm máy</button></Link>
+            <div class="m-table-paging">
+                <div className="m-paging-left">
+
+                </div>
+                <div class="m-paging-center">
+                
+                <div class = "m-paging-first"
                     onClick={() => {
                         setData({ ...data, currentPage: 1 })
                         setChangePageQuery(isQuery)
                     }
                     }>
-                    {"<<"}
-                </button>
-                <button
+                </div>
+                <div class = "m-paging-prev"
                     onClick={() => {
                         if (data.currentPage > 1){
                             setData({ ...data, currentPage: data.currentPage - 1 })
@@ -94,10 +104,9 @@ function ExtraMayPS() {
                         }
                     }}
                 >
-                    {"<"}
-                </button>
-                <button>{data.currentPage}</button>
-                {(data.currentPage == data.totalPage) || <button
+                </div>
+                <div class="page-number">{data.currentPage}</div>
+                {(data.currentPage == data.totalPage) || <div class="page-number"
                     onClick={() => {
                         setData({ ...data, currentPage: data.currentPage + 1 })
                         setChangePageQuery(isQuery)
@@ -105,8 +114,8 @@ function ExtraMayPS() {
                     }
                 >
                     {data.currentPage + 1}
-                </button>}
-                <button
+                </div>}
+                <div class="m-paging-next"
 
                     onClick={() => {
                         if (data.currentPage < data.totalPage){
@@ -115,33 +124,30 @@ function ExtraMayPS() {
                         }
                     }}
                 >
-                    {">"}
-                </button>
-                <button
+                </div>
+                <div class="m-paging-last"
                     onClick={() => {
                         setData({ ...data, currentPage: data.totalPage })
                         setChangePageQuery(isQuery)
                     }
                     }
                 >
-                    {">>"}
-                </button>
-                <div className="item" >
-                <label>Items per page</label>
-                <Select 
-                    value={sizePage}
-                    onChange={(e) => {
-                        setSizePage(e.target.value)
-                        setChangePageQuery(isQuery)
-                    }}
-                >
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={10}>10</MenuItem>
-                    <MenuItem value={20}>20</MenuItem>
-                </Select>
                 </div>
+                </div>
+                <div class="m-paging-right">
+                    <label>Items per page</label>
+                    <Select 
+                        value={sizePage}
+                        onChange={(e) => {
+                            setSizePage(e.target.value)
+                            setChangePageQuery(isQuery)
+                        }}
+                    >
+                        <MenuItem value={5}>5</MenuItem>
+                        <MenuItem value={10}>10</MenuItem>
+                        <MenuItem value={20}>20</MenuItem>
+                    </Select>
             </div>
-            <Link to={`addform`}><button>Thêm máy</button></Link>
-        </div>)
+        </div>
+    </div>)
 }
-

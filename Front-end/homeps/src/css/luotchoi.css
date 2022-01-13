@@ -84,3 +84,9 @@ td{
     margin-bottom: 56px;
     overflow: auto;
 }
+.input1{                           
+    font-family: inherit;
+    border-radius: 15px;
+    padding: 4px 15px;
+    width: 15%;
+}
