@@ -65,8 +65,6 @@ const EditForm = () => {
     if(details.psName==="" ||details.psStatus==="" )
     {
         setError("Hãy nhập đủ thông tin");
-    }else if(psStatus ==="1"){
-      setError("Máy đang được sử dụng không thể sửa");
     }else if(details.psStatus !=="0" && details.psStatus !=="2"){
       setError("Trạng thái không hợp lệ")
     }
