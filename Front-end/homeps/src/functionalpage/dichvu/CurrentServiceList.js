@@ -32,7 +32,8 @@ const CurrentServiceList = () => {
             .then(res => { setCurrentServices(res) })
     }, [currentServices.currentPage, sizePage, isAdded])
     return (
-        <div>
+    <div className="pageBody">
+        <div className="header-luot-choi">
             <div className="search-bar">    
                 <ServiceSearch 
                 query = {currentServices}
@@ -44,38 +45,51 @@ const CurrentServiceList = () => {
                 size={sizePage}
                 />                
             </div>
-
-            <table id='current-services-list'>
-                <tbody>
+            </div>
+            <div class="m-grid">
+            <table className="m-table" >
+                <thead>
                     <tr>
                         <th >ID</th>
                         <th >Tên dịch vụ</th>
                         <th >Giá</th>
                         <th ></th>
                     </tr>
+                    </thead>
+                    <tbody>
                     {currentServices.serviceList.map(currentService => {
                         return (<tr key={currentService.serviceId}>
                             <td>{currentService.serviceId}</td>
                             <td>{currentService.serviceName}</td>
                             <td>{formatMoney(currentService.price) }</td>
-                            <td></td>
                             <td>
-                                <Link to={`current-service/${currentService.serviceId}`} >Xem Chi tiết</Link>
+                                <Link to={`current-service/${currentService.serviceId}`}  className="xem-ct">Xem Chi tiết</Link>
                             </td>
                         </tr>)
                     })}
-                </tbody>
+                    </tbody>
             </table>
-            <div className='paging'>
-                <button
+            </div>
+            <button
+                onClick={() => { setAddServiceDialog(true) }} 
+                style={{width:'110px'}}
+                >
+                Thêm dịch vụ
+            </button>
+            <div class="m-table-paging">
+                <div className="m-paging-left">
+
+                </div>
+                <div class="m-paging-center">
+                
+                <div class = "m-paging-first"
                     onClick={() => {
                         setCurrentServices({ ...currentServices, currentPage: 1 })
                         setChangePageQuery(isQuery)
                     }
                     }>
-                    {"<<"}
-                </button>
-                <button
+                </div>
+                <div class = "m-paging-prev"
                     onClick={() => {
                         if (currentServices.currentPage > 1){
                             setCurrentServices({ ...currentServices, currentPage: currentServices.currentPage - 1 })
@@ -83,10 +97,9 @@ const CurrentServiceList = () => {
                         }
                     }}
                 >
-                    {"<"}
-                </button>
-                <button>{currentServices.currentPage}</button>
-                {(currentServices.currentPage == currentServices.totalPage) || <button
+                </div>
+                <div class="page-number">{currentServices.currentPage}</div>
+                {(currentServices.currentPage == currentServices.totalPage) || <div class="page-number"
                     onClick={() => {
                         setCurrentServices({ ...currentServices, currentPage: currentServices.currentPage + 1 })
                         setChangePageQuery(isQuery)
@@ -94,8 +107,8 @@ const CurrentServiceList = () => {
                     }
                 >
                     {currentServices.currentPage + 1}
-                </button>}
-                <button
+                </div>}
+                <div class="m-paging-next"
 
                     onClick={() => {
                         if (currentServices.currentPage < currentServices.totalPage){
@@ -104,18 +117,17 @@ const CurrentServiceList = () => {
                         }
                     }}
                 >
-                    {">"}
-                </button>
-                <button
+                </div>
+                <div class="m-paging-last"
                     onClick={() => {
                         setCurrentServices({ ...currentServices, currentPage: currentServices.totalPage })
                         setChangePageQuery(isQuery)
                     }
                     }
                 >
-                    {">>"}
-                </button>
-                <div className="item">
+                </div>
+                </div>
+                <div class="m-paging-right">
                 <label>Items per page</label>
                 <Select 
                     value={sizePage}
@@ -128,14 +140,7 @@ const CurrentServiceList = () => {
                 </div>
             </div>
 
-            <button
-                className="add-service"
-                onClick={() => { setAddServiceDialog(true) }}>
-                Thêm dịch vụ
-            </button>
-
             <Dialog open={addServiceDialog} onClose={closeAddServiceDialog} >
-                <DialogTitle>Thêm dịch vụ</DialogTitle>
                 <DialogActions>
                     <AddService isAdded={isAdded} setAdded={setAdded} close = {closeAddServiceDialog}/>
                 </DialogActions>

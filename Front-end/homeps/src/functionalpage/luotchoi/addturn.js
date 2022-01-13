@@ -15,7 +15,11 @@ const UnusedPsList = () => {
         totalPage: 1
     })
     const [popup, setPopup] = useState(false)
-    const closePopup = () => setPopup(false)
+    const [tieptuc, setTiepTuc] = useState(false)
+    const closePopup = () => {
+        setPopup(false)
+        setTiepTuc(!tieptuc)
+    }
     const [addTurnDialog, setAddTurnDialog] = useState(false)
     const closeAddTurnDialog = () => setAddTurnDialog(false)
 
@@ -44,7 +48,7 @@ const UnusedPsList = () => {
         })
             .then(res => res.json())
             .then(unusedPs => setUnusedPs(unusedPs))
-    }, [unusedPs.currentPage, sizePage])
+    }, [unusedPs.currentPage, sizePage, tieptuc])
     const psId = useRef()
 
     //Pop-up
@@ -148,6 +152,7 @@ const UnusedPsList = () => {
             <Dialog open={popup} onClose={closePopup} >
                 <DialogTitle>Thêm lượt chơi thành công</DialogTitle>
                 <DialogActions>
+                    <button onClick={() => closePopup()}>Tiếp tục thêm máy</button>
                     <button onClick={() => navigate('/luotchoi')}>Quay về trang chủ</button>
                 </DialogActions>
             </Dialog>
