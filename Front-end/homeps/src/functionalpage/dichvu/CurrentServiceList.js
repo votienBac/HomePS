@@ -141,7 +141,6 @@ const CurrentServiceList = () => {
             </div>
 
             <Dialog open={addServiceDialog} onClose={closeAddServiceDialog} >
-                <DialogTitle>Thêm dịch vụ</DialogTitle>
                 <DialogActions>
                     <AddService isAdded={isAdded} setAdded={setAdded} close = {closeAddServiceDialog}/>
                 </DialogActions>
