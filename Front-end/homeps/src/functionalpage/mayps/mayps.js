@@ -10,7 +10,7 @@ export default function MayPS(){
     <Routes>
         <Route path='' element={<ExtraMayPS />} />
         <Route path ='editform'>
-            <Route path={`:id`} element={<EditForm />} />
+            <Route path={`:id/:status`} element={<EditForm />} />
         </Route>
         <Route path='addform'>
             <Route path='' element={<AddForm />}></Route>
@@ -76,7 +76,7 @@ function ExtraMayPS() {
                             {/*<td> {psList.psStatus}</td>*/}
                             <td> {psList.psState}</td>
                             {/* <td> <Link to={`${psList.psId}`}>Sửa</Link></td> */}
-                            <td><Link to={`editform/${psList.psId}`} className="xem-ct">Sửa</Link> </td>
+                            <td><Link to={`editform/${psList.psId}/${psList.psStatus}`} className="xem-ct">Sửa</Link> </td>
                         </tr>)
                     })}
                 </tbody>    
