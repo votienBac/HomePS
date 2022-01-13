@@ -82,7 +82,7 @@ function AddEvent({isAdded, setAdded, close}){
                         </tr>
                 </tbody>
             </table>
-            <button onClick={handleChangeEvents}>Thay đổi</button>
+            <button onClick={handleChangeEvents}>Thêm sự kiện</button>
             <button onClick={close}>Quay lại</button>
         </div>
     )
