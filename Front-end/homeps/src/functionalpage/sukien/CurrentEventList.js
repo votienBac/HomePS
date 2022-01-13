@@ -101,7 +101,7 @@ const CurrentEventList = () => {
 
                     onClick={() => {
                         if (currentEvents.currentPage < currentEvents.totalPage){
-                            currentEvents({ ...currentEvents, currentPage: currentEvents.currentPage + 1 })
+                            setCurrentEvents({ ...currentEvents, currentPage: currentEvents.currentPage + 1 })
                             setChangePageQuery(isQuery)
                         }
                     }}
