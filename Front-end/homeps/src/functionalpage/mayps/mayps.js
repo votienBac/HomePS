@@ -135,7 +135,7 @@ function ExtraMayPS() {
                 </div>
                 </div>
                 <div class="m-paging-right">
-                    <label>Items per page</label>
+                    <label>Items per page </label>
                     <Select 
                         value={sizePage}
                         onChange={(e) => {
