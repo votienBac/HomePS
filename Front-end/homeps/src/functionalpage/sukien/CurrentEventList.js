@@ -32,29 +32,32 @@ const CurrentEventList = () => {
             .then(res => { setCurrentEvents(res) })
     }, [currentEvents.currentPage, sizePage, isAdded])
     return (
-        <div className="luot-choi">
-            <div className="search-bar">    
-                <EventSearch 
-                query = {currentEvents}
-                setQuery = {setCurrentEvents}
-                isQuery = {isQuery}
-                setIsQuery = {setIsQuery}
-                isChangePageQuery = {isChangePageQuery}
-                setChangePageQuery = {setChangePageQuery}
-                size={sizePage}
-                style = {{display: 'flex', float: 'right'}}
-                />                
+        <div className="pageBody">
+            <div className="header-luot-choi">
+                <div className="search-bar">    
+                    <EventSearch 
+                    query = {currentEvents}
+                    setQuery = {setCurrentEvents}
+                    isQuery = {isQuery}
+                    setIsQuery = {setIsQuery}
+                    isChangePageQuery = {isChangePageQuery}
+                    setChangePageQuery = {setChangePageQuery}
+                    size={sizePage}
+                    />                
             </div>
-
-            <table className="tb">
-                <tbody className="t">
-                    <tr className="table-list">
+            </div>
+            <div className="m-grid">
+            <table className="m-table">
+                <thead>
+                    <tr >
                         <th >ID</th>
                         <th >Tên sự kiện</th>
                         <th >Tình trạng</th>
                         <th >Giảm giá</th>
                         <th ></th>
                     </tr>
+                </thead>
+                <tbody >
                     {currentEvents.eventList.map(currentEvent => {
                         return (<tr key={currentEvent.eventId} className="list-turn">
                             <td>{currentEvent.eventId}</td>
@@ -68,16 +71,27 @@ const CurrentEventList = () => {
                     })}
                 </tbody>
             </table>
-            <div className='paging'>
-                <button
+            </div>
+
+            <Link to=''><button
+                onClick={() => { setAddEventDialog(true) }}>
+                Thêm sự kiện
+            </button></Link>
+
+            <div className='m-table-paging'>
+                <div className="m-paging-left">
+
+                </div>
+                <div className="m-paging-center">
+
+                <div className="m-paging-first"
                     onClick={() => {
                         setCurrentEvents({ ...currentEvents, currentPage: 1 })
                         setChangePageQuery(isQuery)
                     }
                     }>
-                    {"<<"}
-                </button>
-                <button
+                </div>
+                <div className="m-paging-prev"
                     onClick={() => {
                         if (currentEvents.currentPage > 1){
                             setCurrentEvents({ ...currentEvents, currentPage: currentEvents.currentPage - 1 })
@@ -85,10 +99,9 @@ const CurrentEventList = () => {
                         }
                     }}
                 >
-                    {"<"}
-                </button>
-                <button>{currentEvents.currentPage}</button>
-                {(currentEvents.currentPage == currentEvents.totalPage) || <button
+                </div>
+                <div className="page-number">{currentEvents.currentPage}</div>
+                {(currentEvents.currentPage == currentEvents.totalPage) || <div className="page-number"
                     onClick={() => {
                         setCurrentEvents({ ...currentEvents, currentPage: currentEvents.currentPage + 1 })
                         setChangePageQuery(isQuery)
@@ -96,8 +109,8 @@ const CurrentEventList = () => {
                     }
                 >
                     {currentEvents.currentPage + 1}
-                </button>}
-                <button
+                </div>}
+                <div className="m-paging-next"
 
                     onClick={() => {
                         if (currentEvents.currentPage < currentEvents.totalPage){
@@ -106,41 +119,36 @@ const CurrentEventList = () => {
                         }
                     }}
                 >
-                    {">"}
-                </button>
-                <button
+                </div>
+                <div className="m-paging-last"
                     onClick={() => {
                         setCurrentEvents({ ...currentEvents, currentPage: currentEvents.totalPage })
                         setChangePageQuery(isQuery)
                     }
                     }
                 >
-                    {">>"}
-                </button>
-                <div className="item">
-                <label>Items per page</label>
-                <Select 
-                    value={sizePage}
-                    onChange={(e)=>setSizePage(e.target.value)}
-                >
+                </div>
+                </div>
+                <div className="m-paging-right">
+                    <label>Items per page</label>
+                    <Select 
+                        value={sizePage}
+                        onChange={(e)=>{
+                            setSizePage(e.target.value)
+                            setChangePageQuery(isQuery)
+                        }}
+                    >
                     <MenuItem value={5}>5</MenuItem>
                     <MenuItem value={10}>10</MenuItem>
                     <MenuItem value={20}>20</MenuItem>
-                </Select>
+                    </Select>
                 </div>
             </div>
 
-            <button
-                className="add-service"
-                onClick={() => { setAddEventDialog(true) }}>
-                Thêm sự kiện
-            </button>
+            
 
             <Dialog open={addEventDialog} onClose={closeAddEventDialog} >
-                <DialogTitle>Thêm sự kiện</DialogTitle>
-                <DialogActions>
-                    <AddEvent isAdded={isAdded} setAdded={setAdded} close = {closeAddEventDialog}/>
-                </DialogActions>
+                <AddEvent isAdded={isAdded} setAdded={setAdded} close = {closeAddEventDialog}/>
             </Dialog>
         </div>)
 }

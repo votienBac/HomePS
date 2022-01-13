@@ -171,7 +171,7 @@ const DetailsTurn = (props) => {
                     } className='ex-icon'></img>
                     <table className="tb" style={{ width: '500px',marginLeft:'0px' }}>
                         <tbody className="t" >
-                            <tr lassName="table-list" style={{ height: '2.765em' }}>
+                            <tr className="table-list" style={{ height: '2.765em' }}>
                                 <th>Dịch vụ</th>
                                 <th>Giá</th>
                                 <th>Số lượng</th>
