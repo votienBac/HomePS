@@ -59,7 +59,7 @@ const CurrentEventList = () => {
                 </thead>
                 <tbody >
                     {currentEvents.eventList.map(currentEvent => {
-                        return (<tr key={currentEvent.eventId} className="list-turn">
+                        return (<tr key={currentEvent.eventId} >
                             <td>{currentEvent.eventId}</td>
                             <td>{currentEvent.eventName}</td>
                             <td>{currentEvent.happenning?"Được áp dụng":"Không áp dụng"}</td>
