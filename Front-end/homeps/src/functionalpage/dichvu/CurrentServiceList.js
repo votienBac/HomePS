@@ -6,6 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 // import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AddService from './AddService.js'
+import formatMoney from '../../utility/formatmoney'
 
 const CurrentServiceList = () => {
     const [currentServices, setCurrentServices] = useState({
@@ -56,7 +57,7 @@ const CurrentServiceList = () => {
                         return (<tr key={currentService.serviceId}>
                             <td>{currentService.serviceId}</td>
                             <td>{currentService.serviceName}</td>
-                            <td>{currentService.price}</td>
+                            <td>{formatMoney(currentService.price) }</td>
                             <td></td>
                             <td>
                                 <Link to={`current-service/${currentService.serviceId}`} >Xem Chi tiết</Link>

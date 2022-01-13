@@ -4,7 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
-
+import formatMoney from '../../utility/formatmoney'
 const DetailsService = (props) => {
     const navigate = useNavigate()
     let params = useParams();
@@ -82,7 +82,7 @@ const DetailsService = (props) => {
                         <ul className="top-bar-details-inf">
                             <li className="row">{service.serviceId}</li>
                             <li className="row">{service.serviceName}</li>
-                            <li className="row">{service.price}</li>
+                            <li className="row">{formatMoney(service.price)}</li>
                         </ul>
                     </div>
                 </div>
