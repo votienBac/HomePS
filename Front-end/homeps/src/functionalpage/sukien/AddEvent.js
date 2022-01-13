@@ -87,7 +87,7 @@ function AddEvent({isAdded, setAdded, close}){
                     </tr>
                 </tbody>
             </table>
-            <button onClick={handleChangeEvents} style={{ width: '20%', alignSelf:'center', margin: '10px' ,marginLeft:'40%'}}>Thêm</button>
+            <button onClick={handleChangeEvents} style={{ width: '20%', alignSelf:'center', margin: '10px' ,marginLeft:'40%'}}>Thêm sự kiện</button>
         </div>
     )
 }
