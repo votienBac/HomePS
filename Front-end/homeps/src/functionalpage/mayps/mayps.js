@@ -62,7 +62,7 @@ function ExtraMayPS() {
                     <tr>
                         <th >ID</th>
                         <th >Máy</th>
-                        <th >Trạng thái</th>
+                        {/*<th >Trạng thái</th>*/}
                         <th >Tình trạng</th>
                         <th ></th>
                     </tr>
@@ -73,7 +73,7 @@ function ExtraMayPS() {
                         <tr key={psList.psId}>
                             <td> {psList.psId}</td>
                             <td> {psList.psName}</td>
-                            <td> {psList.psStatus}</td>
+                            {/*<td> {psList.psStatus}</td>*/}
                             <td> {psList.psState}</td>
                             {/* <td> <Link to={`${psList.psId}`}>Sửa</Link></td> */}
                             <td><Link to={`editform/${psList.psId}/${psList.psStatus}`} className="xem-ct">Sửa</Link> </td>
@@ -119,7 +119,7 @@ function ExtraMayPS() {
 
                     onClick={() => {
                         if (data.currentPage < data.totalPage){
-                            data({ ...data, currentPage: data.currentPage + 1 })
+                            setData({ ...data, currentPage: data.currentPage + 1 })
                             setChangePageQuery(isQuery)
                         }
                     }}

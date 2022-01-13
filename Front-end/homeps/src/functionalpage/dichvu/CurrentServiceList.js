@@ -95,7 +95,7 @@ const CurrentServiceList = () => {
 
                     onClick={() => {
                         if (currentServices.currentPage < currentServices.totalPage){
-                            currentServices({ ...currentServices, currentPage: currentServices.currentPage + 1 })
+                            setCurrentServices({ ...currentServices, currentPage: currentServices.currentPage + 1 })
                             setChangePageQuery(isQuery)
                         }
                     }}
