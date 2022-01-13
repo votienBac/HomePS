@@ -69,6 +69,8 @@ const EditForm = () => {
       setError("Máy đang được sử dụng không thể sửa");
     }else if(details.psStatus ==="1"){
       setError("Trạng thái 1-Đang được sử dụng, không hợp lệ ở đây")
+    }else if(details.psStatus !=="0" && details.psStatus !=="2"){
+      setError("Trạng thái không hợp lệ")
     }
     else{
       fetch(`https://homeps.herokuapp.com/api/ps/${psId}?psName=${details.psName}&psStatus=${details.psStatus}`, {

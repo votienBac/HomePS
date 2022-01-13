@@ -106,7 +106,7 @@ function ExtraMayPS() {
                 >
                 </div>
                 <div class="page-number">{data.currentPage}</div>
-                {(data.currentPage == data.totalPage) || <div class="page-number"
+                {(data.currentPage === data.totalPage) || <div class="page-number"
                     onClick={() => {
                         setData({ ...data, currentPage: data.currentPage + 1 })
                         setChangePageQuery(isQuery)

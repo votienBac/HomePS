@@ -5,7 +5,7 @@ const PsSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, set
     console.log(details);
     const handleChange = (props) => {
         setDetails(props)
-        if (props == '') {
+        if (props === '') {
             setIsQuery(false)
             setQuery({ ...query, currentPage: 1 })
         }
