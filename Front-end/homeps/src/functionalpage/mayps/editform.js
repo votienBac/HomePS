@@ -15,9 +15,11 @@ const EditForm = () => {
   } 
   let params = useParams();
   const psId = params.id
+  const psStatus = params.status
   // const psName = params.id
   // const psStatus = params.id
   const [psData, setdata] = useState([])
+  const [CheckDeletePsDialog, setCheckDeletePsDialog] = useState(false)
   const [error, setError] = useState("")
       //Load the psData
       useEffect(() => {
@@ -30,7 +32,7 @@ const EditForm = () => {
     //Delete Ps Dialog
     const [deletePs, setDeletePs] = useState(false)
     const handleDeletePs = async () => {
-        await fetch(`https://homeps.herokuapp.com/api/ps/${psId}`, {
+       await fetch(`https://homeps.herokuapp.com/api/ps/${psId}`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
@@ -38,8 +40,9 @@ const EditForm = () => {
             },
         })
         navigate('/mayps')
+        // if(psStatus ==="1"){const CheckDeletePsDialog =() =>setCheckDeletePsDialog(true)}
     }
-    const closeDeletePsDialog = () => setDeletePs(false)
+     const closeDeletePsDialog = () => setDeletePs(false)
 
     //change dataPs
 
@@ -49,6 +52,8 @@ const EditForm = () => {
     const submitChange = () => {
       if(details.psName==="" ||details.psStatus==="" ){
         setError("Hãy nhập đủ thông tin");
+    }else if(psStatus ==="1"){
+      setError("Máy đang được chơi không thể sửa");
     }else{
       fetch(`https://homeps.herokuapp.com/api/ps/${psId}?psName=${details.psName}&psStatus=${details.psStatus}`, {
         method: 'PUT',
@@ -64,9 +69,7 @@ const EditForm = () => {
 
   }
 }
-
   return ( 
-    
     <div>
         <p>
           <strong>Thông tin máy ID: {psId} </strong> 
@@ -80,8 +83,8 @@ const EditForm = () => {
                 <input list ="status" placeholder={psData.psStatus} onChange={e => setDetails({...details,psStatus:e.target.value})} value={details.psStatus} 
                 className='input1'  style={{marginLeft:'88px'}}  id='input'/>
                     <datalist id="status">
-                           <option value="0"> Trống </option>
-                           <option value="1"> Đang sử dụng</option>
+                           <option value="0"> Có thể sử dụng</option>
+                           {/* <option value="1"> Đang sử dụng</option> */}
                            <option value="2"> Đang hỏng</option>
                     </datalist>
                 
@@ -94,9 +97,21 @@ const EditForm = () => {
 
     <div className='button-detail'>
       <button className="row"  type = 'submit' color="primary" onClick={submitChange}>Lưu</button>
-      <button className="delete-turn" onClick={() => { setDeletePs(true) }}> Xóa máy </button>
+      <button className="delete-turn" onClick={() => { 
+          if(psStatus === "1"){
+            setCheckDeletePsDialog(true)
+          }else{
+            setDeletePs(true)
+          }}}> Xóa máy </button>
       <button className="row" type = 'back' color= "danger"  onClick={Back}>Quay lại</button>
     </div>
+    <Dialog  open={CheckDeletePsDialog} >
+          <DialogTitle>Máy đang được sử dụng không thể xóa</DialogTitle>
+              <DialogActions>
+                  <button onClick = {Back}>Quay lại</button>
+              </DialogActions>
+           
+    </Dialog>
     <Dialog open={deletePs} onClose={closeDeletePsDialog} >
           <DialogTitle>Bạn có chắc chắn muốn xóa máy?</DialogTitle>
           <DialogContent>Bạn không thể khôi phục lại máy sau khi đã xóa.</DialogContent>
@@ -104,6 +119,7 @@ const EditForm = () => {
                   <button  onClick={handleDeletePs}>Xoá máy</button>
                    <button onClick={() => setDeletePs(false)}>Quay về</button>
               </DialogActions>
+           
     </Dialog>
     <Dialog open={changePsDialog} className = "dialog">
         <DialogTitle className="dialogTitle">Bạn đã đổi thông tin thành công</DialogTitle>
