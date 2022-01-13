@@ -45,7 +45,7 @@ const AddForm = () => {
 
   return ( 
     
-    <div>
+    <div className='pageDetail'>
         <p>
           <strong>Thông tin máy</strong> 
         </p>
