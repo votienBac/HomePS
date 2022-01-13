@@ -29,12 +29,12 @@ const Payment = () => {
                         {(turn.orderServices.length != 0) && (<li style={{ marginBottom: '7%' }}>Danh sách dịch vụ</li>)}
                     </ul>
                     <ul className="top-bar-details-inf">
-                        <li style={{ marginBottom: '9%' }}>{turn.billId}</li>
-                        <li style={{ marginBottom: '9%' }}>{turn.playStation && turn.playStation.psName}</li>
-                        <li style={{ marginBottom: '9%' }}>{formatTime(turn.timeStart)}</li>
-                        <li style={{ marginBottom: '9%' }}>{formatTime(turn.timeEnd)}</li>
-                        <li style={{ marginBottom: '9%' }}>{turn.event && turn.event.eventName || 'Không có'}</li>
-                        <li style={{ marginBottom: '9%' }}>{formatMoney(turn.totalPrice)  || 'Không có'}</li>
+                        <li style={{ marginBottom: '7%' }}>{turn.billId}</li>
+                        <li style={{ marginBottom: '7%' }}>{turn.playStation && turn.playStation.psName}</li>
+                        <li style={{ marginBottom: '6%' }}>{formatTime(turn.timeStart)}</li>
+                        <li style={{ marginBottom: '7%' }}>{formatTime(turn.timeEnd)}</li>
+                        <li style={{ marginBottom: '7%' }}>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
+                        <li style={{ marginBottom: '7%' }}>{formatMoney(turn.totalPrice)  || 'Không có'}</li>
                     </ul>
                 </div>
                 {(turn.orderServices.length != 0) && <div className="list-service">
