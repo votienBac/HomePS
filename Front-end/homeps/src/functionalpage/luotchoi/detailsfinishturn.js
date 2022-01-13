@@ -37,7 +37,7 @@ const DetailsFinishTurn = () => {
 
 
     return (
-        <div className='pageBody'>
+        <div className='pageDetail'>
             <section className="turn-details">
                 <div className="container">
                     <div className="col-detail">

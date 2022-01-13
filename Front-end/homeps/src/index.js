@@ -26,8 +26,8 @@ export default function App() {
         const navigate = useNavigate()
         const location = useLocation();
         const isLogin = location.pathname === "/";
-
-        const [value, setValue] = React.useState('luotchoi');
+        const str = window.location.pathname.split('/');
+        const [value, setValue] = React.useState(str[1]);
 
         const [darkMode, setDarkMode] = useState(false);
         const changeMode =() =>{
