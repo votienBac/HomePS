@@ -63,7 +63,7 @@ const DetailsService = (props) => {
                 "Content-Type": "application/json",
                 "x-access-token": "token-value",
             },
-            body: JSON.stringify({ serviceTmp })
+            body: JSON.stringify(serviceTmp)
         })
         setCheckChangeService(!checkChangeService)
         closeChangeServicesDialog()

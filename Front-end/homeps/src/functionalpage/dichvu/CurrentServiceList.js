@@ -14,7 +14,10 @@ const CurrentServiceList = () => {
         serviceList: []
     });
     const [addServiceDialog, setAddServiceDialog] = useState(false)
-    const closeAddServiceDialog = () => setAddServiceDialog(false)
+    const closeAddServiceDialog = () => {
+        setAddServiceDialog(false)
+    }
+    const [isAdded, setAdded] = useState(false)
     const [sizePage, setSizePage] = useState(10)
     const [isQuery, setIsQuery] = useState(false)
     const [isChangePageQuery, setChangePageQuery] = useState(false)
@@ -26,7 +29,7 @@ const CurrentServiceList = () => {
         })
             .then(res => res.json())
             .then(res => { setCurrentServices(res) })
-    }, [currentServices.currentPage, sizePage])
+    }, [currentServices.currentPage, sizePage, isAdded])
     return (
         <div>
             <div className="search-bar">    
@@ -133,7 +136,7 @@ const CurrentServiceList = () => {
             <Dialog open={addServiceDialog} onClose={closeAddServiceDialog} >
                 <DialogTitle>Thêm dịch vụ</DialogTitle>
                 <DialogActions>
-                    <AddService/>
+                    <AddService isAdded={isAdded} setAdded={setAdded} close = {closeAddServiceDialog}/>
                 </DialogActions>
             </Dialog>
         </div>)

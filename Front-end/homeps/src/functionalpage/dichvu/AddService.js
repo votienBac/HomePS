@@ -1,8 +1,11 @@
 import { useState } from "react"
 
-function AddService(){
+function AddService({isAdded, setAdded, close}){
     const [checkChangeService, setCheckChangeService] = useState(false)
-    let service = []
+    let service = {
+        serviceName: null,
+        price: null
+    }
     //Change Service 
     const handleChangeInforService = (key, infor) => {
         if(key=="price"){
@@ -13,10 +16,6 @@ function AddService(){
             service.serviceName = infor;
         }
     }
-    const [changeServicesDialog, setChangeServicesDialog] = useState(false)
-    const closeChangeServicesDialog = () => {
-        setChangeServicesDialog(false)
-    }
     const handleChangeServices = async () => {
         await fetch(`https://homeps.herokuapp.com/api/extraservice`, {
             method: 'POST',
@@ -24,10 +23,11 @@ function AddService(){
                 "Content-Type": "application/json",
                 "x-access-token": "token-value",
             },
-            body: JSON.stringify({ service })
+            body: JSON.stringify(service)
         })
         setCheckChangeService(!checkChangeService)
-        closeChangeServicesDialog()
+        setAdded(!isAdded)
+        close()
     }
 
     return(
@@ -56,7 +56,7 @@ function AddService(){
                 </tbody>
             </table>
             <button onClick={handleChangeServices}>Thêm dịch vụ</button>
-            <button onClick={closeChangeServicesDialog}>Quay lại</button>
+            <button onClick={close}>Quay lại</button>
         </div>
     )
 }
