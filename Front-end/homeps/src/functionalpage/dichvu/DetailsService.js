@@ -70,7 +70,7 @@ const DetailsService = (props) => {
     }
 
     return (
-        <div>
+        <div className='pageDetail'>
             <section className="turn-details">
                 <div className="container">
                     <div className="col-detail">

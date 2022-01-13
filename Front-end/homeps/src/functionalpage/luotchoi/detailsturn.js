@@ -113,7 +113,7 @@ const DetailsTurn = (props) => {
     }
     const closePaymentDialog = () => setPaymentDialog(false)
     return (
-        <div class="pageBody">
+        <div class="pageDetail">
             <section className="turn-details">
                 <div className="container">
 
