@@ -51,7 +51,7 @@ function AddEvent({isAdded, setAdded, close}){
                     <tr>
                             <td style={{fontWeight:'700',marginBottom:'20px'}}>Tên sự kiện</td>
                             <td>
-                                <input  type='text' style={{width:'200px',paddingLeft:'10px',borderRadius:'10px',
+                                <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
                                     type='text'
                                     onChange={e => handleChangeInforEvent("EventName", e.target.value)}
@@ -61,7 +61,7 @@ function AddEvent({isAdded, setAdded, close}){
                     <tr>
                             <td style={{fontWeight:'700',marginBottom:'20px'}}>Thời gian bắt đầu</td>
                             <td>
-                                <input  type='text' style={{width:'200px',paddingLeft:'10px',borderRadius:'10px',
+                                <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
                                     type='datetime-local'
                                     onChange={e => handleChangeInforEvent("timeStart", e.target.value)}
@@ -71,7 +71,7 @@ function AddEvent({isAdded, setAdded, close}){
                     <tr>
                             <td style={{fontWeight:'700',marginBottom:'20px'}}>Thời gian kết thúc</td>
                             <td>
-                                <input  type='text' style={{width:'200px',paddingLeft:'10px',borderRadius:'10px',
+                                <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
                                     type='datetime-local'
                                     onChange={e => handleChangeInforEvent("timeEnd", e.target.value)}
@@ -81,7 +81,7 @@ function AddEvent({isAdded, setAdded, close}){
                     <tr>
                             <td style={{fontWeight:'700',marginBottom:'20px'}}>Giảm giá</td>
                             <td>
-                                <input  type='text' style={{width:'200px',paddingLeft:'10px',borderRadius:'10px',
+                                <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
                                     type='number'
                                     min='0'

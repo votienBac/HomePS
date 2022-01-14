@@ -37,7 +37,7 @@ function AddService({isAdded, setAdded, close}){
             marginTop:'5px',marginLeft:'310px'}}></img>
                 <div> 
                     <div  style={{ height: '3.965em' }}>
-                        <th colSpan={2} style={{fontSize:'20px',paddingLeft:'120px'}}>Thêm sự kiện</th>
+                        <th colSpan={2} style={{fontSize:'20px',paddingLeft:'110px'}}>Thêm dịch vụ</th>
                     </div>   
                         <tr>
                             <td style={{fontWeight:'700',marginBottom:'20px'}}>Tên dịch vụ</td>

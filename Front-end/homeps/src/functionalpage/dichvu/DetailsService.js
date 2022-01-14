@@ -108,7 +108,7 @@ const DetailsService = (props) => {
                         <div style={{marginLeft:'25px',marginBottom:'10px',marginTop:'10px'}}>    
                             <div>
                             <div  style={{ height: '3.965em' }}>
-                                <th colSpan={2} style={{fontSize:'20px',paddingLeft:'100px'}}>Thêm sự kiện</th>
+                                <th colSpan={2} style={{fontSize:'20px',paddingLeft:'85px'}}>Thay đổi dịch vụ</th>
                             </div>   
                                 <tr>
                                     <td style={{fontWeight:'700',marginBottom:'20px'}}>Tên dịch vụ</td>
