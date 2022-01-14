@@ -155,3 +155,6 @@
   box-shadow: 0px 0px 7px #dde1e9, 0px 0px 2px #bdc9dd;
   background: #303030;
 }
+.pageMain-dark #password{
+  background-color: #dbdde2;
+}
