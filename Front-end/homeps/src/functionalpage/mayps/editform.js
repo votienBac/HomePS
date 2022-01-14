@@ -52,10 +52,10 @@ const EditForm = () => {
     //change dataPs
     const [ details,setDetails] = useState({psName:"",psStatus:""});
     const [changePsDialog, setChangePsDialog] = useState(false)
-    const [checkChangePsStatus,setCheckChangePsStatus] = useState(false)
+    const [checkChangePsStatusDialog,setCheckChangePsStatusDialog] = useState(false)
     const openChangePsDialog = () => {
       if(psStatus ==="1"){
-        setCheckChangePsStatus(true)
+        setCheckChangePsStatusDialog(true)
       }else{
         setChangePsDialog(true)
       }
@@ -63,10 +63,12 @@ const EditForm = () => {
     const closeChangePsDialog = () => {
     setError(false)
     setChangePsDialog(false)
-    setCheckChangePsStatus(false)
+    
     // window.location.reload();
   }
-
+    const closeCheckChangePsStatusDialog = () =>{
+      setCheckChangePsStatusDialog(false)
+    }
     const submitChange = () => {
     if(details.psName==="" ||details.psStatus==="" )
     {
@@ -156,10 +158,10 @@ const EditForm = () => {
                     {/* <button style={{ height: '20%', alignSelf: 'center', margin: '10px' }} onClick={Back}>Quay lại</button> */}
 
     </Dialog>
-    <Dialog open = {checkChangePsStatus} onClose={closeChangePsDialog}>
+    <Dialog open = {checkChangePsStatusDialog} onClose={closeCheckChangePsStatusDialog}>
           <DialogTitle>Máy đang được sử dụng không thể sửa đổi</DialogTitle>
               <DialogActions>
-                  <button onClick = {closeChangePsDialog}>Quay lại</button>
+                  <button onClick = {closeCheckChangePsStatusDialog}>Quay lại</button>
           </DialogActions>
     </Dialog>
     <Dialog  open={CheckDeletePsDialog} >
