@@ -74,6 +74,7 @@ public class BillService {
     public List<Bill> searchBillByPs(String query) {
         return billRepository.searchBill(query);
     }
+
     public List<Bill> searchBillByPs(String query, Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         Page<Bill> result = billRepository.searchBill(query, pageable);
@@ -87,6 +88,7 @@ public class BillService {
     public List<Bill> searchPaidByPS(String query) {
         return billRepository.searchPaidBill(query);
     }
+
     public List<Bill> searchPaidByPS(String query, Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         Page<Bill> result = billRepository.searchPaidBill(query, pageable);
@@ -100,6 +102,7 @@ public class BillService {
     public List<Bill> searchUnpaidByPS(String query) {
         return billRepository.searchUnpaidBill(query);
     }
+
     public List<Bill> searchUnpaidByPS(String query, Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         Page<Bill> result = billRepository.searchUnpaidBill(query, pageable);
@@ -139,6 +142,7 @@ public class BillService {
         bill.setTimeEnd(Instant.now());
         bill.setPaid(true);
         findEventForBill(bill);
+        findDailyEventForBill(bill);
         bill.setTotalPrice(getTotalBillPrice(bill));
         bill.setTotalHourPlayed(getTotalHourPlayed(bill));
         addBill_OneDay(bill);
@@ -162,12 +166,12 @@ public class BillService {
         ZonedDateTime zonedDateTime = bill.getTimeStart().atZone(ZoneId.systemDefault());
         LocalDate date = LocalDate.of(zonedDateTime.getYear(), zonedDateTime.getMonth(), zonedDateTime.getDayOfMonth());
         if (dailyTurnOverRepository.findDaily_TurnOverByDate(date) == null) {
-            Daily_TurnOver lastDaily_TurnOver=dailyTurnOverRepository.findTopByOrderByDateDesc();
+            Daily_TurnOver lastDaily_TurnOver = dailyTurnOverRepository.findTopByOrderByDateDesc();
             Daily_TurnOver daily_turnOver = new Daily_TurnOver(date, bill.getTotalPrice());
-            LocalDate lastDate=lastDaily_TurnOver.getDate();
+            LocalDate lastDate = lastDaily_TurnOver.getDate();
 
-            long days= Duration.between( lastDaily_TurnOver.getDate().atStartOfDay(),daily_turnOver.getDate().atStartOfDay()).toDays();
-            if(days>0) {
+            long days = Duration.between(lastDaily_TurnOver.getDate().atStartOfDay(), daily_turnOver.getDate().atStartOfDay()).toDays();
+            if (days > 0) {
                 for (long i = 0; i < days; i++) {
                     Daily_TurnOver turnOver = new Daily_TurnOver(lastDate.plusDays(1), 0.0);
                     lastDate = lastDate.plusDays(1);
@@ -185,18 +189,28 @@ public class BillService {
 
     public Double getTotalHourPlayed(Bill bill) {
         Duration duration = Duration.between(bill.getTimeStart(), bill.getTimeEnd());
-        Long totalMinutes = duration.toMinutes(); //tong so phut choi
-        Double totalHours = ((totalMinutes % 60) > 30) ? (totalMinutes / 60 + 1) : (totalMinutes / 60 + 0.5);
-        return totalHours;
+        long totalMinutes = duration.toMinutes(); //tong so phut choi
+        return ((totalMinutes % 60) > 30) ? (totalMinutes / 60 + 1) : (totalMinutes / 60 + 0.5);
     }
+
 
     public Double getTotalBillPrice(Bill bill) {
         double sum = 0;
-        if (bill.getEvent() != null) {
+        if (bill.getEvent() != null && bill.getDailyEvent() != null) {
+            if (bill.getEvent().isDeleted() && bill.getDailyEvent().isDeleted()) {
+                sum = getTotalHourPlayed(bill) * PricePerHour;
+            } else if (bill.getDailyEvent().isDeleted()) {
+                sum = getTotalHourPlayed(bill) * PricePerHour * (100f - bill.getEvent().getPercentDiscount()) / 100f;
+            } else if (bill.getEvent().isDeleted()) {
+                sum = getTotalHourPlayed(bill) * PricePerHour * (100f - bill.getDailyEvent().getPercentDiscount()) / 100f;
+            } else {
+                double maxDiscount = Math.max(bill.getEvent().getPercentDiscount(), bill.getDailyEvent().getPercentDiscount());
+                sum = getTotalHourPlayed(bill) * PricePerHour * (100f - maxDiscount) / 100f;
+            }
+        } else if (bill.getEvent() != null && !bill.getEvent().isDeleted()) {
             sum = getTotalHourPlayed(bill) * PricePerHour * (100f - bill.getEvent().getPercentDiscount()) / 100f;
-        } else if (bill.getDailyEvent() != null) {
+        } else if (bill.getDailyEvent() != null && !bill.getDailyEvent().isDeleted()) {
             sum = getTotalHourPlayed(bill) * PricePerHour * (100f - bill.getDailyEvent().getPercentDiscount()) / 100f;
-
         } else {
             sum = getTotalHourPlayed(bill) * PricePerHour;
         }
@@ -212,9 +226,13 @@ public class BillService {
     public void findEventForBill(Bill bill) {
         if (!eventRepository.findAll().isEmpty()) {
             List<Event> events = eventRepository.findAll();
+            double maxDiscount = 0;
             for (Event event : events) {
                 if (bill.getTimeStart().isAfter(event.getTimeStart()) && bill.getTimeEnd().isBefore(event.getTimeEnd())) {
-                    bill.setEvent(event);
+                    if (event.getPercentDiscount() > maxDiscount) {
+                        maxDiscount = event.getPercentDiscount();
+                        bill.setEvent(event);
+                    }
                 }
             }
         }
@@ -223,14 +241,49 @@ public class BillService {
     public void findDailyEventForBill(Bill bill) {
         if (!dailyEventRepository.findAll().isEmpty()) {
             List<DailyEvent> dailyEvents = dailyEventRepository.findAll();
+            double maxDiscount = 0;
             for (DailyEvent dailyEvent : dailyEvents) {
-                dailyEvent.setTimeAgain();
-                if (bill.getTimeStart().isAfter(dailyEvent.getTimeStart()) && bill.getTimeEnd().isBefore(dailyEvent.getTimeEnd())) {
-                    bill.setDailyEvent(dailyEvent);
+                if (check(dailyEvent.getDayHappen(), convertToString(bill)) &&
+                        LocalTime.ofInstant(bill.getTimeStart(), ZoneId.of("GMT+7")).isAfter(dailyEvent.getTimeStart()) &&
+                        LocalTime.ofInstant(bill.getTimeStart(), ZoneId.of("GMT+7")).isBefore(dailyEvent.getTimeEnd())) {
+                    if (dailyEvent.getPercentDiscount() > maxDiscount) {
+                        maxDiscount = dailyEvent.getPercentDiscount();
+                        bill.setDailyEvent(dailyEvent);
+                    }
                 }
-                dailyEventRepository.save(dailyEvent);
             }
         }
+    }
+
+    private boolean check(String timeStartOfBill, String dayHappen) {
+        for (int i = 0; i < 7; i++) {
+            if (timeStartOfBill.charAt(i) == '1' && dayHappen.charAt(i) == '1') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String convertToString(Bill bill) {
+        var day = bill.getTimeStart().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).getDayOfWeek();
+        switch (day) {
+            case MONDAY:
+                return "1000000";
+            case TUESDAY:
+                return "0100000";
+            case WEDNESDAY:
+                return "0010000";
+            case THURSDAY:
+                return "0001000";
+            case FRIDAY:
+                return "0000100";
+            case SATURDAY:
+                return "0000010";
+            case SUNDAY:
+                return "0000001";
+
+        }
+        return null;
     }
 
     public void deleteBill(Bill bill) {
@@ -246,4 +299,5 @@ public class BillService {
 
         billRepository.delete(bill);
     }
+
 }

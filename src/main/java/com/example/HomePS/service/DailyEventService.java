@@ -2,7 +2,6 @@ package com.example.HomePS.service;
 
 import com.example.HomePS.model.DailyEvent;
 import com.example.HomePS.model.Event;
-import com.example.HomePS.model.ExtraService;
 import com.example.HomePS.repository.DailyEventRepository;
 import com.example.HomePS.repository.EventRepository;
 import lombok.AllArgsConstructor;
@@ -66,6 +65,8 @@ public class DailyEventService {
         var toDelete = getDailyEvent(id);
         toDelete.setDeleted(true);
         save(toDelete);
+
+
     }
 
     public DailyEvent update(Long id, DailyEvent event) {
@@ -83,8 +84,8 @@ public class DailyEventService {
             oldEvent.setTimeStart((event.getTimeStart()));
         if (event.getTimeEnd() != null)
             oldEvent.setTimeEnd((event.getTimeEnd()));
-        if (event.getRepeatAfterNumOfDays() != 0) {
-            oldEvent.setRepeatAfterNumOfDays(event.getRepeatAfterNumOfDays());
+        if (event.getDayHappen() != null) {
+            oldEvent.setDayHappen(event.getDayHappen());
         }
         return save(oldEvent);
     }

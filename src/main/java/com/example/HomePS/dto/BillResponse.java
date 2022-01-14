@@ -1,16 +1,26 @@
 package com.example.HomePS.dto;
 
-import com.example.HomePS.model.Bill;
+import com.example.HomePS.model.Event;
+import com.example.HomePS.model.OrderService;
+import com.example.HomePS.model.PlayStation;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.Instant;
 import java.util.List;
 
-@Data
 @AllArgsConstructor
+@Getter
+@Setter
 public class BillResponse {
-    public int currentPlaying;
-    public int currentPage;
-    public int totalPage;
-    public List<Bill> currentTurns;
+    private Long billId;
+    private Instant timeStart;
+    private Instant timeEnd;
+    private boolean isPaid;
+    private PlayStation playStation;
+    private List<OrderService> orderServices;
+    private Event event;
+    private Double totalHourPlayed;
+    private Double totalPrice;
 }

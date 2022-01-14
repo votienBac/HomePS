@@ -2,6 +2,7 @@ package com.example.HomePS.controller;
 
 import com.example.HomePS.dto.BillRequest;
 import com.example.HomePS.dto.BillResponse;
+import com.example.HomePS.dto.ListBillResponse;
 import com.example.HomePS.dto.OrderServiceDto;
 import com.example.HomePS.model.Bill;
 import com.example.HomePS.model.OrderService;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.HomePS.mapper.ApiMapper.mapBillToResponse;
+import static com.example.HomePS.mapper.ApiMapper.mapListBillToListBillResponse;
 
 @RestController
 @RequestMapping("/api/bills")
@@ -50,7 +54,7 @@ public class BillController {
     }
 
     @GetMapping
-    public BillResponse getBillsByPage(
+    public ListBillResponse getBillsByPage(
             @RequestParam(required = false, defaultValue = "full") String status,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size,
@@ -74,11 +78,11 @@ public class BillController {
                 totalPage = (int) Math.ceil(billService.findAll().size() * 1.0 / size);
                 break;
         }
-        return new BillResponse(currentPlaying, page, totalPage, currentTurns);
+        return new ListBillResponse(currentPlaying, page, totalPage, mapListBillToListBillResponse(currentTurns));
     }
 
     @GetMapping("/search")
-    public BillResponse searchByPS(
+    public ListBillResponse searchByPS(
             @RequestParam(required = false, defaultValue = "") String query,
             @RequestParam(required = false, defaultValue = "full") String status,
             @RequestParam(required = false, defaultValue = "1") Integer page,
@@ -93,7 +97,7 @@ public class BillController {
                 if (query.equals("")) {
                     currentTurns = billService.getUnpaidBillByPage(page - 1, size, sortBy);
                     totalPage = (int) Math.ceil(billService.findUnpaidBill().size() * 1.0 / size);
-                    return new BillResponse(-1, page, totalPage, currentTurns);
+                    return new ListBillResponse(-1, page, totalPage, mapListBillToListBillResponse(currentTurns));
                 }
                 currentTurns = billService.searchUnpaidByPS(query, page - 1, size, sortBy);
                 totalPage = (int) Math.ceil(billService.searchUnpaidByPS(query).size() * 1.0 / size);
@@ -103,7 +107,7 @@ public class BillController {
                 if (query.equals("")) {
                     currentTurns = billService.getPaidBillsByPage(page - 1, size, sortBy);
                     totalPage = (int) Math.ceil(billService.findPaidBill().size() * 1.0 / size);
-                    return new BillResponse(-1, page, totalPage, currentTurns);
+                    return new ListBillResponse(-1, page, totalPage, mapListBillToListBillResponse(currentTurns));
                 }
                 currentTurns = billService.searchPaidByPS(query, page - 1, size, sortBy);
                 totalPage = (int) Math.ceil(billService.searchPaidByPS(query).size() * 1.0 / size);
@@ -113,13 +117,13 @@ public class BillController {
                 if (query.equals("")) {
                     currentTurns = billService.getBillsByPage(page - 1, size, sortBy);
                     totalPage = (int) Math.ceil(billService.findAll().size() * 1.0 / size);
-                    return new BillResponse(-1, page, totalPage, currentTurns);
+                    return new ListBillResponse(-1, page, totalPage, mapListBillToListBillResponse(currentTurns));
                 }
                 currentTurns = billService.searchBillByPs(query, page - 1, size, sortBy);
                 totalPage = (int) Math.ceil(billService.searchBillByPs(query).size() * 1.0 / size);
                 break;
         }
-        return new BillResponse(-1, page, totalPage, currentTurns);
+        return new ListBillResponse(-1, page, totalPage, mapListBillToListBillResponse(currentTurns));
     }
 
     @DeleteMapping("/{billId}")
@@ -132,8 +136,8 @@ public class BillController {
     }
 
     @GetMapping("/{id}")
-    public Bill getBill(@PathVariable Long id) {
-        return billService.getBill(id);
+    public BillResponse getBill(@PathVariable Long id) {
+        return mapBillToResponse(billService.getBill(id));
     }
 
     public static class OrderForm {

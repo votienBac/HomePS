@@ -1,15 +1,18 @@
 package com.example.HomePS.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -17,37 +20,26 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class DailyEvent{
+public class DailyEvent {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @ApiModelProperty(hidden = true)
     private Long dailyEventId;
     @NotBlank(message = "Daily event name is required")
     private String dailyEventName;
-    private Instant timeStart;
-    private Instant timeEnd;
-    private int repeatAfterNumOfDays;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    private LocalTime timeStart;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    private LocalTime timeEnd;
+    private String dayHappen;
     private double percentDiscount;
-
-    public void setTimeAgain(){
-        if(Instant.now().isAfter(this.getTimeEnd())){
-            this.setTimeStart(this.getTimeStart().plus(getRepeatAfterNumOfDays(), ChronoUnit.DAYS));
-            this.setTimeEnd(this.getTimeEnd().plus(getRepeatAfterNumOfDays(), ChronoUnit.DAYS));
-        }
-    }
-    @Transient
-    public boolean isHappenning(){
-        if(Instant.now().isBefore(this.timeEnd) && Instant.now().isAfter(this.timeStart)){
-            return true;
-        }
-        return false;
-    }
-
     @JsonIgnore
-    @Column(nullable=false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean deleted = false;
+
     @JsonIgnore
     public boolean isDeleted() {
         return deleted;
     }
+
 }
