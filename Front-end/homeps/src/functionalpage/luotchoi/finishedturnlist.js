@@ -23,7 +23,7 @@ function FinishedTurn() {
     //Load the bill list
     useEffect(() => {
         if (!isQuery)
-            fetch(`https://homeps.herokuapp.com/api/bills?page=${finishedTurns.currentPage}&size=${sizePage}&status=${'paid'}`, {
+            fetch(`https://homeps.herokuapp.com/api/bills?page=${finishedTurns.currentPage}&size=${sizePage}&sortBy=${'timeEnd'}&status=${'paid'}`, {
                 method: 'GET'
             })
                 .then(res => res.json())
