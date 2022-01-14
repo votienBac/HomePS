@@ -52,12 +52,18 @@ const EditForm = () => {
     //change dataPs
     const [ details,setDetails] = useState({psName:"",psStatus:""});
     const [changePsDialog, setChangePsDialog] = useState(false)
+    const [checkChangePsStatus,setCheckChangePsStatus] = useState(false)
     const openChangePsDialog = () => {
-      setChangePsDialog(true)
+      if(psStatus ==="1"){
+        setCheckChangePsStatus(true)
+      }else{
+        setChangePsDialog(true)
+      }
   }
     const closeChangePsDialog = () => {
     setError(false)
     setChangePsDialog(false)
+    setCheckChangePsStatus(false)
     // window.location.reload();
   }
 
@@ -149,7 +155,13 @@ const EditForm = () => {
                     <button style={{ height: '20%', alignSelf: 'center', margin: '10px' }}  onClick={submitChange}>Thay đổi</button><br></br>
                     {/* <button style={{ height: '20%', alignSelf: 'center', margin: '10px' }} onClick={Back}>Quay lại</button> */}
 
-                </Dialog>
+    </Dialog>
+    <Dialog open = {checkChangePsStatus} onClose={closeChangePsDialog}>
+          <DialogTitle>Máy đang được sử dụng không thể sửa đổi</DialogTitle>
+              <DialogActions>
+                  <button onClick = {closeChangePsDialog}>Quay lại</button>
+          </DialogActions>
+    </Dialog>
     <Dialog  open={CheckDeletePsDialog} >
           <DialogTitle>Máy đang được sử dụng không thể xóa</DialogTitle>
               <DialogActions>
