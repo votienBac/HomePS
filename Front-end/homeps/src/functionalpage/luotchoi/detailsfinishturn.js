@@ -38,6 +38,8 @@ const DetailsFinishTurn = () => {
 
 
     return (
+        <div>        <img onClick={() => navigate(-1)} src={'https://img.icons8.com/ios/50/000000/circled-left-2.png'
+    } className='back-icon'/>
         <div className='pageDetail'>
             <section className="turn-details">
                 <div className="container">
@@ -57,7 +59,7 @@ const DetailsFinishTurn = () => {
                             <li className="row">{formatTime(turn.timeStart)}</li>
                             <li className="row">{formatTime(turn.timeEnd)}</li>
                             <li className='row'>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
-                            <li className='row'>{formatMoney(turn.totalPrice)  || 'Không có'}</li>
+                            <li className='row'>{formatMoney(turn.totalPrice) || 'Không có'} vnd</li>
                         </ul>
                     </div>
                     {(turn.orderServices.length != 0) && <div className="list-service">
@@ -79,9 +81,7 @@ const DetailsFinishTurn = () => {
                         </table>
                     </div>}
                     <div className='button-detail'>
-                        <button className='back'
-                            onClick={() => navigate(-1)}>
-                            Quay lại</button>
+
                         <button className="delete-turn"
                             onClick={() => { setDeleteTurnDialog(true) }}>
                             Xóa lượt chơi
@@ -100,6 +100,7 @@ const DetailsFinishTurn = () => {
                 </Dialog>
             </section>
 
+        </div>
         </div>
     )
 }

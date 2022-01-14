@@ -61,7 +61,7 @@ const CurrentServiceList = () => {
                         return (<tr key={currentService.serviceId}>
                             <td>{currentService.serviceId}</td>
                             <td>{currentService.serviceName}</td>
-                            <td>{formatMoney(currentService.price) }</td>
+                            <td>{formatMoney(currentService.price) } vnd</td>
                             <td>
                                 <Link to={`current-service/${currentService.serviceId}`}  className="xem-ct">Xem Chi tiết</Link>
                             </td>

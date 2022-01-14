@@ -34,7 +34,7 @@ const Payment = () => {
                         <li style={{ marginBottom: '6%' }}>{formatTime(turn.timeStart)}</li>
                         <li style={{ marginBottom: '7%' }}>{formatTime(turn.timeEnd)}</li>
                         <li style={{ marginBottom: '7%' }}>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
-                        <li style={{ marginBottom: '7%' }}>{formatMoney(turn.totalPrice)  || 'Không có'}</li>
+                        <li style={{ marginBottom: '7%' }}>{formatMoney(turn.totalPrice)  || 'Không có'} vnd</li>
                     </ul>
                 </div>
                 {(turn.orderServices.length != 0) && <div className="list-service">

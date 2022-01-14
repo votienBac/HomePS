@@ -47,7 +47,8 @@ const AddForm = () => {
 }
 
   return ( 
-    
+    <div>        <img onClick={() => navigate(-1)} src={'https://img.icons8.com/ios/50/000000/circled-left-2.png'
+  } className='back-icon'/>
     <div className='pageDetail'>
        <div  style={{ height: '3.965em' }}>
             <th colSpan={2} style={{fontSize:'20px'}}>Thông tin máy</th>
@@ -80,7 +81,6 @@ const AddForm = () => {
     <div className='button-detail' >
       <button className="row"  onClick={submitChange}>Lưu</button>
 
-      <button  className="row"  onClick={Back}>Quay lại</button>
     </div>
  
     <Dialog open={changePsDialog} className = "dialog">
@@ -95,7 +95,7 @@ const AddForm = () => {
     </div>
   
 
-
+  </div>
   )
 }
 export default AddForm
