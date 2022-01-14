@@ -87,7 +87,7 @@ const EditForm = () => {
       setError(false)
       setCheckChangePs(!checkChangePs)
       closeChangePsDialog()
-      // window.location.reload();
+      window.location.reload();
 
 
   }
