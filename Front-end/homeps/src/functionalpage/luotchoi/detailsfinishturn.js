@@ -5,6 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
 import formatTime from '../../utility/formattime';
+import formatMoney from '../../utility/formatmoney';
 const DetailsFinishTurn = () => {
     const navigate = useNavigate()
     let params = useParams();
@@ -46,6 +47,8 @@ const DetailsFinishTurn = () => {
                             <li>Tên máy</li>
                             <li>Thời điểm bắt đầu</li>
                             <li>Thời điểm kết thúc</li>
+                            <li>Sự kiện được áp dụng</li>
+                            <li>Tổng tiền</li>
                             {(turn.orderServices.length != 0) && <li>Danh sách dịch vụ</li>}
                         </ul>
                         <ul className="top-bar-details-inf">
@@ -53,6 +56,8 @@ const DetailsFinishTurn = () => {
                             <li className="row">{turn.playStation && turn.playStation.psName}</li>
                             <li className="row">{formatTime(turn.timeStart)}</li>
                             <li className="row">{formatTime(turn.timeEnd)}</li>
+                            <li className='row'>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
+                            <li className='row'>{formatMoney(turn.totalPrice)  || 'Không có'}</li>
                         </ul>
                     </div>
                     {(turn.orderServices.length != 0) && <div className="list-service">

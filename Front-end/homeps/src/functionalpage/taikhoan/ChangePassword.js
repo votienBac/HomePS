@@ -53,11 +53,11 @@ function ChangePassword({setPage,Logout}) {
                 <h2>Đổi mật khẩu</h2>
                 <div className="form-group">
                     <label htmlFor="password">Mật khẩu hiện tại:</label>
-                    <input type="password" name = "password" id = "password"  onChange={e => setDetails({...details,mkcu:e.target.value})} value={details.mkcu}/>           
+                    <input type="password" name = "password" id = "input"  onChange={e => setDetails({...details,mkcu:e.target.value})} value={details.mkcu}/>           
                     <label htmlFor="password">Mật khẩu mới: </label>
-                    <input type="password" name = "password" id = "password"  onChange={e => setDetails({...details,mkmoi:e.target.value})} value={details.mkmoi}/>
+                    <input type="password" name = "password" id = "input"  onChange={e => setDetails({...details,mkmoi:e.target.value})} value={details.mkmoi}/>
                     <label htmlFor="password">Nhập lại mật khẩu mới: </label>
-                    <input type="password" name = "password" id = "password"  onChange={e => setDetails({...details,xn:e.target.value})} value={details.xn}/>
+                    <input type="password" name = "password" id = "input"  onChange={e => setDetails({...details,xn:e.target.value})} value={details.xn}/>
                     {(error !== "") ? (<div className="error">{error}</div>) : ""}                   
                 </div>
                 <input type="submit" className="submitt" value="Đổi mật khẩu"  onClick={Complete} />

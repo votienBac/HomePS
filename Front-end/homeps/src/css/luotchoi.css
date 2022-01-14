@@ -71,6 +71,7 @@ td{
     margin-top: 10px;
     margin-left: 475px;
     width: 20px;
+    z-index: 10;
 }
 .m-table-paging {
     width: unset;

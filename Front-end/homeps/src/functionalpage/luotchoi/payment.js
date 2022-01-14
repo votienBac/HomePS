@@ -43,12 +43,14 @@ const Payment = () => {
                             <tr className='table-list'>
                                 <th>Tên</th>
                                 <th>Số lượng</th>
+                                <th >Giá dịch vụ</th>
                             </tr>
                             {turn.orderServices && turn.orderServices.map(orderService => {
                                 return (
                                     <tr key={orderService.service.serviceId} className='list-turn'>
                                         <td>{orderService.service.serviceName}</td>
                                         <td>{orderService.quantity}</td>
+                                        <td>{formatMoney(orderService.service.price)}</td>
                                     </tr>
                                 )
                             })}
