@@ -47,7 +47,8 @@ function ChangePassword({setPage,Logout}) {
         }
       }
     return (
-        <form onSubmit={ submitHandler } className='forms'>
+      <div className='pageDetail'>
+        <form onSubmit={ submitHandler } className='forms' style={{paddingLeft:'30%'}}>
             <div className="form-inner">
                 <h2>Đổi mật khẩu</h2>
                 <div className="form-group">
@@ -69,6 +70,7 @@ function ChangePassword({setPage,Logout}) {
                 </Dialog>
             </div>
         </form>
+      </div>  
     )
 }
 

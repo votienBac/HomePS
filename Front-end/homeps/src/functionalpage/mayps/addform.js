@@ -54,17 +54,17 @@ const AddForm = () => {
        </div>
           <tr>
         
-                <td colSpan={2} style={{fontSize:'20px'}}>Tên máy</td>
+                <td colSpan={2} style={{fontSize:'18px'}}>Tên máy</td>
                 <td>
-                   <input style={{width:'400px',paddingLeft:'10px',borderRadius:'10px',
+                   <input id='input' style={{width:'400px',paddingLeft:'10px',borderRadius:'10px',
                           marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
                            type='text' onChange={e => setDetails({...details,psName:e.target.value})} value={details.psName}  />
                 </td>
           </tr>  
           <tr>
-                <td colSpan={2} style={{fontSize:'20px'}}>Trạng thái</td> 
+                <td colSpan={2} style={{fontSize:'18px'}}>Trạng thái</td> 
                 <td>
-                  <input list='status' style={{width:'400px',paddingLeft:'10px',borderRadius:'10px',
+                  <input id='input'  list='status' style={{width:'400px',paddingLeft:'10px',borderRadius:'10px',
                          marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}} onChange={e => setDetails({...details,psStatus:e.target.value})} value={details.psStatus}/>
                     <datalist id="status">
                            <option value="0"> Có thể sử dụng </option>

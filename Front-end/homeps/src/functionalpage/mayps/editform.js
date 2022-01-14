@@ -121,7 +121,7 @@ const EditForm = () => {
     <div style={{marginLeft:'25px',marginBottom:'10px',marginTop:'10px',width:'480px'}}>                 
        <div>
        <div  style={{ height: '3.965em' }}>
-            <th colSpan={2} style={{fontSize:'20px',paddingLeft:'170px'}}>Thay đổi thông tin máy</th>
+            <th colSpan={2} style={{fontSize:'20px',paddingLeft:'130px'}}>Thay đổi thông tin máy</th>
        </div> 
            <tr>
                 <td style={{fontWeight:'700',marginBottom:'20px'}}>Tên máy</td>

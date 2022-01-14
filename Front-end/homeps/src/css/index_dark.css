@@ -151,3 +151,7 @@
 .pageMain-dark .xem-ct{
   color: #ced5df;
 }
+.pageMain-dark .pageDetail{
+  box-shadow: 0px 0px 7px #dde1e9, 0px 0px 2px #bdc9dd;
+  background: #303030;
+}
