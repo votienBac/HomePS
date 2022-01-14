@@ -2,17 +2,15 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import EventSearch from './EventSearch.js'
 import Dialog from '@material-ui/core/Dialog';
-// import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { Select, MenuItem, DialogActions } from "@material-ui/core";
+import { Select, MenuItem} from "@material-ui/core";
 import AddEvent from './AddEvent.js'
 import '../../css/luotchoi.css';
 
-const CurrentEventList = () => {
+const DailyEventList = () => {
     const [currentEvents, setCurrentEvents] = useState({
         currentPage: 1,
         totalPage: 1,
-        eventList: []
+        dailyEventList: []
     });
     const [addEventDialog, setAddEventDialog] = useState(false)
     const closeAddEventDialog = () => {
@@ -25,7 +23,7 @@ const CurrentEventList = () => {
 
     //Add Event Dialog
     useEffect(() => {
-        fetch(`https://homeps.herokuapp.com/api/events?page=${currentEvents.currentPage}&size=${sizePage}`, {
+        fetch(`https://homeps.herokuapp.com/api/dailyEvents?page=${currentEvents.currentPage}&size=${sizePage}`, {
             method: 'GET'
         })
             .then(res => res.json())
@@ -65,7 +63,7 @@ const CurrentEventList = () => {
                             <td>{currentEvent.happenning?"Được áp dụng":"Không áp dụng"}</td>
                             <td>{currentEvent.percentDiscount}%</td>
                             <td>
-                                <Link to={`onetimeevent/${currentEvent.eventId}`} className="xem-ct">Xem Chi tiết</Link>
+                                <Link to={`daily-event/${currentEvent.eventId}`} className="xem-ct">Xem Chi tiết</Link>
                             </td>
                         </tr>)
                     })}
@@ -153,4 +151,4 @@ const CurrentEventList = () => {
         </div>)
 }
 
-export default CurrentEventList
+export default DailyEventList
