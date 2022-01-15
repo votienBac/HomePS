@@ -69,10 +69,7 @@ const DetailsTurn = (props) => {
             })
         await fetch(`https://homeps.herokuapp.com/api/bills/${billId}`, {
             method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
             body: JSON.stringify({ services })
         })
         setCheckChangeServices(!checkChangeServices)
@@ -94,10 +91,7 @@ const DetailsTurn = (props) => {
     const handleDeleteTurn = async () => {
         await fetch(`https://homeps.herokuapp.com/api/bills/${billId}`, {
             method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
         })
         navigate('/luotchoi')
     }
@@ -115,123 +109,133 @@ const DetailsTurn = (props) => {
     }
     const closePaymentDialog = () => setPaymentDialog(false)
     return (
-        <div className='pageBody'>        <img onClick={() => navigate(-1)} src={'https://img.icons8.com/ios/50/000000/circled-left-2.png'
-    } className='back-icon'/>
-        <div class="pageDetail">
-           
-            <section className="turn-details">
-                <div className="container">
-                    <div className="col-detail">
-                        <ul className="top-bar-detailsName">
-                            <li>ID lượt chơi</li>
-                            <li>Tên máy</li>
-                            <li>Thời điểm bắt đầu</li>
-                            {(turn.orderServices.length != 0) && (<li>Danh sách dịch vụ</li>)}
-                        </ul>
-                        <ul className="top-bar-details-inf">
-                            <li>{turn.billId}</li>
-                            <li>{turn.playStation && turn.playStation.psName}</li>
-                            <li>{formatTime(turn.timeStart)}</li>
-                        </ul>
-                    </div>
-                    {turn.orderServices.length != 0 && <div className="list-service">
-                        <table className='tb' style={{ width: '36%', }} >
-                            <tbody className='t'>
-                                <tr className='table-list'>
-                                    <th>Tên</th>
-                                    <th >Giá dịch vụ</th>
-                                    <th >Số lượng</th>
-                                    <th>Tổng tiền</th>
-                                </tr>
-                                {(turn.orderServices) && turn.orderServices.map(orderService => {
-                                    return (
-                                        <tr key={orderService.service.serviceId} className='list-turn'>
-                                            <td>{orderService.service.serviceName}</td>
-                                            <td>{formatMoney(orderService.service.price)}</td>
-                                            <td>{orderService.quantity}</td>
-                                            <td>{formatMoney(orderService.totalPrice)}</td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>
-                    </div>}
-                    <div className='button-detail'>
-                        {/* <button
+        <div className='pageBody'>
+            <img
+                onClick={() => navigate(-1)}
+                src={'https://img.icons8.com/ios/50/000000/circled-left-2.png'}
+                className='back-icon'
+            />
+            <div class="pageDetail">
+                <section className="turn-details">
+                    <div className="container">
+                        <div className="col-detail">
+                            <ul className="top-bar-detailsName">
+                                <li>ID lượt chơi</li>
+                                <li>Tên máy</li>
+                                <li>Thời điểm bắt đầu</li>
+                                {(turn.orderServices.length != 0) && (<li>Danh sách dịch vụ</li>)}
+                            </ul>
+                            <ul className="top-bar-details-inf">
+                                <li>{turn.billId}</li>
+                                <li>{turn.playStation && turn.playStation.psName}</li>
+                                <li>{formatTime(turn.timeStart)}</li>
+                            </ul>
+                        </div>
+                        {turn.orderServices.length != 0 && <div className="list-service">
+                            <table className='tb' style={{ width: '36%', }} >
+                                <tbody className='t'>
+                                    <tr className='table-list'>
+                                        <th>Tên</th>
+                                        <th >Giá dịch vụ</th>
+                                        <th >Số lượng</th>
+                                        <th>Tổng tiền</th>
+                                    </tr>
+                                    {(turn.orderServices) && turn.orderServices.map(orderService => {
+                                        return (
+                                            <tr key={orderService.service.serviceId} className='list-turn'>
+                                                <td>{orderService.service.serviceName}</td>
+                                                <td>{formatMoney(orderService.service.price)}</td>
+                                                <td>{orderService.quantity}</td>
+                                                <td>{formatMoney(orderService.totalPrice)}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>}
+                        <div className='button-detail'>
+                            {/* <button
                             className='back'
                             onClick={() => navigate(-1)}>
                             Quay lại</button> */}
-                        <div className="top-bar-button-3">
-                            <button className="row" onClick={() => openChangeServicesDialog(1, 0)}>Thêm dịch vụ</button>
-                            <button className="row" onClick={() => openChangeServicesDialog(0, 1)}>Xóa dịch vụ</button>
-                            <button onClick={() => setPaymentDialog(true)} className="row">Thanh toán</button>
-                            <button
-                                className="delete-turn"
-                                onClick={() => { setDeleteTurnDialog(true) }}>
-                                Xóa lượt chơi
-                            </button>
+                            <div className="top-bar-button-3">
+                                <button className="row" onClick={() => openChangeServicesDialog(1, 0)}>Thêm dịch vụ</button>
+                                <button className="row" onClick={() => openChangeServicesDialog(0, 1)}>Xóa dịch vụ</button>
+                                <button onClick={() => setPaymentDialog(true)} className="row">Thanh toán</button>
+                                <button
+                                    className="delete-turn"
+                                    onClick={() => { setDeleteTurnDialog(true) }}>
+                                    Xóa lượt chơi
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <Dialog open={changeServicesDialog} onClose={closeChangeServicesDialog} >
-                    <img onClick={closeChangeServicesDialog} src={'https://img.icons8.com/ios-filled/50/000000/x.png'
-                    } className='ex-icon'></img>
-                    <table className="m-table" style={{ width: '515px',marginLeft:'0px' }}>
-                    <thead>
-                            <tr>
-                                <th>Dịch vụ</th>
-                                <th>Giá</th>
-                                <th>Số lượng</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <div className='m-grid'>
-                    <table className="m-table" style={{ width: '500px',marginLeft:'0px' }}>
-                        
-                        <tbody>
-                            {extraServices.serviceList.map((extraService, index) => {
-                                return (
-                                    <tr key={extraService.serviceId} >
-                                        <td>{extraService.serviceName}</td>
-                                        <td>{formatMoney(extraService.price)}</td>
-                                        <td>
-                                            <input
-                                                type='number'
-                                                min='0'
-                                                onChange={e => handleChangeNumberService(index, e.target.value)}
-                                                style={{ borderRadius: '5px', border: '2px', paddingLeft: '10px', backgroundColor:'#dde4f1' }}
-                                                placeholder='0'
-                                            />
-                                        </td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                    </div>
-                    <button onClick={handleChangeServices} style={{ width: '20%', alignSelf: 'center', margin: '10px', marginTop:'0%'}}>Thay đổi</button>
-                </Dialog>
+                    <Dialog open={changeServicesDialog} onClose={closeChangeServicesDialog} >
+                        <img
+                            onClick={closeChangeServicesDialog}
+                            src={'https://img.icons8.com/ios-filled/50/000000/x.png'}
+                            className='ex-icon'></img>
+                        <table className="m-table" style={{ width: '515px', marginLeft: '0px' }}>
+                            <thead>
+                                <tr>
+                                    <th>Dịch vụ</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                </tr>
+                            </thead>
+                        </table>
 
-                <Dialog open={deleteTurnDialog} onClose={closeDeleteTurnDialog} >
-                    <DialogTitle>Bạn có chắc chắn muốn xóa lượt chơi?</DialogTitle>
-                    <DialogContent>Bạn không thể khôi phục lại lượt chơi sau khi đã xóa.</DialogContent>
-                    <DialogActions>
-                        <button onClick={handleDeleteTurn}>Xoá lượt chơi</button>
-                        <button onClick={() => setDeleteTurnDialog(false)}>Quay về</button>
-                    </DialogActions>
-                </Dialog>
+                        <div className='m-grid'>
+                            <table className="m-table" style={{ width: '500px', marginLeft: '0px' }}>
+                                <tbody>
+                                    {extraServices.serviceList.map((extraService, index) => {
+                                        return (
+                                            <tr key={extraService.serviceId} >
+                                                <td>{extraService.serviceName}</td>
+                                                <td>{formatMoney(extraService.price)}</td>
+                                                <td>
+                                                    <input
+                                                        type='number'
+                                                        min='0'
+                                                        onChange={e => handleChangeNumberService(index, e.target.value)}
+                                                        style={{ borderRadius: '5px', border: '2px', paddingLeft: '10px', backgroundColor: '#dde4f1' }}
+                                                        placeholder='0'
+                                                    />
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                        <button
+                            onClick={handleChangeServices}
+                            style={{ width: '20%', alignSelf: 'center', margin: '10px', marginTop: '0%' }}
+                        >
+                            Thay đổi
+                        </button>
+                    </Dialog>
 
-                <Dialog open={paymentDialog} onClose={closePaymentDialog}>
-                    <DialogTitle>Xác nhận thanh toán</DialogTitle>
-                    <DialogActions>
-                        <button onClick={handlePayment}>Đồng ý</button>
-                        <button onClick={() => setPaymentDialog(false)}>Quay lại</button>
-                    </DialogActions>
-                </Dialog>
-            </section>
+                    <Dialog open={deleteTurnDialog} onClose={closeDeleteTurnDialog} >
+                        <DialogTitle>Bạn có chắc chắn muốn xóa lượt chơi?</DialogTitle>
+                        <DialogContent>Bạn không thể khôi phục lại lượt chơi sau khi đã xóa.</DialogContent>
+                        <DialogActions>
+                            <button onClick={handleDeleteTurn}>Xoá lượt chơi</button>
+                            <button onClick={() => setDeleteTurnDialog(false)}>Quay về</button>
+                        </DialogActions>
+                    </Dialog>
 
-        </div>
+                    <Dialog open={paymentDialog} onClose={closePaymentDialog}>
+                        <DialogTitle>Xác nhận thanh toán</DialogTitle>
+                        <DialogActions>
+                            <button onClick={handlePayment}>Đồng ý</button>
+                            <button onClick={() => setPaymentDialog(false)}>Quay lại</button>
+                        </DialogActions>
+                    </Dialog>
+                </section>
+
+            </div>
         </div>
     )
 }

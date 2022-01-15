@@ -7,7 +7,6 @@ import '../../css/components/paging-navigation.css'
 import '../../css/components/table.css'
 
 
-
 function FinishedTurn() {
     const navigate = useNavigate()
     const [isQuery, setIsQuery] = useState(false)
@@ -19,6 +18,7 @@ function FinishedTurn() {
         currentTurns: [],
         totalPage: 1
     })
+
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
     myHeaders.append("Content-Type", "application/json");
@@ -32,8 +32,10 @@ function FinishedTurn() {
                 .then(res => res.json())
                 .then(finishedTurns => { setFinishedTurns(finishedTurns) })
     }, [finishedTurns.currentPage, sizePage, isQuery])
+
     return (
         <div class="pageBody">
+
             <div className="header-luot-choi" >
                 <u onClick={() => navigate(-1)} className="hien-tai"><button>Lượt chơi hiện tại</button></u>
                 <Link to=''><button>Lượt chơi đã kết thúc</button></Link>
@@ -50,6 +52,7 @@ function FinishedTurn() {
                     />
                 </div>
             </div>
+
             {(finishedTurns.totalPage === 0)? <h2 className="noResult">Không có lượt chơi nào</h2> :
             <div class="m-grid">
                 <table className="m-table">  
@@ -78,25 +81,20 @@ function FinishedTurn() {
             
             {(finishedTurns.totalPage === 0)? <div></div> :<div class='m-table-paging'>
                 <div className="m-paging-left">
-
                 </div>
                 <div class="m-paging-center">
-                    
                     <div class = "m-paging-first"
                         onClick={() => {
                             setFinishedTurns({ ...finishedTurns, currentPage: 1 })
                             setChangePageQuery(isQuery)
-                        }
-                        }
-                    >
+                        }}>
                     </div>
                     <div class = "m-paging-prev"
                         onClick={() => {
                             if (finishedTurns.currentPage > 1) {
                                 setFinishedTurns({ ...finishedTurns, currentPage: finishedTurns.currentPage - 1 });
                                 setChangePageQuery(isQuery)
-                            }
-                        }
+                            }}
                         }
                     >
                     </div>

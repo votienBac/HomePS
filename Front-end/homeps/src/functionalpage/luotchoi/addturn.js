@@ -95,35 +95,27 @@ const UnusedPsList = () => {
             <div class = "m-table-paging">
                 <div className='m-paging-center'>
                     <div class = "m-paging-first"
-                        onClick={() => setUnusedPs({ ...unusedPs, currentPage: 1 })}
-                    >
+                        onClick={() => setUnusedPs({ ...unusedPs, currentPage: 1 })}>
                     </div>
                     <div class = "m-paging-prev"
                         onClick={() => {
                             if (unusedPs.currentPage > 1)
                                 setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage - 1 })
-                        }}
-                    >
+                        }}>
                     </div>
                     <div class = "page-number">{unusedPs.currentPage}</div>
                     {(unusedPs.currentPage == unusedPs.totalPage) || <div class = "page-number"
-                        onClick={() => setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })}
-                    >
+                        onClick={() => setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })}>
                         {unusedPs.currentPage + 1}
                     </div>}
                     <div class = "m-paging-next"
-
                         onClick={() => {
                             if (unusedPs.currentPage < unusedPs.totalPage)
                                 setUnusedPs({ ...unusedPs, currentPage: unusedPs.currentPage + 1 })
-                        }}
-                    >
- 
+                        }}>
                     </div>
                     <div class = "m-paging-last"
-                        onClick={() => setUnusedPs({ ...unusedPs, currentPage: unusedPs.totalPage })}
-                    >
-                        
+                        onClick={() => setUnusedPs({ ...unusedPs, currentPage: unusedPs.totalPage })}>
                     </div>
                 </div>
                 <div className="m-paging-right">
