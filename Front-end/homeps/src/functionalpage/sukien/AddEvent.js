@@ -3,11 +3,12 @@ import { useState } from "react"
 function AddEvent({isAdded, setAdded, close}){
     const [checkChangeEvent, setCheckChangeEvent] = useState(false)
     let event = {
-        eventName: null,
-        percentDiscount: null,
-        timeEnd: null,
-        timeStart: null
+        eventName: "",
+        percentDiscount: "",
+        timeEnd: "",
+        timeStart: ""
     }
+    const [error, setError] = useState("")
     //Change Event 
     const handleChangeInforEvent = (key, infor) => {
         if(key=="EventName"){
@@ -26,6 +27,9 @@ function AddEvent({isAdded, setAdded, close}){
     }
     
     const handleChangeEvents = async () => {
+        if(event.eventName=== "" || event.timeStart ==="" || event.timeEnd ==="" || event.percentDiscount === ""){
+            setError("Hãy nhập đủ thông tin");
+        }else{
         await fetch(`https://homeps.herokuapp.com/api/events`, {
             method: 'POST',
             headers: {
@@ -37,6 +41,7 @@ function AddEvent({isAdded, setAdded, close}){
         setCheckChangeEvent(!checkChangeEvent)
         setAdded(!isAdded)
         close()
+        }
     }
 
     return(
@@ -89,6 +94,7 @@ function AddEvent({isAdded, setAdded, close}){
                                 />
                             </td>
                     </tr>
+                    {(error !=="") ? (<div className="error">{error} </div>): ""}
                 </div>
             </div>
             <button onClick={handleChangeEvents} style={{ width: '120px', alignSelf:'center', margin: '10px' ,marginLeft:'40%',marginBottom:'20px'}}>Thêm sự kiện</button>
