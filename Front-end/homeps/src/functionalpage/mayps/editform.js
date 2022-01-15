@@ -70,7 +70,7 @@ const EditForm = () => {
     const closeCheckChangePsStatusDialog = () =>{
       setCheckChangePsStatusDialog(false)
     }
-    const submitChange = () => {
+    const submitChange = async() => {
     if(details.psName==="" ||details.psStatus==="" )
     {
         setError("Hãy nhập đủ thông tin");
@@ -78,7 +78,7 @@ const EditForm = () => {
       setError("Trạng thái không hợp lệ")
     }
     else{
-      fetch(`https://homeps.herokuapp.com/api/ps/${psId}?psName=${details.psName}&psStatus=${details.psStatus}`, {
+      await fetch(`https://homeps.herokuapp.com/api/ps/${psId}?psName=${details.psName}&psStatus=${details.psStatus}`, {
         method: 'PUT',
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +96,7 @@ const EditForm = () => {
   }
 }
   return ( 
-    <div>
+    <div className='pageBody'>
     <img onClick={() => navigate(-1)} src={'https://img.icons8.com/ios/50/000000/circled-left-2.png'
     } className='back-icon'/>
       <section className='pageDetail'>

@@ -19,7 +19,7 @@ const AddForm = () => {
 
 
 
-    const submitChange = () => {
+    const submitChange = async() => {
       if(details.psName==="" ||details.psStatus==="" ){
         setError("Hãy nhập đủ thông tin");
     }else if(details.psStatus !=="0" && details.psStatus !=="2"){
@@ -30,7 +30,7 @@ const AddForm = () => {
         "psName": details.psName,
         "psStatus": details.psStatus
       });
-      fetch(`https://homeps.herokuapp.com/api/ps`, {
+      await fetch(`https://homeps.herokuapp.com/api/ps`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +47,7 @@ const AddForm = () => {
 }
 
   return ( 
-    <div>        <img onClick={() => navigate(-1)} src={'https://img.icons8.com/ios/50/000000/circled-left-2.png'
+    <div className='pageBody'>        <img onClick={() => navigate(-1)} src={'https://img.icons8.com/ios/50/000000/circled-left-2.png'
   } className='back-icon'/>
     <div className='pageDetail'>
        <div  style={{ height: '3.965em' }}>

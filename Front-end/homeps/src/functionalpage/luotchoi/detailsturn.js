@@ -114,7 +114,7 @@ const DetailsTurn = (props) => {
     }
     const closePaymentDialog = () => setPaymentDialog(false)
     return (
-        <div>        <img onClick={() => navigate(-1)} src={'https://img.icons8.com/ios/50/000000/circled-left-2.png'
+        <div className='pageBody'>        <img onClick={() => navigate(-1)} src={'https://img.icons8.com/ios/50/000000/circled-left-2.png'
     } className='back-icon'/>
         <div class="pageDetail">
            
