@@ -122,9 +122,9 @@ const DetailsTurn = (props) => {
                 <div className="container">
                     <div className="col-detail">
                         <ul className="top-bar-detailsName">
-                            <li>ID lượt chơi:</li>
-                            <li>Tên máy:</li>
-                            <li>Thời điểm bắt đầu:</li>
+                            <li>ID lượt chơi</li>
+                            <li>Tên máy</li>
+                            <li>Thời điểm bắt đầu</li>
                             {(turn.orderServices.length != 0) && (<li>Danh sách dịch vụ</li>)}
                         </ul>
                         <ul className="top-bar-details-inf">
@@ -138,15 +138,17 @@ const DetailsTurn = (props) => {
                             <tbody className='t'>
                                 <tr className='table-list'>
                                     <th>Tên</th>
-                                    <th >Số lượng</th>
                                     <th >Giá dịch vụ</th>
+                                    <th >Số lượng</th>
+                                    <th>Tổng tiền</th>
                                 </tr>
                                 {(turn.orderServices) && turn.orderServices.map(orderService => {
                                     return (
                                         <tr key={orderService.service.serviceId} className='list-turn'>
                                             <td>{orderService.service.serviceName}</td>
-                                            <td>{orderService.quantity}</td>
                                             <td>{formatMoney(orderService.service.price)}</td>
+                                            <td>{orderService.quantity}</td>
+                                            <td>{formatMoney(orderService.totalPrice)}</td>
                                         </tr>
                                     )
                                 })}
@@ -207,7 +209,7 @@ const DetailsTurn = (props) => {
                         </tbody>
                     </table>
                     </div>
-                    <button onClick={handleChangeServices} style={{ width: '20%', alignSelf: 'center', margin: '10px', marginTop:'-5%'}}>Thay đổi</button>
+                    <button onClick={handleChangeServices} style={{ width: '20%', alignSelf: 'center', margin: '10px', marginTop:'0%'}}>Thay đổi</button>
                 </Dialog>
 
                 <Dialog open={deleteTurnDialog} onClose={closeDeleteTurnDialog} >

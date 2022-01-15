@@ -4,6 +4,7 @@ import formatTime from '../../utility/formattime'
 import formatMoney from '../../utility/formatmoney'
 const Payment = () => {
     let params = useParams()
+    let sumServiceCost = 0;
     const navigate = useNavigate()
     const billId = params.id
     const [turn, setTurn] = useState({ orderServices: [] })
@@ -13,6 +14,7 @@ const Payment = () => {
         })
             .then(res => res.json())
             .then(turn => setTurn(turn))
+        sumServiceCost = 0;
     }, [])
 
     return (
@@ -26,7 +28,8 @@ const Payment = () => {
                         <li style={{ marginBottom: '10px' }}>Thời điểm kết thúc</li>
                         <li style={{ marginBottom: '10px' }}>Sự kiện được áp dụng</li>
                         <li style={{ marginBottom: '10px' }}>Tổng tiền</li>
-                        {(turn.orderServices.length != 0) && (<li style={{ marginBottom: '7%' }}>Danh sách dịch vụ</li>)}
+                        <li style={{ marginBottom: '10px' }}>Tổng tiền chơi</li>
+                        {(turn.orderServices.length != 0) && (<li style={{ marginBottom: '10px' }}>Danh sách dịch vụ</li>)}
                     </ul>
                     <ul className="top-bar-details-inf">
                         <li style={{ marginBottom: '10px' }}>{turn.billId}</li>
@@ -35,6 +38,10 @@ const Payment = () => {
                         <li style={{ marginBottom: '10px' }}>{formatTime(turn.timeEnd)}</li>
                         <li style={{ marginBottom: '10px' }}>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
                         <li style={{ marginBottom: '10px' }}>{formatMoney(turn.totalPrice)  || 'Không có'}</li>
+                        {turn.orderServices && turn.orderServices.map(orderService => {
+                            sumServiceCost = sumServiceCost + orderService.totalPrice
+                        })}
+                        <li style={{ marginBottom: '10px' }}>{formatMoney(turn.totalPrice-sumServiceCost)  || 'Không có'}</li>
                     </ul>
                 </div>
                 {(turn.orderServices.length != 0) && <div className="list-service">
@@ -42,18 +49,24 @@ const Payment = () => {
                         <tbody className='t'>
                             <tr className='table-list'>
                                 <th>Tên</th>
-                                <th>Số lượng</th>
                                 <th >Giá dịch vụ</th>
+                                <th>Số lượng</th>
+                                <th>Tổng tiền</th>
                             </tr>
                             {turn.orderServices && turn.orderServices.map(orderService => {
                                 return (
                                     <tr key={orderService.service.serviceId} className='list-turn'>
                                         <td>{orderService.service.serviceName}</td>
-                                        <td>{orderService.quantity}</td>
                                         <td>{formatMoney(orderService.service.price)}</td>
+                                        <td>{orderService.quantity}</td>
+                                        <td>{formatMoney(orderService.totalPrice)}</td>
                                     </tr>
                                 )
                             })}
+                            <tr className='list-turn'>
+                                <td colSpan={3}>Tổng tiền dịch vụ</td>
+                                <td>{formatMoney(sumServiceCost)}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>}

@@ -13,22 +13,20 @@ const AddForm = () => {
   } 
     //change dataPs
 
-    const [ details,setDetails] = useState({psName:"",psStatus:""});
+    const [ details,setDetails] = useState({psName:"",psStatus:"0"});
     const [changePsDialog, setChangePsDialog] = useState(false)
     const [error, setError] = useState("");
 
 
 
     const submitChange = async() => {
-      if(details.psName==="" ||details.psStatus==="" ){
+      if(details.psName===""){
         setError("Hãy nhập đủ thông tin");
-    }else if(details.psStatus !=="0" && details.psStatus !=="2"){
-      setError("Trạng thái không hợp lệ")
-    }
+      }
     else{
       var news = JSON.stringify({
         "psName": details.psName,
-        "psStatus": details.psStatus
+        "psStatus" : "0"
       });
       await fetch(`https://homeps.herokuapp.com/api/ps`, {
         method: 'POST',
@@ -62,17 +60,6 @@ const AddForm = () => {
                            type='text' onChange={e => setDetails({...details,psName:e.target.value})} value={details.psName}  />
                 </td>
           </tr>  
-          <tr>
-                <td colSpan={2} style={{fontSize:'18px'}}>Trạng thái</td> 
-                <td>
-                  <input id='input'  list='status' style={{width:'400px',paddingLeft:'10px',borderRadius:'10px',
-                         marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}} onChange={e => setDetails({...details,psStatus:e.target.value})} value={details.psStatus}/>
-                    <datalist id="status">
-                           <option value="0"> Có thể sử dụng </option>
-                           <option value="2"> Đang hỏng</option>
-                    </datalist>
-                  </td>
-          </tr>     
                 {(error !=="") ? (<div className="error">{error} </div>): ""}
          
            
