@@ -228,7 +228,7 @@ public class BillService {
             List<Event> events = eventRepository.findAll();
             double maxDiscount = 0;
             for (Event event : events) {
-                if (bill.getTimeStart().isAfter(event.getTimeStart()) && bill.getTimeEnd().isBefore(event.getTimeEnd())) {
+                if (!event.isDeleted() && bill.getTimeStart().isAfter(event.getTimeStart()) && bill.getTimeEnd().isBefore(event.getTimeEnd())) {
                     if (event.getPercentDiscount() > maxDiscount) {
                         maxDiscount = event.getPercentDiscount();
                         bill.setEvent(event);
@@ -243,7 +243,7 @@ public class BillService {
             List<DailyEvent> dailyEvents = dailyEventRepository.findAll();
             double maxDiscount = 0;
             for (DailyEvent dailyEvent : dailyEvents) {
-                if (check(dailyEvent.getDayHappen(), convertToString(bill)) &&
+                if (!dailyEvent.isDeleted() && check(dailyEvent.getDayHappen(), convertToString(bill)) &&
                         LocalTime.ofInstant(bill.getTimeStart(), ZoneId.of("GMT+7")).isAfter(dailyEvent.getTimeStart()) &&
                         LocalTime.ofInstant(bill.getTimeStart(), ZoneId.of("GMT+7")).isBefore(dailyEvent.getTimeEnd())) {
                     if (dailyEvent.getPercentDiscount() > maxDiscount) {
