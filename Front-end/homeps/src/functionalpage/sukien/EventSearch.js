@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import '../../css/luotchoi.css';
 const EventSearch = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQuery, setChangePageQuery, size }) => {
     const [details, setDetails] = useState('')
-    console.log(details);
     const handleChange = (props) => {
         setDetails(props)
         if (props === '') {

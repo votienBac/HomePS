@@ -4,7 +4,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
-import formatTime from '../../utility/formattime.js';
+import formatDailyEventTime from '../../utility/dailyEventTime.js';
+import stringToWeekDays from '../../utility/stringToDay.js';
 import "../../css/luotchoi.css";
 const DetailsDailyEvent = () => {
     const navigate = useNavigate()
@@ -47,10 +48,10 @@ const DetailsDailyEvent = () => {
             eventTmp.dailyEventName = infor;
         }
         else if(key=="timeStart"){
-            eventTmp.timeStart = new Date(infor);
+            eventTmp.timeStart = infor + ':00';
         }
         else if(key=="timeEnd"){
-            eventTmp.timeEnd = new Date(infor);
+            eventTmp.timeEnd = infor + ':00';
         }
         else if(key=="percentDiscount"){
             infor = parseInt(infor)
@@ -66,9 +67,23 @@ const DetailsDailyEvent = () => {
         eventTmp = Event
     }
     const handleChangeEvents = async () => {
+        var checkDay = '';
+        var inputEles = document.getElementsByClassName('weekday');
+        for(let i = 0; i <= 6; i++){
+            if(inputEles[i].checked){
+                checkDay = checkDay + '1';
+            }
+            else{
+                checkDay = checkDay + '0';
+            }
+        }
+        event.dayHappen = checkDay
         if(eventTmp.dailyEventName=== "" || eventTmp.timeStart ==="" || 
             eventTmp.timeEnd ==="" || eventTmp.percentDiscount === "" || eventTmp.dayHappen === "0000000"){
             setError("Hãy nhập đủ thông tin");
+        }
+        else if(event.timeStart >= event.timeEnd){
+            setError("Thời gian bắt đầu lớn hơn thời gian kết thúc")
         }else{
         await fetch(`https://homeps.herokuapp.com/api/dailyEvents/${eventId}`, {
             method: 'PUT',
@@ -103,9 +118,9 @@ const DetailsDailyEvent = () => {
                             <li style={{ marginBottom: '10px' }}>{event.dailyEventId}</li>
                             <li style={{ marginBottom: '10px' }}>{event.dailyEventName}</li>
                             <li style={{ marginBottom: '10px' }}>{event.percentDiscount}</li>
-                            <li style={{ marginBottom: '10px' }}>{formatTime(event.timeStart)}</li>
-                            <li style={{ marginBottom: '10px' }}>{formatTime(event.timeEnd)}</li>
-                            <li style={{ marginBottom: '10px' }}>{event.dayHappen}</li>
+                            <li style={{ marginBottom: '10px' }}>{formatDailyEventTime(event.timeStart)}</li>
+                            <li style={{ marginBottom: '10px' }}>{formatDailyEventTime(event.timeEnd)}</li>
+                            <li style={{ marginBottom: '10px' }}>{stringToWeekDays(event.dayHappen)}</li>
                         </ul>
                     </div>
                 </div>
@@ -134,7 +149,7 @@ const DetailsDailyEvent = () => {
                                         <input style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
                                             type='text' placeholder={event.dailyEventName} 
-                                            onChange={e => handleChangeInforEvent("EventName", e.target.value)}
+                                            onChange={e => handleChangeInforEvent("dailyEventName", e.target.value)}
                                         />
                                     </td>
                                 </tr>
@@ -143,7 +158,7 @@ const DetailsDailyEvent = () => {
                                     <td>
                                         <input style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
-                                            type='datetime-local'
+                                            type='time'
                                             onChange={e => handleChangeInforEvent("timeStart", e.target.value)}
                                         />
                                     </td>
@@ -153,9 +168,21 @@ const DetailsDailyEvent = () => {
                                     <td>
                                         <input style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
-                                            type='datetime-local' 
+                                            type='time' 
                                             onChange={e => handleChangeInforEvent("timeEnd", e.target.value)}
                                         />
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td style={{fontWeight:'700',marginBottom:'20px'}}>Ngày lặp lại</td>
+                                    <td style={{textAlign:'right'}}>
+                                        <div><label for='monday'>Thứ 2</label><input type='checkbox' id='monday' value = '0'className='weekday' /></div>
+                                        <div><label for='tuesday'>Thứ 3</label><input type='checkbox' id='tuesday' value = '1' className='weekday'/></div>
+                                        <div><label for='wednesday'>Thứ 4</label><input type='checkbox' id='wednesday' value = '2' className='weekday'/></div>
+                                        <div><label for='thursday'>Thứ 5</label><input type='checkbox' id='thursday' value = '3' className='weekday'/></div>
+                                        <div><label for='friday'>Thứ 6</label><input type='checkbox' id='friday' value = '4' className='weekday'/></div>
+                                        <div><label for='saturday'>Thứ 7</label><input type='checkbox' id='saturday' value = '5' className='weekday'/></div>
+                                        <div><label for='sunday' style={{marginBottom:'20px'}}>Chủ nhật</label><input type='checkbox' id='sunday' value = '6' className='weekday'/></div>
                                     </td>
                                 </tr>
                                 <tr>

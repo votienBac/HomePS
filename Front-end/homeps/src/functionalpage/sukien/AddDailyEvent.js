@@ -15,23 +15,36 @@ function AddDailyEvent({isAdded, setAdded, close}){
             event.dailyEventName = infor;
         }
         else if(key=="timeStart"){
-            event.timeStart = new Date(infor);
+            event.timeStart = infor + ':00';
+            console.log(event.timeStart);
         }
         else if(key=="timeEnd"){
-            event.timeEnd = new Date(infor);
+            event.timeEnd = infor + ':00';
+            console.log(event.timeEnd);
         }
         else if(key=="percentDiscount"){
             infor = parseInt(infor)
             event.percentDiscount = infor;
         }
     }
-    const handleChangeDayHappen = (key, infor) =>{
-
-    }
     const handleChangeEvents = async () => {
+        var checkDay = '';
+        var inputEles = document.getElementsByClassName('weekday');
+        for(let i = 0; i <= 6; i++){
+            if(inputEles[i].checked){
+                checkDay = checkDay + '1';
+            }
+            else{
+                checkDay = checkDay + '0';
+            }
+        }
+        event.dayHappen = checkDay
         if(event.dailyEventName=== "" || event.timeStart ==="" 
         || event.timeEnd ==="" || event.percentDiscount === "" || event.dayHappen === "0000000"){
             setError("Hãy nhập đủ thông tin");
+        }
+        else if(event.timeStart >= event.timeEnd){
+            setError("Thời gian bắt đầu lớn hơn thời gian kết thúc")
         }else{
         await fetch(`https://homeps.herokuapp.com/api/dailyEvents`, {
             method: 'POST',
@@ -62,7 +75,7 @@ function AddDailyEvent({isAdded, setAdded, close}){
                                 <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
                                     type='text'
-                                    onChange={e => handleChangeInforEvent("EventName", e.target.value)}
+                                    onChange={e => handleChangeInforEvent("dailyEventName", e.target.value)}
                                 />
                             </td>
                     </tr>
@@ -71,7 +84,7 @@ function AddDailyEvent({isAdded, setAdded, close}){
                             <td>
                                 <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
-                                    type='datetime-local'
+                                    type='time' 
                                     onChange={e => handleChangeInforEvent("timeStart", e.target.value)}
                                 />
                             </td>
@@ -81,15 +94,24 @@ function AddDailyEvent({isAdded, setAdded, close}){
                             <td>
                                 <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
-                                    type='datetime-local'
+                                    type='time' 
                                     onChange={e => handleChangeInforEvent("timeEnd", e.target.value)}
                                 />
                             </td>
                     </tr>
-                    <tr>
-                        <td></td>
+                    <tr >
+                        <td style={{fontWeight:'700',marginBottom:'20px'}}>Ngày lặp lại</td>
+                        <td style={{textAlign:'right'}}>
+                            <div><label for='monday'>Thứ 2</label><input type='checkbox' id='monday' value = '0'className='weekday' /></div>
+                            <div><label for='tuesday'>Thứ 3</label><input type='checkbox' id='tuesday' value = '1' className='weekday'/></div>
+                            <div><label for='wednesday'>Thứ 4</label><input type='checkbox' id='wednesday' value = '2' className='weekday'/></div>
+                            <div><label for='thursday'>Thứ 5</label><input type='checkbox' id='thursday' value = '3' className='weekday'/></div>
+                            <div><label for='friday'>Thứ 6</label><input type='checkbox' id='friday' value = '4' className='weekday'/></div>
+                            <div><label for='saturday'>Thứ 7</label><input type='checkbox' id='saturday' value = '5' className='weekday'/></div>
+                            <div><label for='sunday' style={{marginBottom:'20px'}}>Chủ nhật</label><input type='checkbox' id='sunday' value = '6' className='weekday'/></div>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr >
                             <td style={{fontWeight:'700',marginBottom:'20px'}}>Giảm giá</td>
                             <td>
                                 <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
@@ -109,3 +131,4 @@ function AddDailyEvent({isAdded, setAdded, close}){
 }
 
 export default AddDailyEvent
+

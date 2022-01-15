@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import EventSearch from './EventSearch.js'
 import Dialog from '@material-ui/core/Dialog';
 import AddDailyEvent from './AddDailyEvent.js'
+import formatDailyEventTime from "../../utility/dailyEventTime.js";
 import '../../css/luotchoi.css';
 
 const DailyEventList = () => {
@@ -65,7 +66,7 @@ const DailyEventList = () => {
                         return (<tr key={currentEvent.dailyEventId} >
                             <td>{currentEvent.dailyEventId}</td>
                             <td>{currentEvent.dailyEventName}</td>
-                            <td>{currentEvent.timeStart + ' - ' + currentEvent.timeEnd}</td>
+                            <td>{formatDailyEventTime(currentEvent.timeStart) + ' - ' + formatDailyEventTime(currentEvent.timeEnd)}</td>
                             <td>{currentEvent.percentDiscount}%</td>
                             <td>
                                 <Link to={`${currentEvent.dailyEventId}`} className="xem-ct">Xem Chi tiết</Link>

@@ -17,6 +17,9 @@ input{
     width: 60%;
     height: 10%;
 }
+.weekday{
+    height: 15px;
+}
 .download{
     display: flex;
     width: 25px;
