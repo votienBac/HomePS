@@ -2,9 +2,6 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import EventSearch from './EventSearch.js'
 import Dialog from '@material-ui/core/Dialog';
-// import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { Select, MenuItem, DialogActions } from "@material-ui/core";
 import AddEvent from './AddEvent.js'
 import '../../css/luotchoi.css';
 
@@ -132,18 +129,19 @@ const CurrentEventList = () => {
                 </div>
                 </div>
                 <div className="m-paging-right">
-                    <label>Số bản ghi một trang </label>
-                    <Select 
-                        value={sizePage}
-                        onChange={(e)=>{
-                            setSizePage(e.target.value)
-                            setChangePageQuery(isQuery)
-                        }}
-                    >
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={10}>10</MenuItem>
-                    <MenuItem value={20}>20</MenuItem>
-                    </Select>
+                    <label style ={{whiteSpace: 'pre'}}>Số bản ghi   </label>
+                        <select id="input" 
+                            value={sizePage}
+                            onChange={(e) => {
+                                setSizePage(e.target.value)
+                                setChangePageQuery(isQuery)
+                            }}
+                        >
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
+                            
+                        </select>
                 </div>
             </div>}
 

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { Select, MenuItem } from "@material-ui/core";
 import SearchBar from './search.js'
 import formatTime from '../../utility/formattime.js'
 import '../../css/luotchoi.css';
@@ -126,19 +125,19 @@ const CurrentTurnList = () => {
                   
                 </div>
                 <div className="m-paging-right">
-                        <label>Số bản ghi một trang </label>
-                        <Select 
+                        <label style ={{whiteSpace: 'pre'}}>Số bản ghi   </label>
+                        <select id="input" 
                             value={sizePage}
                             onChange={(e) => {
                                 setSizePage(e.target.value)
                                 setChangePageQuery(isQuery)
                             }}
                         >
-                            <MenuItem value={5}>5</MenuItem>
-                            <MenuItem value={10}>10</MenuItem>
-                            <MenuItem value={20}>20</MenuItem>
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
                             
-                        </Select>
+                        </select>
                 </div>
             </div>} 
         </div>)

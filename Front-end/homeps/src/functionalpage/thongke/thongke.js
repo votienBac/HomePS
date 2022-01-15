@@ -2,12 +2,9 @@ import BarChart from "./revenuachart"
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Select, MenuItem } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import '../../css/thongke.css';
 
 export default function ThongKe(){
-    const classes = useStyles();
     const [dateBegin, setDateBegin] = useState(new Date("2021/12/23"));
     const [dateEnd, setDateEnd] = useState(new Date());
     const [queryType, setQueryType] = useState('ngay');
@@ -38,6 +35,7 @@ export default function ThongKe(){
                             dateFormat={'dd-MM-yyyy'} 
                             minDate = {new Date("2021/12/23")}
                             maxDate={dateEnd}
+                            id="input"
                             />
                 <label>Kết thúc </label>
                 <DatePicker className= 'endTime'
@@ -46,18 +44,18 @@ export default function ThongKe(){
                             dateFormat={'dd-MM-yyyy'} 
                             minDate={dateBegin}
                             maxDate={new Date()}
+                            id="input"
                             />
                 <label>Kiểu </label>
-                <Select 
+                <select id="input"
                     value={queryType}
                     label="Chọn loại thống kê"
                     placeholder="Chọn loại thống kê"
                     onChange={handleChange}
-                    classes={{root: classes.selectRoot}}
                 >
-                    <MenuItem value={'ngay'}>Theo ngày</MenuItem>
-                    <MenuItem value={'thang'}>Theo tháng</MenuItem>
-                </Select>
+                    <option value={'ngay'}>Theo ngày</option>
+                    <option value={'thang'}>Theo tháng</option>
+                </select>
             </div>
             )
             :(
@@ -71,6 +69,7 @@ export default function ThongKe(){
                             maxDate={dateEnd}
                             showMonthYearPicker
                             label = 'start'
+                            id="input"
                             />
                 <label>Kết thúc </label>
                 <DatePicker className= 'endTime'
@@ -80,17 +79,18 @@ export default function ThongKe(){
                             minDate={dateBegin}
                             maxDate={new Date()}
                             showMonthYearPicker
+                            id="input"
                             />
                 <label>Kiểu </label>
-                <Select 
+                <select id="input"
                     value={queryType}
                     label="Chọn loại thống kê"
                     placeholder="Chọn loại thống kê"
                     onChange={handleChange}
-                    classes={{root: classes.selectRoot}}>
-                    <MenuItem value={'ngay'}>Theo ngày</MenuItem>
-                    <MenuItem value={'thang'}>Theo tháng</MenuItem>
-                </Select>
+                >
+                    <option value={'ngay'}>Theo ngày</option>
+                    <option value={'thang'}>Theo tháng</option>
+                </select>
             </div>
             )}
             <div>
@@ -126,9 +126,3 @@ function getParsedMonth(date){
     date =  yyyy + "-" + mm;
     return date.toString();
 }
-
-const useStyles = makeStyles((theme) => ({
-    selectRoot: {
-        backgroundColor: "white",
-    }
-  }));
