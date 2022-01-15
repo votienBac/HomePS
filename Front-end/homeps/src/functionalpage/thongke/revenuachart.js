@@ -41,8 +41,8 @@ const BarChart = (props) => {
         let turnOverList = [];
         let excelList = [];
         let total = 0;
-        const fetchData = async () => {
-            await fetch(baseUrl+`?${begin}=${props.stringBegin}&${end}=${props.stringEnd}`, {
+        {
+            fetch(baseUrl+`?${begin}=${props.stringBegin}&${end}=${props.stringEnd}`, {
             //await fetch(baseUrl,{
                 method: 'GET'
             }).then(res => {
@@ -102,7 +102,6 @@ const BarChart = (props) => {
                 console.log(err)
             })
         }
-        fetchData()
     }, [props])
 
     return (

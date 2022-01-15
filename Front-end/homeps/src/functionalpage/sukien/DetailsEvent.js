@@ -6,7 +6,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
 import formatTime from '../../utility/formattime.js';
 import "../../css/luotchoi.css";
-const DetailsEvent = (props) => {
+const DetailsEvent = () => {
     const navigate = useNavigate()
     let params = useParams();
     const eventId = params.id
@@ -88,18 +88,18 @@ const DetailsEvent = (props) => {
 
                     <div className="col-detail">
                         <ul className="top-bar-detailsName">
-                            <li >ID</li>
-                            <li >Tên dịch vụ</li>
-                            <li >Giảm giá(%)</li>
-                            <li >Thời gian bắt đầu</li>
-                            <li >Thời gian kết thúc</li>
+                            <li style={{ marginBottom: '10px' }}>ID</li>
+                            <li style={{ marginBottom: '10px' }}>Tên dịch vụ</li>
+                            <li style={{ marginBottom: '10px' }}>Giảm giá(%)</li>
+                            <li style={{ marginBottom: '10px' }}>Thời gian bắt đầu</li>
+                            <li style={{ marginBottom: '10px' }}>Thời gian kết thúc</li>
                         </ul>
                         <ul className="top-bar-details-inf">
-                            <li >{event.eventId}</li>
-                            <li >{event.eventName}</li>
-                            <li >{event.percentDiscount}</li>
-                            <li >{formatTime(event.timeStart)}</li>
-                            <li >{formatTime(event.timeEnd)}</li>
+                            <li style={{ marginBottom: '10px' }}>{event.eventId}</li>
+                            <li style={{ marginBottom: '10px' }}>{event.eventName}</li>
+                            <li style={{ marginBottom: '10px' }}>{event.percentDiscount}</li>
+                            <li style={{ marginBottom: '10px' }}>{formatTime(event.timeStart)}</li>
+                            <li style={{ marginBottom: '10px' }}>{formatTime(event.timeEnd)}</li>
                         </ul>
                     </div>
                 </div>

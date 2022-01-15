@@ -103,14 +103,14 @@ const EditForm = () => {
         <div className="container">
                      <div className="col-detail">
                         <ul className="top-bar-detailsName">
-                            <li className="row">ID</li>
-                            <li className="row">Tên máy</li>
-                            <li className="row">Trạng thái</li>
+                            <li style={{ marginBottom: '10px' }}>ID</li>
+                            <li style={{ marginBottom: '10px' }}>Tên máy</li>
+                            <li style={{ marginBottom: '10px' }}>Trạng thái</li>
                         </ul>
                         <ul className="top-bar-details-inf">
-                            <li className="row">{psData.psId}</li>
-                            <li className="row">{psData.psName}</li>
-                            <li className="row">{psData.psState}</li>
+                            <li style={{ marginBottom: '10px' }}>{psData.psId}</li>
+                            <li style={{ marginBottom: '10px' }}>{psData.psName}</li>
+                            <li style={{ marginBottom: '10px' }}>{psData.psState}</li>
                         </ul>
                     </div>
 

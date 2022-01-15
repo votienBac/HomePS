@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../../css/luotchoi.css';
-const EventSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, setChangePageQuery, size }) => {
+const EventSearch = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQuery, setChangePageQuery, size }) => {
     const [details, setDetails] = useState('')
     console.log(details);
     const handleChange = (props) => {
@@ -16,7 +16,7 @@ const EventSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, 
         }
     };
     if(isQuery && isChangePageQuery){
-        fetch(`https://homeps.herokuapp.com/api/events/search?size=${size}&page=${query.currentPage}&query=${details}`, {
+        fetch(`https://homeps.herokuapp.com/api/${type}/search?size=${size}&page=${query.currentPage}&query=${details}`, {
             method: 'GET',
         })
             .then(res => res.json())
@@ -25,7 +25,7 @@ const EventSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, 
     }
     const handleSearch = () => {
         setIsQuery(true);
-        fetch(`https://homeps.herokuapp.com/api/events/search?size=${size}&query=${details}`, {
+        fetch(`https://homeps.herokuapp.com/api/${type}/search?size=${size}&query=${details}`, {
             method: 'GET',
         })
             .then(res => res.json())

@@ -29,7 +29,6 @@ export default function App() {
         const str = window.location.pathname.split('/');
         const [value, setValue] = React.useState(str[1]);
         const [darkMode, setDarkMode] = useState((localStorage.getItem("dark-mode") === 'true'));
-        console.log(darkMode)
         if(!darkMode){
                 document.body.style.background = "#FFFFFFFF";
         }else{

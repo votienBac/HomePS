@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom"
+import { Link , useNavigate} from "react-router-dom"
 import { useState, useEffect } from "react"
 import EventSearch from './EventSearch.js'
 import Dialog from '@material-ui/core/Dialog';
-import AddEvent from './AddEvent.js'
+import AddDailyEvent from './AddDailyEvent.js'
 import '../../css/luotchoi.css';
 
 const DailyEventList = () => {
+    const navigate = useNavigate()
     const [currentEvents, setCurrentEvents] = useState({
         currentPage: 1,
         totalPage: 1,
@@ -22,6 +23,7 @@ const DailyEventList = () => {
 
     //Add Event Dialog
     useEffect(() => {
+        if(!isQuery)
         fetch(`https://homeps.herokuapp.com/api/dailyEvents?page=${currentEvents.currentPage}&size=${sizePage}`, {
             method: 'GET'
         })
@@ -31,8 +33,11 @@ const DailyEventList = () => {
     return (
         <div className="pageBody">
             <div className="header-luot-choi">
+                <u onClick={() => navigate(-1)} className="hien-tai"><button>Sự kiện một lần</button></u>
+                <Link to='daily-event'><button>Sự kiện lặp lại</button></Link>
                 <div className="search-bar">    
                     <EventSearch 
+                    type = 'dailyEvents'
                     query = {currentEvents}
                     setQuery = {setCurrentEvents}
                     isQuery = {isQuery}
@@ -43,39 +48,40 @@ const DailyEventList = () => {
                     />                
             </div>
             </div>
+            {(currentEvents.totalPage === 0)? <h2 className="noResult">Không có sự kiện nào</h2> :
             <div className="m-grid">
             <table className="m-table">
                 <thead>
                     <tr >
                         <th >ID</th>
                         <th >Tên sự kiện</th>
-                        <th >Tình trạng</th>
+                        <th >Khoảng thời gian</th>
                         <th >Giảm giá</th>
                         <th ></th>
                     </tr>
                 </thead>
                 <tbody >
-                    {currentEvents.eventList.map(currentEvent => {
-                        return (<tr key={currentEvent.eventId} >
-                            <td>{currentEvent.eventId}</td>
-                            <td>{currentEvent.eventName}</td>
-                            <td>{currentEvent.happenning?"Được áp dụng":"Không áp dụng"}</td>
+                    {currentEvents.dailyEventList.map(currentEvent => {
+                        return (<tr key={currentEvent.dailyEventId} >
+                            <td>{currentEvent.dailyEventId}</td>
+                            <td>{currentEvent.dailyEventName}</td>
+                            <td>{currentEvent.timeStart + ' - ' + currentEvent.timeEnd}</td>
                             <td>{currentEvent.percentDiscount}%</td>
                             <td>
-                                <Link to={`daily-event/${currentEvent.eventId}`} className="xem-ct">Xem Chi tiết</Link>
+                                <Link to={`${currentEvent.dailyEventId}`} className="xem-ct">Xem Chi tiết</Link>
                             </td>
                         </tr>)
                     })}
                 </tbody>
             </table>
-            </div>
+            </div>}
 
             <Link to=''><button
                 onClick={() => { setAddEventDialog(true) }}>
                 Thêm sự kiện
             </button></Link>
 
-            <div className='m-table-paging'>
+            {(currentEvents.totalPage === 0)? <div></div> : <div className='m-table-paging'>
                 <div className="m-paging-left">
 
                 </div>
@@ -141,12 +147,12 @@ const DailyEventList = () => {
                             
                         </select>
                 </div>
-            </div>
+            </div>}
 
             
 
             <Dialog open={addEventDialog} onClose={closeAddEventDialog} >
-                <AddEvent isAdded={isAdded} setAdded={setAdded} close = {closeAddEventDialog}/>
+                <AddDailyEvent isAdded={isAdded} setAdded={setAdded} close = {closeAddEventDialog}/>
             </Dialog>
         </div>)
 }

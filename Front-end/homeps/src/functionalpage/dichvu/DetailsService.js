@@ -81,14 +81,14 @@ const DetailsService = (props) => {
                 <div className="container">
                     <div className="col-detail">
                         <ul className="top-bar-detailsName">
-                            <li className="row">ID</li>
-                            <li className="row">Tên dịch vụ</li>
-                            <li className="row">Giá</li>
+                            <li style={{ marginBottom: '10px' }}>ID</li>
+                            <li style={{ marginBottom: '10px' }}>Tên dịch vụ</li>
+                            <li style={{ marginBottom: '10px' }}>Giá</li>
                         </ul>
                         <ul className="top-bar-details-inf">
-                            <li className="row">{service.serviceId}</li>
-                            <li className="row">{service.serviceName}</li>
-                            <li className="row">{formatMoney(service.price)}</li>
+                            <li style={{ marginBottom: '10px' }}>{service.serviceId}</li>
+                            <li style={{ marginBottom: '10px' }}>{service.serviceName}</li>
+                            <li style={{ marginBottom: '10px' }}>{formatMoney(service.price)}</li>
                         </ul>
                     </div>
                 </div>

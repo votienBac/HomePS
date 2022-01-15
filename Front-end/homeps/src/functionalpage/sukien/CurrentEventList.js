@@ -32,8 +32,11 @@ const CurrentEventList = () => {
     return (
         <div className="pageBody">
             <div className="header-luot-choi">
+                <Link to='' className="hien-tai"><button>Sự kiện một lần</button></Link>
+                <Link to='daily-event'><button>Sự kiện lặp lại</button></Link>
                 <div className="search-bar">    
                     <EventSearch 
+                    type = 'events'
                     query = {currentEvents}
                     setQuery = {setCurrentEvents}
                     isQuery = {isQuery}
@@ -64,7 +67,7 @@ const CurrentEventList = () => {
                             <td>{currentEvent.happenning?"Đang diễn ra":"Chưa / Đã diễn ra"}</td>
                             <td>{currentEvent.percentDiscount}%</td>
                             <td>
-                                <Link to={`onetimeevent/${currentEvent.eventId}`} className="xem-ct">Xem Chi tiết</Link>
+                                <Link to={`one-time-event/${currentEvent.eventId}`} className="xem-ct">Xem Chi tiết</Link>
                             </td>
                         </tr>)
                     })}

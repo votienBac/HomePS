@@ -1,0 +1,111 @@
+import { useState } from "react"
+
+function AddDailyEvent({isAdded, setAdded, close}){
+    const [checkChangeEvent, setCheckChangeEvent] = useState(false)
+    let event = {
+        dailyEventName: "",
+        percentDiscount: "",
+        timeEnd: "",
+        timeStart: ""
+    }
+    const [error, setError] = useState("")
+    //Change Event 
+    const handleChangeInforEvent = (key, infor) => {
+        if(key=="dailyEventName"){
+            event.dailyEventName = infor;
+        }
+        else if(key=="timeStart"){
+            event.timeStart = new Date(infor);
+        }
+        else if(key=="timeEnd"){
+            event.timeEnd = new Date(infor);
+        }
+        else if(key=="percentDiscount"){
+            infor = parseInt(infor)
+            event.percentDiscount = infor;
+        }
+    }
+    const handleChangeDayHappen = (key, infor) =>{
+
+    }
+    const handleChangeEvents = async () => {
+        if(event.dailyEventName=== "" || event.timeStart ==="" 
+        || event.timeEnd ==="" || event.percentDiscount === "" || event.dayHappen === "0000000"){
+            setError("Hãy nhập đủ thông tin");
+        }else{
+        await fetch(`https://homeps.herokuapp.com/api/dailyEvents`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": "token-value",
+            },
+            body: JSON.stringify(event)
+        })
+        setCheckChangeEvent(!checkChangeEvent)
+        setAdded(!isAdded)
+        close()
+        }
+    }
+    
+    return(
+        <div>
+            <img onClick={close} src={'https://img.icons8.com/ios-filled/50/000000/x.png'
+            } className='ex-icon'></img>
+            <div style={{marginLeft:'25px',marginBottom:'10px',marginTop:'10px',width:'480px'}}>
+                <div>
+                    <div  style={{ height: '3.965em' }}>
+                        <th colSpan={2} style={{fontSize:'20px',paddingLeft:'170px'}}>Thêm sự kiện</th>
+                    </div>   
+                    <tr>
+                            <td style={{fontWeight:'700',marginBottom:'20px'}}>Tên sự kiện</td>
+                            <td>
+                                <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
+                                            marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
+                                    type='text'
+                                    onChange={e => handleChangeInforEvent("EventName", e.target.value)}
+                                />
+                            </td>
+                    </tr>
+                    <tr>
+                            <td style={{fontWeight:'700',marginBottom:'20px'}}>Thời gian bắt đầu</td>
+                            <td>
+                                <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
+                                            marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
+                                    type='datetime-local'
+                                    onChange={e => handleChangeInforEvent("timeStart", e.target.value)}
+                                />
+                            </td>
+                    </tr>
+                    <tr>
+                            <td style={{fontWeight:'700',marginBottom:'20px'}}>Thời gian kết thúc</td>
+                            <td>
+                                <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
+                                            marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
+                                    type='datetime-local'
+                                    onChange={e => handleChangeInforEvent("timeEnd", e.target.value)}
+                                />
+                            </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                            <td style={{fontWeight:'700',marginBottom:'20px'}}>Giảm giá</td>
+                            <td>
+                                <input  type='text' style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
+                                            marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
+                                    type='number'
+                                    min='0'
+                                    onChange={e => handleChangeInforEvent("percentDiscount", e.target.value)}
+                                />
+                            </td>
+                    </tr>
+                    {(error !=="") ? (<div className="error">{error} </div>): ""}
+                </div>
+            </div>
+            <button onClick={handleChangeEvents} style={{ width: '120px', alignSelf:'center', margin: '10px' ,marginLeft:'40%',marginBottom:'20px'}}>Thêm sự kiện</button>
+        </div>
+    )
+}
+
+export default AddDailyEvent
