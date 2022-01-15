@@ -53,7 +53,7 @@ const BarChart = (props) => {
                             dateList.push(formatDay(dataOjb.date))
                             turnOverList.push(dataOjb.turnOver)
                             excelList.push({
-                                day : dataOjb.date,
+                                day : formatDay(dataOjb.date),
                                 turnover: dataOjb.turnOver
                             })
                         }
@@ -65,7 +65,7 @@ const BarChart = (props) => {
                             dateList.push(formatMonth(dataOjb.month))
                             turnOverList.push(dataOjb.revenue)
                             excelList.push({
-                                month : dataOjb.month,
+                                month : formatMonth(dataOjb.month),
                                 turnover: dataOjb.revenue
                             })
                             total = total + dataOjb.revenue
@@ -125,7 +125,9 @@ const BarChart = (props) => {
             />
             <div className='doanhthu'>
                 Tổng doanh thu là: {formatMoney(turnOver)}
-                <Download dataSet={excelData} type = {props.type}/>
+                <Download dataSet={excelData} type = {props.type} 
+                    begin={props.stringBegin} end={props.stringEnd}
+                    formatDay = {formatDay} formatMonth = {formatMonth}/>
             </div>
         </div>
     )

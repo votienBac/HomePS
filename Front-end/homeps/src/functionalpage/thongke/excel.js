@@ -5,11 +5,12 @@ const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
-const Download = ({dataSet, type}) => {
+const Download = ({dataSet, type, begin, end, formatDay, formatMonth}) => {
         return (
             <ExcelFile element={<img className="download"
             url = 'https://img.icons8.com/office/16/000000/download--v1.png'></img>} 
-                filename = {type? 'Thống kê doanh thu ngày homeps' : 'Thống kê doanh thu tháng homeps'} >
+                filename = {type? 'Thống kê doanh thu homeps(' + formatDay(begin) + ' - ' + formatDay(end) + ')'
+                    : 'Thống kê doanh thu homeps(' + formatMonth(begin) + ' - ' + formatMonth(end) + ')'} >
                 {type? <ExcelSheet data={dataSet} name="Thống kê doanh thu ngày">
                     <ExcelColumn label="Ngày" value="day" />
                     <ExcelColumn label="Doanh thu (vnđ)"  value="turnover"/>
