@@ -85,7 +85,7 @@ function ExtraMayPS() {
             </div>}
             <Link to={`addform`}><button>Thêm máy</button></Link>
 
-            {(!data.totalPage === 0)? <div></div> : <div class="m-table-paging">
+            {(data.totalPage === 0)? <div></div> : <div class="m-table-paging">
                 <div className="m-paging-left">
 
                 </div>

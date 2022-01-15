@@ -73,7 +73,7 @@ function FinishedTurn() {
                 </table>
             </div>}
             
-            {(!finishedTurns.totalPage === 0)? <div></div> :<div class='m-table-paging'>
+            {(finishedTurns.totalPage === 0)? <div></div> :<div class='m-table-paging'>
                 <div className="m-paging-left">
 
                 </div>
