@@ -8,9 +8,13 @@ const Payment = () => {
     const navigate = useNavigate()
     const billId = params.id
     const [turn, setTurn] = useState({ orderServices: [] })
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/bills/${billId}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(turn => setTurn(turn))

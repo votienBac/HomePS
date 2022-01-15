@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import '../../css/luotchoi.css';
 const PsSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, setChangePageQuery, size }) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const [details, setDetails] = useState('')
     console.log(details);
     const handleChange = (props) => {
@@ -18,6 +21,7 @@ const PsSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, set
     if(isQuery && isChangePageQuery){
         fetch(`https://homeps.herokuapp.com/api/ps/search?size=${size}&page=${query.currentPage}&query=${details}`, {
             method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(res => setQuery(res))
@@ -27,6 +31,7 @@ const PsSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, set
         setIsQuery(true);
         fetch(`https://homeps.herokuapp.com/api/ps/search?size=${size}&query=${details}`, {
             method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(res => setQuery(res))

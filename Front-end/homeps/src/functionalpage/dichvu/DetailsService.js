@@ -5,7 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
 import formatMoney from '../../utility/formatmoney'
-const DetailsService = (props) => {
+const DetailsService = () => {
     const navigate = useNavigate()
     let params = useParams();
     const serviceId = params.id
@@ -13,6 +13,9 @@ const DetailsService = (props) => {
     const [error, setError] = useState("")
     const [checkChangeService, setCheckChangeService] = useState(false)
 
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     //Load the event
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/extraservice/${serviceId}`, {
@@ -62,10 +65,7 @@ const DetailsService = (props) => {
         }else{
         await fetch(`https://homeps.herokuapp.com/api/extraservice/${serviceId}`, {
             method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
             body: JSON.stringify(serviceTmp)
         })
         setCheckChangeService(!checkChangeService)

@@ -20,6 +20,7 @@ function ChangePassword({setPage,Logout}) {
             setError("Trùng mật khẩu cũ");
         }else{
             var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
             myHeaders.append("Content-Type", "application/json");
             var raw = JSON.stringify({
               "username": "admin",

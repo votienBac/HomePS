@@ -1,6 +1,9 @@
 import { useState } from "react"
 
 function AddService({isAdded, setAdded, close}){
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const [checkChangeService, setCheckChangeService] = useState(false)
     let service = {
         serviceName: "",
@@ -23,10 +26,7 @@ function AddService({isAdded, setAdded, close}){
         }else{
             await fetch(`https://homeps.herokuapp.com/api/extraservice`, {
             method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
             body: JSON.stringify(service)
         })
         setCheckChangeService(!checkChangeService)

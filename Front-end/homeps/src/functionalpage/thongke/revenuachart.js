@@ -4,6 +4,9 @@ import Download from "./excel";
 import '../../css/thongke.css';
 import formatMoney from '../../utility/formatmoney';
 const BarChart = (props) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const [chartData, setChartData] = useState({});
     const [excelData, setExcelData] = useState([]);
     //const [date, setDate] = useState([]);
@@ -44,7 +47,8 @@ const BarChart = (props) => {
         {
             fetch(baseUrl+`?${begin}=${props.stringBegin}&${end}=${props.stringEnd}`, {
             //await fetch(baseUrl,{
-                method: 'GET'
+                method: 'GET',
+                headers: myHeaders
             }).then(res => {
                 res.json().then(json => {
                     if(props.type){

@@ -1,6 +1,9 @@
 import { useState } from "react"
 
 function AddDailyEvent({isAdded, setAdded, close}){
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const [checkChangeEvent, setCheckChangeEvent] = useState(false)
     let event = {
         dailyEventName: "",
@@ -48,10 +51,7 @@ function AddDailyEvent({isAdded, setAdded, close}){
         }else{
         await fetch(`https://homeps.herokuapp.com/api/dailyEvents`, {
             method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
             body: JSON.stringify(event)
         })
         setCheckChangeEvent(!checkChangeEvent)

@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import '../../css/luotchoi.css';
 const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQuery, setChangePageQuery, size }) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const [details, setDetails] = useState('')
     const handleChange = (props) => {
         setDetails(props)
@@ -17,6 +20,7 @@ const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQue
     if (isQuery && isChangePageQuery) {
         fetch(`https://homeps.herokuapp.com/api/bills/search?size=${size}&page=${query.currentPage}&query=${details}&status=${type}`, {
             method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(res => setQuery(res))
@@ -26,6 +30,7 @@ const SearchBar = ({ type, query, setQuery, isQuery, setIsQuery, isChangePageQue
         setIsQuery(true);
         fetch(`https://homeps.herokuapp.com/api/bills/search?size=${size}&query=${details}&status=${type}`, {
             method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(res => setQuery(res))

@@ -7,6 +7,9 @@ import formatDailyEventTime from "../../utility/dailyEventTime.js";
 import '../../css/luotchoi.css';
 
 const DailyEventList = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const navigate = useNavigate()
     const [currentEvents, setCurrentEvents] = useState({
         currentPage: 1,
@@ -26,7 +29,8 @@ const DailyEventList = () => {
     useEffect(() => {
         if(!isQuery)
         fetch(`https://homeps.herokuapp.com/api/dailyEvents?page=${currentEvents.currentPage}&size=${sizePage}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(res => { setCurrentEvents(res) })

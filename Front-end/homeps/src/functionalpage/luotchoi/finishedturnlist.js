@@ -19,11 +19,15 @@ function FinishedTurn() {
         currentTurns: [],
         totalPage: 1
     })
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     //Load the bill list
     useEffect(() => {
         if (!isQuery)
             fetch(`https://homeps.herokuapp.com/api/bills?page=${finishedTurns.currentPage}&size=${sizePage}&sortBy=${'timeEnd'}&status=${'paid'}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: myHeaders
             })
                 .then(res => res.json())
                 .then(finishedTurns => { setFinishedTurns(finishedTurns) })

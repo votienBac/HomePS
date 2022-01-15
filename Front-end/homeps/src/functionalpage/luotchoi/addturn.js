@@ -8,6 +8,10 @@ import '../../css/luotchoi.css';
 import '../../css/components/paging-navigation.css'
 import '../../css/components/table.css'
 const UnusedPsList = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
+
     const navigate = useNavigate()
     const [unusedPs, setUnusedPs] = useState({
         currentPage: 1,
@@ -30,10 +34,7 @@ const UnusedPsList = () => {
         }
         await fetch(`https://homeps.herokuapp.com/api/bills`, {
             method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
             body: JSON.stringify(postNewBillData),
         })
         setAddTurnDialog(false)
@@ -44,7 +45,8 @@ const UnusedPsList = () => {
     const [sizePage, setSizePage] = useState(10)
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/ps?page=${unusedPs.currentPage}&size=${sizePage}&status=${'free'}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(unusedPs => setUnusedPs(unusedPs))

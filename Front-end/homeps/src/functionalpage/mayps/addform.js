@@ -6,7 +6,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
 const AddForm = () => {
-
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+  myHeaders.append("Content-Type", "application/json");
   const navigate = useNavigate();
   const Back = () => {
       navigate(-1, {replace: true});
@@ -30,10 +32,7 @@ const AddForm = () => {
       });
       await fetch(`https://homeps.herokuapp.com/api/ps`, {
         method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": "token-value",
-      },
+        headers: myHeaders,
       body: news,
       })
       .then(res => res.json())

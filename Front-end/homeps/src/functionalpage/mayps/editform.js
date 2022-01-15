@@ -7,7 +7,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogActions } from '@material-ui/core';
 const EditForm = () => {
-
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+  myHeaders.append("Content-Type", "application/json");
   const navigate = useNavigate();
   const Back = () => {
       navigate(-1, {replace: true});
@@ -23,7 +25,8 @@ const EditForm = () => {
 
       useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/ps/${psId}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(psData => setdata(psData))
@@ -39,10 +42,7 @@ const EditForm = () => {
     const handleDeletePs = async () => {
        await fetch(`https://homeps.herokuapp.com/api/ps/${psId}`, {
             method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
         })
         navigate('/mayps')
         // if(psStatus ==="1"){const CheckDeletePsDialog =() =>setCheckDeletePsDialog(true)}
@@ -80,10 +80,7 @@ const EditForm = () => {
     else{
       await fetch(`https://homeps.herokuapp.com/api/ps/${psId}?psName=${details.psName}&psStatus=${details.psStatus}`, {
         method: 'PUT',
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": "token-value",
-      },
+        headers: myHeaders
       })
       .then(res => res.json())
       .then(details => details)

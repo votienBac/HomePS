@@ -12,7 +12,9 @@ const DetailsFinishTurn = () => {
     let sumServiceCost = 0;
     const billId = params.id
     const [turn, setTurn] = useState({ orderServices: [] })
-
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
 
     //Load the bill
     useEffect(() => {
@@ -28,10 +30,7 @@ const DetailsFinishTurn = () => {
     const handleDeleteTurn = async () => {
         await fetch(`https://homeps.herokuapp.com/api/bills/${billId}`, {
             method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers:myHeaders
         })
         navigate(-1)
     }

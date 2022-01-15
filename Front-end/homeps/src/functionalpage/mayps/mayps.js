@@ -19,7 +19,9 @@ export default function MayPS(){
 )
 }
 function ExtraMayPS() {
-
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const [data, setData] = useState({
       psList:[],
       currentPage: 1,
@@ -33,7 +35,8 @@ function ExtraMayPS() {
         if(!isQuery)
             fetch(`https://homeps.herokuapp.com/api/ps?page=${data.currentPage}&size=${sizePage}&status=${'full'}`, {
            
-                method: 'GET'
+                method: 'GET',
+                headers: myHeaders
             })
                 .then(res => res.json())
                 .then(res => { setData(res) })

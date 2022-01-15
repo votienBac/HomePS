@@ -9,7 +9,8 @@ export default function TaiKhoan(){
     const Logout = () => {
         localStorage.clear();
         var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+        myHeaders.append("Content-Type", "application/json");
         var urlencoded = new URLSearchParams();
         var requestOptions = {
           method: 'POST',

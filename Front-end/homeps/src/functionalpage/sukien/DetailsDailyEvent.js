@@ -8,6 +8,9 @@ import formatDailyEventTime from '../../utility/dailyEventTime.js';
 import stringToWeekDays from '../../utility/stringToDay.js';
 import "../../css/luotchoi.css";
 const DetailsDailyEvent = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const navigate = useNavigate()
     let params = useParams();
     const eventId = params.id
@@ -17,7 +20,8 @@ const DetailsDailyEvent = () => {
     //Load the event
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/dailyEvents/${eventId}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(event => setEvent(event))
@@ -30,10 +34,7 @@ const DetailsDailyEvent = () => {
     const handleDeleteEvent = async () => {
         await fetch(`https://homeps.herokuapp.com/api/dailyEvents/${eventId}`, {
             method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
         })
         navigate('/sukien')
     }
@@ -87,10 +88,7 @@ const DetailsDailyEvent = () => {
         }else{
         await fetch(`https://homeps.herokuapp.com/api/dailyEvents/${eventId}`, {
             method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
             body: JSON.stringify(eventTmp)
         })
         setCheckChangeEvent(!checkChangeEvent)

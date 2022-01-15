@@ -120,7 +120,7 @@ export default function App() {
                                 marginThreshold={61}
                         >
                                 <MenuItem onClick={handleDMK}>Đổi mật khẩu</MenuItem>
-                                <MenuItem onClick={Logout}>Logout</MenuItem>
+                                <MenuItem onClick={Logout}>Đăng xuất</MenuItem>
                         </Menu>
                 </div>
                 

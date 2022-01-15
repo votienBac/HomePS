@@ -18,10 +18,14 @@ const CurrentTurnList = () => {
         currentTurns: [],
         totalPage: 1
     });
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     useEffect(() => {
         if (!isQuery)
             fetch(`https://homeps.herokuapp.com/api/bills?page=${currentTurns.currentPage}&size=${sizePage}&status=${'unpaid'}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: myHeaders
             })
                 .then(res => res.json())
                 .then(res => setCurrentTurns(res))

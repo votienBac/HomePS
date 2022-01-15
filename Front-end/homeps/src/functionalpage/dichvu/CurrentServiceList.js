@@ -6,6 +6,9 @@ import AddService from './AddService.js'
 import formatMoney from '../../utility/formatmoney'
 
 const CurrentServiceList = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const [currentServices, setCurrentServices] = useState({
         currentPage: 1,
         totalPage: 1,
@@ -24,7 +27,8 @@ const CurrentServiceList = () => {
     useEffect(() => {
         if(!isQuery)
         fetch(`https://homeps.herokuapp.com/api/extraservice?page=${currentServices.currentPage}&size=${sizePage}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(res => { setCurrentServices(res) })

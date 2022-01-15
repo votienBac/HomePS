@@ -21,11 +21,14 @@ const DetailsTurn = (props) => {
     })
     const [checkChangeServices, setCheckChangeServices] = useState(false)
     let services = []
-
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     //Load the bill
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/bills/${billId}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(turn => setTurn(turn))
@@ -104,10 +107,7 @@ const DetailsTurn = (props) => {
     const handlePayment = async () => {
         await fetch(`https://homeps.herokuapp.com/api/bills/endbill/${billId}`, {
             method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            }
+            headers: myHeaders
         })
         navigate(`/luotchoi/payment/${turn.billId}`)
         setPaymentDialog(false)

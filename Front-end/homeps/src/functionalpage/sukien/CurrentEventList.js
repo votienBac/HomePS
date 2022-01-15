@@ -6,6 +6,9 @@ import AddEvent from './AddEvent.js'
 import '../../css/luotchoi.css';
 
 const CurrentEventList = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const [currentEvents, setCurrentEvents] = useState({
         currentPage: 1,
         totalPage: 1,
@@ -24,7 +27,8 @@ const CurrentEventList = () => {
     useEffect(() => {
         if(!isQuery)
         fetch(`https://homeps.herokuapp.com/api/events?page=${currentEvents.currentPage}&size=${sizePage}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(res => { setCurrentEvents(res) })

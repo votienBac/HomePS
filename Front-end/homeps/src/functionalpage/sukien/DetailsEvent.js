@@ -7,6 +7,9 @@ import { DialogActions } from '@material-ui/core';
 import formatTime from '../../utility/formattime.js';
 import "../../css/luotchoi.css";
 const DetailsEvent = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Content-Type", "application/json");
     const navigate = useNavigate()
     let params = useParams();
     const eventId = params.id
@@ -16,7 +19,8 @@ const DetailsEvent = () => {
     //Load the event
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/events/${eventId}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(event => setEvent(event))
@@ -29,10 +33,7 @@ const DetailsEvent = () => {
     const handleDeleteEvent = async () => {
         await fetch(`https://homeps.herokuapp.com/api/events/${eventId}`, {
             method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
         })
         navigate('/sukien')
     }
@@ -68,10 +69,7 @@ const DetailsEvent = () => {
         }else{
         await fetch(`https://homeps.herokuapp.com/api/events/${eventId}`, {
             method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
             body: JSON.stringify(eventTmp)
         })
         setCheckChangeEvent(!checkChangeEvent)
