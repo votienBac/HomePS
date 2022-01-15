@@ -80,7 +80,7 @@ const CurrentEventList = () => {
                 Thêm sự kiện
             </button></Link>
 
-            {(!currentEvents.totalPage === 0)&& <div className='m-table-paging'>
+            {(!currentEvents.totalPage === 0)? <div></div> : <div className='m-table-paging'>
                 <div className="m-paging-left">
 
                 </div>

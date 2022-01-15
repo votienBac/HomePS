@@ -78,7 +78,7 @@ const CurrentServiceList = () => {
                 >
                 Thêm dịch vụ
             </button>
-            {(!currentServices.totalPage === 0)&& <div class="m-table-paging">
+            {(!currentServices.totalPage === 0)? <div></div> : <div class="m-table-paging">
                 <div className="m-paging-left">
 
                 </div>

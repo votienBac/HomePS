@@ -72,7 +72,7 @@ const CurrentTurnList = () => {
                 </table>
             </div>}
             <Link to="addturn"><button>Thêm lượt chơi</button></Link>
-            {(!currentTurns.totalPage === 0)&& <div className="m-table-paging">
+            {(currentTurns.totalPage === 0)? <div></div> :<div className="m-table-paging">
                 <div className="m-paging-left">
 
                 </div>
