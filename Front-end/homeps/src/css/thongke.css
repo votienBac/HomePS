@@ -19,7 +19,8 @@ input{
 }
 .download{
     display: flex;
-    float: right;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
+    margin-left: 95%;
+    margin-top: -35%;
 }

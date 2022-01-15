@@ -7,8 +7,9 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const Download = ({dataSet, type, begin, end, formatDay, formatMonth}) => {
         return (
-            <ExcelFile element={<img className="download"
-            url = 'https://img.icons8.com/office/16/000000/download--v1.png'></img>} 
+            <ExcelFile element={<div><img className="download"
+            src = 'https://img.icons8.com/office/64/000000/download--v1.png'
+            ></img></div>} 
                 filename = {type? 'Thống kê doanh thu homeps(' + formatDay(begin) + ' - ' + formatDay(end) + ')'
                     : 'Thống kê doanh thu homeps(' + formatMonth(begin) + ' - ' + formatMonth(end) + ')'} >
                 {type? <ExcelSheet data={dataSet} name="Thống kê doanh thu ngày">
