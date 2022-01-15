@@ -65,7 +65,7 @@ function FinishedTurn() {
                                     <td>{finishedTurn.playStation.psName}</td>
                                     <td>{formatTime(finishedTurn.timeStart)}</td>
                                     <td>{formatTime(finishedTurn.timeEnd)}</td>
-                                    <td><Link to={`${finishedTurn.billId}`} className="xem-ct">Xem chi tiết</Link> </td>
+                                    <td><Link to={`${finishedTurn.billId}`} className="xem-ct"><button>Xem chi tiết</button></Link> </td>
                                 </tr>)
                             })}
                     </tbody>

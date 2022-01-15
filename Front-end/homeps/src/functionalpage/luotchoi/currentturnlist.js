@@ -63,7 +63,7 @@ const CurrentTurnList = () => {
                                 <td>{currentTurn.playStation.psName}</td>
                                 <td>{formatTime(currentTurn.timeStart)}</td>
                                 <td>
-                                    <Link to={`current-turn/${currentTurn.billId}`} className="xem-ct" >Xem chi tiết</Link>
+                                    <Link to={`current-turn/${currentTurn.billId}`} className="xem-ct" ><button>Xem chi tiết</button></Link>
                                 </td>
                             </tr>)
                         })}

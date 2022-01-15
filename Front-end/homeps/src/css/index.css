@@ -171,6 +171,11 @@ button {
 .pageMain #input{
   border: 2px solid green;
 }
+
+.pageMain .xem-ct{
+  color:rgb(26, 24, 24);
+}
+
 .pageMain form:after{
   background: #092c3e;
   position: relative;
@@ -183,7 +188,6 @@ button {
   background: #092c3e;
   position: relative;
 }
-
 .pageMain form .form-inner h2{
   color: #000;
 }

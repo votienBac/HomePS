@@ -62,7 +62,7 @@ const CurrentServiceList = () => {
                             <td>{currentService.serviceName}</td>
                             <td>{formatMoney(currentService.price)}</td>
                             <td>
-                                <Link to={`current-service/${currentService.serviceId}`}  className="xem-ct">Xem Chi tiết</Link>
+                                <Link to={`current-service/${currentService.serviceId}`}  className="xem-ct"><button>Xem Chi tiết</button></Link>
                             </td>
                         </tr>)
                     })}

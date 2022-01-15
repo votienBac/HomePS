@@ -64,10 +64,10 @@ const CurrentEventList = () => {
                         return (<tr key={currentEvent.eventId} >
                             <td>{currentEvent.eventId}</td>
                             <td>{currentEvent.eventName}</td>
-                            <td>{currentEvent.happenning?"Đang diễn ra":"Chưa / Đã diễn ra"}</td>
+                            <td>{currentEvent.happenning?"Đang diễn ra":"Đang không diễn ra"}</td>
                             <td>{currentEvent.percentDiscount}%</td>
                             <td>
-                                <Link to={`one-time-event/${currentEvent.eventId}`} className="xem-ct">Xem Chi tiết</Link>
+                                <Link to={`one-time-event/${currentEvent.eventId}`} className="xem-ct"><button>Xem Chi tiết</button></Link>
                             </td>
                         </tr>)
                     })}

@@ -69,7 +69,7 @@ const DailyEventList = () => {
                             <td>{formatDailyEventTime(currentEvent.timeStart) + ' - ' + formatDailyEventTime(currentEvent.timeEnd)}</td>
                             <td>{currentEvent.percentDiscount}%</td>
                             <td>
-                                <Link to={`${currentEvent.dailyEventId}`} className="xem-ct">Xem Chi tiết</Link>
+                                <Link to={`${currentEvent.dailyEventId}`} className="xem-ct"><button>Xem Chi tiết</button></Link>
                             </td>
                         </tr>)
                     })}

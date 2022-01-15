@@ -76,7 +76,7 @@ function ExtraMayPS() {
                             {/*<td> {psList.psStatus}</td>*/}
                             <td> {psList.psState}</td>
                             {/* <td> <Link to={`${psList.psId}`}>Sửa</Link></td> */}
-                            <td><Link to={`editform/${psList.psId}/${psList.psStatus}`} className="xem-ct">Xem chi tiết</Link> </td>
+                            <td><Link to={`editform/${psList.psId}/${psList.psStatus}`} className="xem-ct"><button>Xem chi tiết</button></Link> </td>
                         </tr>)
                     })}
                 </tbody>    
