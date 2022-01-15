@@ -51,7 +51,8 @@ const DetailsTurn = (props) => {
         addS = add
         removeS = remove
         fetch(`https://homeps.herokuapp.com/api/extraservice?page=${1}&size=${100000}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(res => setExtraServices(res))
