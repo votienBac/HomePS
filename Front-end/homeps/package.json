@@ -12,6 +12,7 @@
     "chart.js": "^2.9.4",
     "react": "^17.0.2",
     "react-chartjs-2": "^2.11.2",
+    "react-data-export": "^0.6.0",
     "react-datepicker": "^4.5.0",
     "react-dom": "^17.0.2",
     "react-dropdown": "^1.9.2",
@@ -19,7 +20,8 @@
     "react-router-dom": "^6.0.2",
     "react-scripts": "^4.0.3",
     "redux": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "xlsx": "^0.17.5"
   },
   "scripts": {
     "start": "react-scripts start",

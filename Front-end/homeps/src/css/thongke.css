@@ -17,3 +17,9 @@ input{
     width: 60%;
     height: 10%;
 }
+.download{
+    display: flex;
+    float: right;
+    width: 15px;
+    height: 15px;
+}

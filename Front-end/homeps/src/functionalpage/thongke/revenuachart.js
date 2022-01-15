@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2'
+import Download from "./excel";
 import '../../css/thongke.css';
 import formatMoney from '../../utility/formatmoney';
 const BarChart = (props) => {
     const [chartData, setChartData] = useState({});
+    const [excelData, setExcelData] = useState([]);
     //const [date, setDate] = useState([]);
     const [turnOver, setTurnOver] = useState();
     var baseUrl
@@ -37,6 +39,7 @@ const BarChart = (props) => {
     useEffect(() => {
         let dateList = [];
         let turnOverList = [];
+        let excelList = [];
         let total = 0;
         const fetchData = async () => {
             await fetch(baseUrl+`?${begin}=${props.stringBegin}&${end}=${props.stringEnd}`, {
@@ -49,6 +52,10 @@ const BarChart = (props) => {
                         for (const dataOjb of json.revenueList) {
                             dateList.push(formatDay(dataOjb.date))
                             turnOverList.push(dataOjb.turnOver)
+                            excelList.push({
+                                day : dataOjb.date,
+                                turnover: dataOjb.turnOver
+                            })
                         }
                         setTurnOver(json.revenue);
                     }
@@ -57,6 +64,10 @@ const BarChart = (props) => {
                         for (const dataOjb of json){
                             dateList.push(formatMonth(dataOjb.month))
                             turnOverList.push(dataOjb.revenue)
+                            excelList.push({
+                                month : dataOjb.month,
+                                turnover: dataOjb.revenue
+                            })
                             total = total + dataOjb.revenue
                         }
                         setTurnOver(total);
@@ -85,6 +96,7 @@ const BarChart = (props) => {
                             borderWidth: 1
                         }]
                     })
+                    setExcelData(excelList);
                 })
             }).catch(err => {
                 console.log(err)
@@ -113,6 +125,7 @@ const BarChart = (props) => {
             />
             <div className='doanhthu'>
                 Tổng doanh thu là: {formatMoney(turnOver)}
+                <Download dataSet={excelData} type = {props.type}/>
             </div>
         </div>
     )
