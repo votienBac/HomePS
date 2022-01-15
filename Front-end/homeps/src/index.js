@@ -28,10 +28,10 @@ export default function App() {
         const isLogin = location.pathname === "/";
         const str = window.location.pathname.split('/');
         const [value, setValue] = React.useState(str[1]);
-
-        const [darkMode, setDarkMode] = useState(false);
+        const [darkMode, setDarkMode] = useState((localStorage.getItem("dark-mode") === 'true'));
+        console.log(darkMode)
         const changeMode =() =>{
-                localStorage.setItem("dark-mode",darkMode)
+                localStorage.setItem("dark-mode",String(!darkMode))
                 if(darkMode){
                         document.body.style.background = "#FFFFFFFF";
                 }else{
@@ -77,7 +77,6 @@ export default function App() {
                 };
                 fetch("http://homeps.herokuapp.com/logout", requestOptions)
                 .then(response => response.text())
-                .then(result => console.log(result))
                 .catch(error => {
                     console.log('error', error)
                   });

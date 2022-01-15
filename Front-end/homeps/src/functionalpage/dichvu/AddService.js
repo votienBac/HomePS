@@ -3,9 +3,10 @@ import { useState } from "react"
 function AddService({isAdded, setAdded, close}){
     const [checkChangeService, setCheckChangeService] = useState(false)
     let service = {
-        serviceName: null,
-        price: null
+        serviceName: "",
+        price: ""
     }
+    const [error, setError] = useState("");
     //Change Service 
     const handleChangeInforService = (key, infor) => {
         if(key=="price"){
@@ -17,7 +18,10 @@ function AddService({isAdded, setAdded, close}){
         }
     }
     const handleChangeServices = async () => {
-        await fetch(`https://homeps.herokuapp.com/api/extraservice`, {
+        if(service.serviceName==="" ||service.price==="" ){
+            setError("Hãy nhập đủ thông tin");
+        }else{
+            await fetch(`https://homeps.herokuapp.com/api/extraservice`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -28,6 +32,7 @@ function AddService({isAdded, setAdded, close}){
         setCheckChangeService(!checkChangeService)
         setAdded(!isAdded)
         close()
+        }
     }
 
     return(
@@ -50,7 +55,7 @@ function AddService({isAdded, setAdded, close}){
                             </td>
                         </tr>
                         <tr>
-                            <td style={{fontWeight:'700'}}>Giá</td>
+                            <td style={{fontWeight:'700'}}>Giá (vnđ)</td>
                             <td>
                                 <input style={{width:'200px',paddingLeft:'10px',borderRadius:'10px',
                                 marginBottom:'10px',marginLeft:'20px',marginRight:'20px'}}
@@ -60,6 +65,7 @@ function AddService({isAdded, setAdded, close}){
                                 />
                             </td>
                         </tr>
+                        {(error !=="") ? (<div className="error">{error} </div>): ""}
                 </div>
             <button onClick={handleChangeServices} style={{marginTop:'20px',marginBottom:'10px',marginLeft:'33%'}}>Thêm dịch vụ</button>
         </div>

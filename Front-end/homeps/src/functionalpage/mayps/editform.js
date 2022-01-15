@@ -50,7 +50,8 @@ const EditForm = () => {
      const closeDeletePsDialog = () => setDeletePs(false)
 
     //change dataPs
-    const [ details,setDetails] = useState({psName:"",psStatus:""});
+    //const [ details,setDetails] = useState({psName:"",psStatus:""});
+    let details = {psName: psData.psName, psStatus: psData.psStatus};
     const [changePsDialog, setChangePsDialog] = useState(false)
     const [checkChangePsStatusDialog,setCheckChangePsStatusDialog] = useState(false)
     const openChangePsDialog = () => {
@@ -73,7 +74,7 @@ const EditForm = () => {
     if(details.psName==="" ||details.psStatus==="" )
     {
         setError("Hãy nhập đủ thông tin");
-    }else if(details.psStatus !=="0" && details.psStatus !=="2"){
+    }else if(details.psStatus !="0" && details.psStatus !="2"){
       setError("Trạng thái không hợp lệ")
     }
     else{
@@ -85,7 +86,7 @@ const EditForm = () => {
       },
       })
       .then(res => res.json())
-      .then(details => setDetails(details))
+      .then(details => details)
       setError(false)
       setCheckChangePs(!checkChangePs)
       closeChangePsDialog()
@@ -137,18 +138,18 @@ const EditForm = () => {
                 <td>
                    <input style={{width:'200px',paddingLeft:'10px',borderRadius:'10px',
                           marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
-                           type='text' placeholder={psData.psName} onChange={e => setDetails({...details,psName:e.target.value})} />
+                           type='text' placeholder={psData.psName} onChange={e => details.psName = e.target.value} />
                 </td>
             </tr>
             <tr>
                 <td style={{fontWeight:'700',marginBottom:'20px'}}>Trạng thái</td>
                 <td>
-                   <input style={{width:'200px',paddingLeft:'10px',borderRadius:'10px',
-                                            marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}} type='text' list ="status" placeholder={psData.psState} onChange={e => setDetails({...details,psStatus:e.target.value})} />
-                   <datalist id="status">
+                   <select style={{width:'218px',paddingLeft:'10px',borderRadius:'10px', 
+                                            marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}} type='text' placeholder={psData.psState} onChange={e => details.psStatus=e.target.value} >
+                   
                            <option value="0"> Có thể sử dụng</option>
-                           <option value="2"> Đang hỏng</option>
-                    </datalist>
+                           <option value="2" selected ={(psData.psStatus == '2')}> Đang hỏng</option>
+                    </select>
                 </td>
             </tr>
                 {(error !=="") ? (<div className="error">{error} </div>): ""}

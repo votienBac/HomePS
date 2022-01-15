@@ -10,6 +10,7 @@ const DetailsService = (props) => {
     let params = useParams();
     const serviceId = params.id
     const [service, setService] = useState([])
+    const [error, setError] = useState("")
     const [checkChangeService, setCheckChangeService] = useState(false)
 
     //Load the event
@@ -56,7 +57,9 @@ const DetailsService = (props) => {
         serviceTmp = service
     }
     const handleChangeServices = async () => {
-        console.log(serviceTmp)
+        if(serviceTmp.serviceName=== "" || serviceTmp.price ==="" ){
+        setError("Hãy nhập đủ thông tin");
+        }else{
         await fetch(`https://homeps.herokuapp.com/api/extraservice/${serviceId}`, {
             method: 'PUT',
             headers: {
@@ -67,6 +70,7 @@ const DetailsService = (props) => {
         })
         setCheckChangeService(!checkChangeService)
         closeChangeServicesDialog()
+        }
     }
 
     return (
@@ -120,7 +124,7 @@ const DetailsService = (props) => {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style={{fontWeight:'700'}}>Giá</td>
+                                    <td style={{fontWeight:'700'}}>Giá (vnđ)</td>
                                     <td>
                                         <input style={{width:'200px',paddingLeft:'10px',borderRadius:'10px',
                                 marginBottom:'10px',marginLeft:'20px',marginRight:'20px'}}
@@ -130,6 +134,7 @@ const DetailsService = (props) => {
                                         />
                                     </td>
                                 </tr>
+                                {(error !=="") ? (<div className="error">{error} </div>): ""}
                                 </div>
                     <button onClick={handleChangeServices} style={{marginTop:'20px',marginBottom:'10px',width:'100px',marginLeft:'32%'}}>Thay đổi</button>
                     </div>
