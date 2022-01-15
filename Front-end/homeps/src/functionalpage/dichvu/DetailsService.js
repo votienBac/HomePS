@@ -19,7 +19,8 @@ const DetailsService = () => {
     //Load the event
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/extraservice/${serviceId}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders,
         })
             .then(res => res.json())
             .then(service => setService(service))
@@ -32,10 +33,7 @@ const DetailsService = () => {
     const handleDeleteService = async () => {
         await fetch(`https://homeps.herokuapp.com/api/extraservice/${serviceId}`, {
             method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": "token-value",
-            },
+            headers: myHeaders,
         })
         navigate('/dichvu')
     }

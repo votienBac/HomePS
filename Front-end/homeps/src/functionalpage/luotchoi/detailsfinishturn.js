@@ -19,7 +19,8 @@ const DetailsFinishTurn = () => {
     //Load the bill
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/bills/${billId}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(turn => setTurn(turn))

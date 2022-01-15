@@ -33,6 +33,7 @@ const ServiceSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery
         console.log(details);
         fetch(`https://homeps.herokuapp.com/api/extraservice/search?size=${size}&query=${details}`, {
             method: 'GET',
+            headers: myHeaders
         })
             .then(res => res.json())
             .then(res => setQuery(res))
