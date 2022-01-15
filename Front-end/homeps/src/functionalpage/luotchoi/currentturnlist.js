@@ -26,7 +26,7 @@ const CurrentTurnList = () => {
             })
                 .then(res => res.json())
                 .then(res => setCurrentTurns(res))
-    }, [currentTurns.currentPage, sizePage])
+    }, [currentTurns.currentPage, sizePage, isQuery])
     return (
         <div className="pageBody">
             <div className="header-luot-choi" >
@@ -46,7 +46,8 @@ const CurrentTurnList = () => {
                 </div>
 
             </div>
-            <div class="m-grid">
+            {(currentTurns.totalPage === 0)? <h2 className="noResult">Không có lượt chơi nào</h2> :
+            <div className ="m-grid">
                 <table className="m-table">
                     <thead>
                         <tr>
@@ -69,14 +70,14 @@ const CurrentTurnList = () => {
                         })}
                     </tbody>
                 </table>
-            </div>
+            </div>}
             <Link to="addturn"><button>Thêm lượt chơi</button></Link>
-            <div class="m-table-paging">
+            {(!currentTurns.totalPage === 0)&& <div className="m-table-paging">
                 <div className="m-paging-left">
 
                 </div>
-                <div class="m-paging-center">
-                    <div class = "m-paging-first"
+                <div className ="m-paging-center">
+                    <div className = "m-paging-first"
                         onClick={() => {
                             setCurrentTurns({ ...currentTurns, currentPage: 1 })
                             setChangePageQuery(isQuery)
@@ -84,7 +85,7 @@ const CurrentTurnList = () => {
                         }>
                         
                     </div>
-                    <div class = "m-paging-prev"
+                    <div className = "m-paging-prev"
                         onClick={() => {
                             if (currentTurns.currentPage > 1) {
                                 setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage - 1 })
@@ -93,8 +94,8 @@ const CurrentTurnList = () => {
                         }}
                     >
                     </div>
-                    <div class="page-number">{currentTurns.currentPage}</div>
-                    {(currentTurns.currentPage == currentTurns.totalPage) || <div class="page-number"
+                    <div className ="page-number">{currentTurns.currentPage}</div>
+                    {(currentTurns.currentPage == currentTurns.totalPage) || <div className="page-number"
                         onClick={() => {
                             setCurrentTurns({ ...currentTurns, currentPage: currentTurns.currentPage + 1 })
                             setChangePageQuery(isQuery)
@@ -103,7 +104,7 @@ const CurrentTurnList = () => {
                     >
                         {currentTurns.currentPage + 1}
                     </div>}
-                    <div class="m-paging-next"
+                    <div className="m-paging-next"
 
                         onClick={() => {
                             if (currentTurns.currentPage < currentTurns.totalPage) {
@@ -113,7 +114,7 @@ const CurrentTurnList = () => {
                         }}
                     >
                     </div>
-                    <div class="m-paging-last"
+                    <div className="m-paging-last"
                         onClick={() => {
                             setCurrentTurns({ ...currentTurns, currentPage: currentTurns.totalPage })
                             setChangePageQuery(isQuery)
@@ -124,8 +125,8 @@ const CurrentTurnList = () => {
                     </div>
                   
                 </div>
-                <div class="m-paging-right">
-                        <label>Items per page</label>
+                <div className="m-paging-right">
+                        <label>Số bản ghi một trang </label>
                         <Select 
                             value={sizePage}
                             onChange={(e) => {
@@ -139,7 +140,7 @@ const CurrentTurnList = () => {
                             
                         </Select>
                 </div>
-            </div> 
+            </div>} 
         </div>)
 }
 

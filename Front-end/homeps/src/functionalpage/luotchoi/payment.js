@@ -16,25 +16,25 @@ const Payment = () => {
     }, [])
 
     return (
-        <section className="turn-details">
+        <section className="pageDetail">
             <div className="container">
                 <div className="col-detail">
                     <ul className="top-bar-detailsName">
-                        <li style={{ marginBottom: '7%' }}>ID lượt chơi</li>
-                        <li style={{ marginBottom: '7%' }}>Tên Máy</li>
-                        <li style={{ marginBottom: '7%' }}>Thời điểm bắt đầu</li>
-                        <li style={{ marginBottom: '7%' }}>Thời điểm kết thúc</li>
-                        <li style={{ marginBottom: '7%' }}>Sự kiện được áp dụng</li>
-                        <li style={{ marginBottom: '7%' }}>Tổng tiền</li>
+                        <li style={{ marginBottom: '10px' }}>ID lượt chơi</li>
+                        <li style={{ marginBottom: '10px' }}>Tên Máy</li>
+                        <li style={{ marginBottom: '10px' }}>Thời điểm bắt đầu</li>
+                        <li style={{ marginBottom: '10px' }}>Thời điểm kết thúc</li>
+                        <li style={{ marginBottom: '10px' }}>Sự kiện được áp dụng</li>
+                        <li style={{ marginBottom: '10px' }}>Tổng tiền</li>
                         {(turn.orderServices.length != 0) && (<li style={{ marginBottom: '7%' }}>Danh sách dịch vụ</li>)}
                     </ul>
                     <ul className="top-bar-details-inf">
-                        <li style={{ marginBottom: '7%' }}>{turn.billId}</li>
-                        <li style={{ marginBottom: '7%' }}>{turn.playStation && turn.playStation.psName}</li>
-                        <li style={{ marginBottom: '6%' }}>{formatTime(turn.timeStart)}</li>
-                        <li style={{ marginBottom: '7%' }}>{formatTime(turn.timeEnd)}</li>
-                        <li style={{ marginBottom: '7%' }}>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
-                        <li style={{ marginBottom: '7%' }}>{formatMoney(turn.totalPrice)  || 'Không có'} vnd</li>
+                        <li style={{ marginBottom: '10px' }}>{turn.billId}</li>
+                        <li style={{ marginBottom: '10px' }}>{turn.playStation && turn.playStation.psName}</li>
+                        <li style={{ marginBottom: '10px' }}>{formatTime(turn.timeStart)}</li>
+                        <li style={{ marginBottom: '10px' }}>{formatTime(turn.timeEnd)}</li>
+                        <li style={{ marginBottom: '10px' }}>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
+                        <li style={{ marginBottom: '10px' }}>{formatMoney(turn.totalPrice)  || 'Không có'}</li>
                     </ul>
                 </div>
                 {(turn.orderServices.length != 0) && <div className="list-service">

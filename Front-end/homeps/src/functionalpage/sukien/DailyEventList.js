@@ -28,7 +28,7 @@ const DailyEventList = () => {
         })
             .then(res => res.json())
             .then(res => { setCurrentEvents(res) })
-    }, [currentEvents.currentPage, sizePage, isAdded])
+    }, [currentEvents.currentPage, sizePage, isAdded, isQuery])
     return (
         <div className="pageBody">
             <div className="header-luot-choi">
@@ -128,7 +128,7 @@ const DailyEventList = () => {
                 </div>
                 </div>
                 <div className="m-paging-right">
-                    <label>Items per page</label>
+                    <label>Số bản ghi một trang </label>
                     <Select 
                         value={sizePage}
                         onChange={(e)=>{

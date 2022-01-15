@@ -59,7 +59,7 @@ const DetailsFinishTurn = () => {
                             <li className="row">{formatTime(turn.timeStart)}</li>
                             <li className="row">{formatTime(turn.timeEnd)}</li>
                             <li className='row'>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
-                            <li className='row'>{formatMoney(turn.totalPrice) || 'Không có'} vnd</li>
+                            <li className='row'>{formatMoney(turn.totalPrice) || 'Không có'}</li>
                         </ul>
                     </div>
                     {(turn.orderServices.length != 0) && <div className="list-service">

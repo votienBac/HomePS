@@ -25,14 +25,11 @@ const PsSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, set
     }
     const handleSearch = () => {
         setIsQuery(true);
-        console.log(details);
         fetch(`https://homeps.herokuapp.com/api/ps/search?size=${size}&query=${details}`, {
             method: 'GET',
         })
             .then(res => res.json())
             .then(res => setQuery(res))
-        console.log(query);
-        console.log(typeof (setQuery));
     }
 
     return (

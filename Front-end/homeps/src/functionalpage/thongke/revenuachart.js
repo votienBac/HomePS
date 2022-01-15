@@ -112,7 +112,7 @@ const BarChart = (props) => {
                 }}
             />
             <div className='doanhthu'>
-                Tổng doanh thu là: {formatMoney(turnOver)} vnđ
+                Tổng doanh thu là: {formatMoney(turnOver)}
             </div>
         </div>
     )

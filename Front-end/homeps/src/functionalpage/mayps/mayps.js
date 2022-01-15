@@ -38,7 +38,7 @@ function ExtraMayPS() {
             })
                 .then(res => res.json())
                 .then(res => { setData(res) })
-        }, [data.currentPage, sizePage])
+        }, [data.currentPage, sizePage, isQuery])
 
     return (
     <div className="pageBody">
@@ -56,6 +56,7 @@ function ExtraMayPS() {
                 />                
             </div>
             </div>
+            {(data.totalPage === 0)? <h2 className="noResult">Không có máy ps nào</h2> :
             <div class="m-grid">
             <table className="m-table" >
                 <thead>
@@ -81,9 +82,10 @@ function ExtraMayPS() {
                     })}
                 </tbody>    
             </table>
-            </div>
+            </div>}
             <Link to={`addform`}><button>Thêm máy</button></Link>
-            <div class="m-table-paging">
+
+            {(!data.totalPage === 0)&& <div class="m-table-paging">
                 <div className="m-paging-left">
 
                 </div>
@@ -135,7 +137,7 @@ function ExtraMayPS() {
                 </div>
                 </div>
                 <div class="m-paging-right">
-                    <label>Items per page </label>
+                    <label>Số bản ghi một trang </label>
                     <Select 
                         value={sizePage}
                         onChange={(e) => {
@@ -148,6 +150,6 @@ function ExtraMayPS() {
                         <MenuItem value={20}>20</MenuItem>
                     </Select>
             </div>
-        </div>
+        </div>}
     </div>)
 }

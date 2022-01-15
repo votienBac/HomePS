@@ -92,14 +92,14 @@ const DetailsEvent = (props) => {
                         <ul className="top-bar-detailsName">
                             <li >ID</li>
                             <li >Tên dịch vụ</li>
-                            <li >Giảm giá</li>
+                            <li >Giảm giá(%)</li>
                             <li >Thời gian bắt đầu</li>
                             <li >Thời gian kết thúc</li>
                         </ul>
                         <ul className="top-bar-details-inf">
                             <li >{event.eventId}</li>
                             <li >{event.eventName}</li>
-                            <li >{event.percentDiscount}%</li>
+                            <li >{event.percentDiscount}</li>
                             <li >{formatTime(event.timeStart)}</li>
                             <li >{formatTime(event.timeEnd)}</li>
                         </ul>
@@ -155,11 +155,11 @@ const DetailsEvent = (props) => {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style={{fontWeight:'700',marginBottom:'20px'}}>Giảm giá</td>
+                                    <td style={{fontWeight:'700',marginBottom:'20px'}}>Giảm giá(%)</td>
                                     <td>
                                         <input style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
-                                            type='number' placeholder={event.percentDiscount+'%'} 
+                                            type='number' placeholder={event.percentDiscount} 
                                             min='0'
                                             onChange={e => handleChangeInforEvent("percentDiscount", e.target.value)}
                                         />

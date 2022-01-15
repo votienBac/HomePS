@@ -191,7 +191,7 @@ const DetailsTurn = (props) => {
                                 return (
                                     <tr key={extraService.serviceId} >
                                         <td>{extraService.serviceName}</td>
-                                        <td>{formatMoney(extraService.price)} vnd</td>
+                                        <td>{formatMoney(extraService.price)}</td>
                                         <td>
                                             <input
                                                 type='number'

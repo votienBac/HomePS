@@ -25,12 +25,13 @@ const CurrentEventList = () => {
 
     //Add Event Dialog
     useEffect(() => {
+        if(!isQuery)
         fetch(`https://homeps.herokuapp.com/api/events?page=${currentEvents.currentPage}&size=${sizePage}`, {
             method: 'GET'
         })
             .then(res => res.json())
             .then(res => { setCurrentEvents(res) })
-    }, [currentEvents.currentPage, sizePage, isAdded])
+    }, [currentEvents.currentPage, sizePage, isAdded, isQuery])
     return (
         <div className="pageBody">
             <div className="header-luot-choi">
@@ -46,6 +47,7 @@ const CurrentEventList = () => {
                     />                
             </div>
             </div>
+            {(currentEvents.totalPage === 0)? <h2 className="noResult">Không có sự kiện nào</h2> :
             <div className="m-grid">
             <table className="m-table">
                 <thead>
@@ -62,7 +64,7 @@ const CurrentEventList = () => {
                         return (<tr key={currentEvent.eventId} >
                             <td>{currentEvent.eventId}</td>
                             <td>{currentEvent.eventName}</td>
-                            <td>{currentEvent.happenning?"Được áp dụng":"Không áp dụng"}</td>
+                            <td>{currentEvent.happenning?"Đang diễn ra":"Chưa / Đã diễn ra"}</td>
                             <td>{currentEvent.percentDiscount}%</td>
                             <td>
                                 <Link to={`onetimeevent/${currentEvent.eventId}`} className="xem-ct">Xem Chi tiết</Link>
@@ -71,14 +73,14 @@ const CurrentEventList = () => {
                     })}
                 </tbody>
             </table>
-            </div>
+            </div>}
 
             <Link to=''><button
                 onClick={() => { setAddEventDialog(true) }}>
                 Thêm sự kiện
             </button></Link>
 
-            <div className='m-table-paging'>
+            {(!currentEvents.totalPage === 0)&& <div className='m-table-paging'>
                 <div className="m-paging-left">
 
                 </div>
@@ -130,7 +132,7 @@ const CurrentEventList = () => {
                 </div>
                 </div>
                 <div className="m-paging-right">
-                    <label>Items per page</label>
+                    <label>Số bản ghi một trang </label>
                     <Select 
                         value={sizePage}
                         onChange={(e)=>{
@@ -143,7 +145,7 @@ const CurrentEventList = () => {
                     <MenuItem value={20}>20</MenuItem>
                     </Select>
                 </div>
-            </div>
+            </div>}
 
             
 

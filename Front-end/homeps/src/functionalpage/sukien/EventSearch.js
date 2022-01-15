@@ -5,7 +5,7 @@ const EventSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, 
     console.log(details);
     const handleChange = (props) => {
         setDetails(props)
-        if (props == '') {
+        if (props === '') {
             setIsQuery(false)
             setQuery({ ...query, currentPage: 1 })
         }
@@ -25,14 +25,11 @@ const EventSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, 
     }
     const handleSearch = () => {
         setIsQuery(true);
-        console.log(details);
         fetch(`https://homeps.herokuapp.com/api/events/search?size=${size}&query=${details}`, {
             method: 'GET',
         })
             .then(res => res.json())
             .then(res => setQuery(res))
-        console.log(query);
-        console.log(typeof (setQuery));
     }
 
     return (

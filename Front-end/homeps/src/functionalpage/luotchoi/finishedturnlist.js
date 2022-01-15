@@ -28,7 +28,7 @@ function FinishedTurn() {
             })
                 .then(res => res.json())
                 .then(finishedTurns => { setFinishedTurns(finishedTurns) })
-    }, [finishedTurns.currentPage, sizePage])
+    }, [finishedTurns.currentPage, sizePage, isQuery])
     return (
         <div class="pageBody">
             <div className="header-luot-choi" >
@@ -47,6 +47,7 @@ function FinishedTurn() {
                     />
                 </div>
             </div>
+            {(finishedTurns.totalPage === 0)? <h2 className="noResult">Không có lượt chơi nào</h2> :
             <div class="m-grid">
                 <table className="m-table">  
                     <thead>
@@ -70,9 +71,9 @@ function FinishedTurn() {
                             })}
                     </tbody>
                 </table>
-            </div>
+            </div>}
             
-            <div class='m-table-paging'>
+            {(!finishedTurns.totalPage === 0)&& <div class='m-table-paging'>
                 <div className="m-paging-left">
 
                 </div>
@@ -128,7 +129,7 @@ function FinishedTurn() {
                 </div>
 
                 <div className="m-paging-right">
-                    <label>Items per page</label>
+                    <label>Số bản ghi một trang </label>
                     <Select
                         value={sizePage}
                         onChange={(e) => {
@@ -141,7 +142,7 @@ function FinishedTurn() {
                         <MenuItem value={20}>20</MenuItem>
                     </Select>
                 </div>
-            </div>
+            </div>}
         </div>)
 }
 export default FinishedTurn

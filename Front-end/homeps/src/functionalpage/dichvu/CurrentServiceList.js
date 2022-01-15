@@ -25,12 +25,13 @@ const CurrentServiceList = () => {
     
     //Add Service Dialog
     useEffect(() => {
+        if(!isQuery)
         fetch(`https://homeps.herokuapp.com/api/extraservice?page=${currentServices.currentPage}&size=${sizePage}`, {
             method: 'GET'
         })
             .then(res => res.json())
             .then(res => { setCurrentServices(res) })
-    }, [currentServices.currentPage, sizePage, isAdded])
+    }, [currentServices.currentPage, sizePage, isAdded, isQuery])
     return (
     <div className="pageBody">
         <div className="header-luot-choi">
@@ -46,6 +47,7 @@ const CurrentServiceList = () => {
                 />                
             </div>
             </div>
+            {(currentServices.totalPage === 0)? <h2 className="noResult">Không có dịch vụ nào</h2> :
             <div class="m-grid">
             <table className="m-table" >
                 <thead>
@@ -61,7 +63,7 @@ const CurrentServiceList = () => {
                         return (<tr key={currentService.serviceId}>
                             <td>{currentService.serviceId}</td>
                             <td>{currentService.serviceName}</td>
-                            <td>{formatMoney(currentService.price) } vnd</td>
+                            <td>{formatMoney(currentService.price)}</td>
                             <td>
                                 <Link to={`current-service/${currentService.serviceId}`}  className="xem-ct">Xem Chi tiết</Link>
                             </td>
@@ -69,14 +71,14 @@ const CurrentServiceList = () => {
                     })}
                     </tbody>
             </table>
-            </div>
+            </div>}
             <button
                 onClick={() => { setAddServiceDialog(true) }} 
                 style={{width:'110px'}}
                 >
                 Thêm dịch vụ
             </button>
-            <div class="m-table-paging">
+            {(!currentServices.totalPage === 0)&& <div class="m-table-paging">
                 <div className="m-paging-left">
 
                 </div>
@@ -128,7 +130,7 @@ const CurrentServiceList = () => {
                 </div>
                 </div>
                 <div class="m-paging-right">
-                <label>Items per page</label>
+                <label>Số bản ghi một trang </label>
                 <Select 
                     value={sizePage}
                     onChange={(e)=>setSizePage(e.target.value)}
@@ -138,7 +140,7 @@ const CurrentServiceList = () => {
                     <MenuItem value={20}>20</MenuItem>
                 </Select>
                 </div>
-            </div>
+            </div>}
 
             <Dialog open={addServiceDialog} onClose={closeAddServiceDialog} >
                 <DialogActions>

@@ -84,7 +84,7 @@ const DetailsService = (props) => {
                         <ul className="top-bar-details-inf">
                             <li className="row">{service.serviceId}</li>
                             <li className="row">{service.serviceName}</li>
-                            <li className="row">{formatMoney(service.price)} vnd</li>
+                            <li className="row">{formatMoney(service.price)}</li>
                         </ul>
                     </div>
                 </div>

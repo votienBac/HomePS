@@ -55,6 +55,8 @@ const UnusedPsList = () => {
 
     return (
         <div class="pageBody">
+            <img onClick={() => navigate(-1)} src={'https://img.icons8.com/ios/50/000000/circled-left-2.png'
+    } className='back-icon'/>
             <div className="header-luot-choi" ></div>
             <div class="m-grid">
                 <table className="m-table">
@@ -89,13 +91,6 @@ const UnusedPsList = () => {
             </div>
             
             <div class = "m-table-paging">
-                <div className="m-paging-left">
-                        <button
-                        onClick={() => navigate(-1)}
-                        >
-                        Quay lại
-                        </button>
-                </div>
                 <div className='m-paging-center'>
                     <div class = "m-paging-first"
                         onClick={() => setUnusedPs({ ...unusedPs, currentPage: 1 })}
@@ -130,7 +125,7 @@ const UnusedPsList = () => {
                     </div>
                 </div>
                 <div className="m-paging-right">
-                    <label>Items per page</label>
+                    <label>Số bản ghi một trang </label>
                     <Select
                         value={sizePage}
                         onChange={(e) => setSizePage(e.target.value)}
