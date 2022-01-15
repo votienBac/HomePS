@@ -30,13 +30,13 @@ export default function App() {
         const [value, setValue] = React.useState(str[1]);
         const [darkMode, setDarkMode] = useState((localStorage.getItem("dark-mode") === 'true'));
         console.log(darkMode)
+        if(!darkMode){
+                document.body.style.background = "#FFFFFFFF";
+        }else{
+                document.body.style.background = "#303030";
+        }
         const changeMode =() =>{
                 localStorage.setItem("dark-mode",String(!darkMode))
-                if(darkMode){
-                        document.body.style.background = "#FFFFFFFF";
-                }else{
-                        document.body.style.background = "#303030";
-                }
         }
 
         const mql = window.matchMedia('(max-width: 2000px)');

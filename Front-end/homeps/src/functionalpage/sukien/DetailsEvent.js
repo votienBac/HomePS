@@ -12,7 +12,7 @@ const DetailsEvent = (props) => {
     const eventId = params.id
     const [event, setEvent] = useState({})
     const [checkChangeEvent, setCheckChangeEvent] = useState(false)
-
+    const [error, setError] = useState("")
     //Load the event
     useEffect(() => {
         fetch(`https://homeps.herokuapp.com/api/events/${eventId}`, {
@@ -22,12 +22,7 @@ const DetailsEvent = (props) => {
             .then(event => setEvent(event))
     },[checkChangeEvent])
 
-    let eventTmp = {
-        eventName: null,
-        percentDiscount: null,
-        timeEnd: null,
-        timeStart: null
-    }
+    let eventTmp = event
 
     //Delete Event Dialog
     const [deleteEventDialog, setDeleteEventDialog] = useState(false)
@@ -68,7 +63,9 @@ const DetailsEvent = (props) => {
         eventTmp = Event
     }
     const handleChangeEvents = async () => {
-        console.log(eventTmp)
+        if(eventTmp.eventName=== "" || eventTmp.timeStart ==="" || eventTmp.timeEnd ==="" || eventTmp.percentDiscount === ""){
+            setError("Hãy nhập đủ thông tin");
+        }else{
         await fetch(`https://homeps.herokuapp.com/api/events/${eventId}`, {
             method: 'PUT',
             headers: {
@@ -79,6 +76,7 @@ const DetailsEvent = (props) => {
         })
         setCheckChangeEvent(!checkChangeEvent)
         closeChangeEventsDialog()
+        }
     }
 
     return (
@@ -149,7 +147,7 @@ const DetailsEvent = (props) => {
                                     <td>
                                         <input style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
-                                            type='datetime-local'
+                                            type='datetime-local' 
                                             onChange={e => handleChangeInforEvent("timeEnd", e.target.value)}
                                         />
                                     </td>
@@ -165,6 +163,7 @@ const DetailsEvent = (props) => {
                                         />
                                     </td>
                                 </tr>
+                                {(error !=="") ? (<div className="error">{error} </div>): ""}
                         </div>
                     </div>
                     <button onClick={handleChangeEvents} style={{ width: '20%', alignSelf: 'center', margin: '10px',marginBottom:'20px' }}>Thay đổi</button>
