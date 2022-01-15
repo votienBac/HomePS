@@ -31,8 +31,8 @@ export default function Login(){
         })
       .then(result =>{
           console.log(result)
-          localStorage.setItem("access_token",result.access_token)
-          localStorage.setItem("dark-mode",false)
+          sessionStorage.setItem("access_token",result.access_token)
+          sessionStorage.setItem("dark-mode",false)
           window.location.href =window.location.href + "luotchoi";} )
       .catch(error => {
         setError("Mật khẩu không chính xác")

@@ -8,7 +8,7 @@ import '../../css/luotchoi.css';
 
 const DailyEventList = () => {
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
     myHeaders.append("Content-Type", "application/json");
     const navigate = useNavigate()
     const [currentEvents, setCurrentEvents] = useState({

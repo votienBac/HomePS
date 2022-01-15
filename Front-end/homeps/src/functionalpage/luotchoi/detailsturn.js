@@ -22,7 +22,7 @@ const DetailsTurn = (props) => {
     const [checkChangeServices, setCheckChangeServices] = useState(false)
     let services = []
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
     myHeaders.append("Content-Type", "application/json");
     //Load the bill
     useEffect(() => {

@@ -28,14 +28,14 @@ export default function App() {
         const isLogin = location.pathname === "/";
         const str = window.location.pathname.split('/');
         const [value, setValue] = React.useState(str[1]);
-        const [darkMode, setDarkMode] = useState((localStorage.getItem("dark-mode") === 'true'));
+        const [darkMode, setDarkMode] = useState((sessionStorage.getItem("dark-mode") === 'true'));
         if(!darkMode){
                 document.body.style.background = "#FFFFFFFF";
         }else{
                 document.body.style.background = "#303030";
         }
         const changeMode =() =>{
-                localStorage.setItem("dark-mode",String(!darkMode))
+                sessionStorage.setItem("dark-mode",String(!darkMode))
         }
 
         const mql = window.matchMedia('(max-width: 2000px)');
@@ -64,7 +64,7 @@ export default function App() {
                 navigate('/taikhoan');
         }
         const Logout = () => {
-                localStorage.clear();
+                sessionStorage.clear();
                 var myHeaders = new Headers();
                 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
                 var urlencoded = new URLSearchParams();
@@ -83,7 +83,7 @@ export default function App() {
                 navigate('/', {replace: true});
             }
 
-        if(!localStorage.getItem("access_token") && !isLogin) {
+        if(!sessionStorage.getItem("access_token") && !isLogin) {
                 window.location.href = "/"
                 return <Login />
         }

@@ -7,9 +7,9 @@ export default function TaiKhoan(){
     const [page, setPage] = useState({page: "change"});
     let navigate = useNavigate();
     const Logout = () => {
-        localStorage.clear();
+        sessionStorage.clear();
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+        myHeaders.append("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
         myHeaders.append("Content-Type", "application/json");
         var urlencoded = new URLSearchParams();
         var requestOptions = {

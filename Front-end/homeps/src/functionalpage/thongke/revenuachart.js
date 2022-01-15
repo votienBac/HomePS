@@ -5,7 +5,7 @@ import '../../css/thongke.css';
 import formatMoney from '../../utility/formatmoney';
 const BarChart = (props) => {
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('access_token'));
+    myHeaders.append("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
     myHeaders.append("Content-Type", "application/json");
     const [chartData, setChartData] = useState({});
     const [excelData, setExcelData] = useState([]);
