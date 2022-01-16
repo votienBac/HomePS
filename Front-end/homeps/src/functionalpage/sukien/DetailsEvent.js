@@ -26,8 +26,12 @@ const DetailsEvent = () => {
             .then(event => setEvent(event))
     },[checkChangeEvent])
 
-    let eventTmp = event
-
+    var eventTmp = {
+        eventName: event.eventName,
+        timeStart: event.timeStart,
+        timeEnd: event.timeEnd,
+        percentDiscount: event.percentDiscount
+    }
     //Delete Event Dialog
     const [deleteEventDialog, setDeleteEventDialog] = useState(false)
     const handleDeleteEvent = async () => {
@@ -61,11 +65,14 @@ const DetailsEvent = () => {
     const [changeEventsDialog, setChangeEventsDialog] = useState(false)
     const closeChangeEventsDialog = () => {
         setChangeEventsDialog(false)
-        eventTmp = Event
+        setError("")
     }
     const handleChangeEvents = async () => {
         if(eventTmp.eventName=== "" || eventTmp.timeStart ==="" || eventTmp.timeEnd ==="" || eventTmp.percentDiscount === ""){
             setError("Hãy nhập đủ thông tin");
+        }
+        else if(eventTmp.percentDiscount > 100){
+                setError("Giảm giá không quá 100%")
         }else{
         await fetch(`https://homeps.herokuapp.com/api/events/${eventId}`, {
             method: 'PUT',
@@ -156,7 +163,7 @@ const DetailsEvent = () => {
                                         <input style={{width:'250px',paddingLeft:'10px',borderRadius:'10px',
                                             marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}
                                             type='number' placeholder={event.percentDiscount} 
-                                            min='0'
+                                            min= {0} max = {100}
                                             onChange={e => handleChangeInforEvent("percentDiscount", e.target.value)}
                                         />
                                     </td>

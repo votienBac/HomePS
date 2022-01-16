@@ -27,7 +27,13 @@ const DetailsDailyEvent = () => {
             .then(event => setEvent(event))
     },[checkChangeEvent])
 
-    let eventTmp = event
+    var eventTmp = {
+        eventName: event.eventName,
+        timeStart: event.timeStart,
+        timeEnd: event.timeEnd,
+        percentDiscount: event.percentDiscount,
+        dayHappen: event.dayHappen
+    }
 
     //Delete Event Dialog
     const [deleteEventDialog, setDeleteEventDialog] = useState(false)
@@ -65,7 +71,7 @@ const DetailsDailyEvent = () => {
     const [changeEventsDialog, setChangeEventsDialog] = useState(false)
     const closeChangeEventsDialog = () => {
         setChangeEventsDialog(false)
-        eventTmp = Event
+        setError("")
     }
     const handleChangeEvents = async () => {
         var checkDay = '';
@@ -78,13 +84,15 @@ const DetailsDailyEvent = () => {
                 checkDay = checkDay + '0';
             }
         }
-        event.dayHappen = checkDay
+        eventTmp.dayHappen = checkDay
         if(eventTmp.dailyEventName=== "" || eventTmp.timeStart ==="" || 
             eventTmp.timeEnd ==="" || eventTmp.percentDiscount === "" || eventTmp.dayHappen === "0000000"){
             setError("Hãy nhập đủ thông tin");
         }
         else if(event.timeStart >= event.timeEnd){
             setError("Thời gian bắt đầu lớn hơn thời gian kết thúc")
+        }else if(eventTmp.percentDiscount > 100){
+            setError("Giảm giá không quá 100%")
         }else{
         await fetch(`https://homeps.herokuapp.com/api/dailyEvents/${eventId}`, {
             method: 'PUT',
@@ -174,7 +182,7 @@ const DetailsDailyEvent = () => {
                                 <tr >
                                     <td style={{fontWeight:'700',marginBottom:'20px'}}>Ngày lặp lại</td>
                                     <td style={{textAlign:'right'}}>
-                                        <div><label for='monday'>Thứ 2</label><input type='checkbox' id='monday' value = '0'className='weekday' /></div>
+                                        <div><label for='monday'>Thứ 2</label><input type='checkbox' id='monday' value = '0' className='weekday' /></div>
                                         <div><label for='tuesday'>Thứ 3</label><input type='checkbox' id='tuesday' value = '1' className='weekday'/></div>
                                         <div><label for='wednesday'>Thứ 4</label><input type='checkbox' id='wednesday' value = '2' className='weekday'/></div>
                                         <div><label for='thursday'>Thứ 5</label><input type='checkbox' id='thursday' value = '3' className='weekday'/></div>
@@ -194,7 +202,7 @@ const DetailsDailyEvent = () => {
                                         />
                                     </td>
                                 </tr>
-                                {(error !=="") ? (<div className="error">{error} </div>): ""}
+                                {(error !="") ? (<div className="error">{error}</div>): ""}
                         </div>
                     </div>
                     <button onClick={handleChangeEvents} style={{ width: '20%', alignSelf: 'center', margin: '10px',marginBottom:'20px' }}>Thay đổi</button>
