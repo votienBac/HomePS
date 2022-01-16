@@ -14,9 +14,9 @@ form {
     position: relative;
     width: 25%;
 }
-@media all and (max-width: 600px) {
+ @media all and (max-width: 800px) {
     .AppLogin form{
-        width: 80%;
+        width: 70%;
     }
  }
 .forms{
@@ -110,7 +110,7 @@ form .form-inner input[type="submit"]:hover {
 .form-inner .submitt {
     margin-left: 30%;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 700px) {
     .forms{
         width: 100%;
         padding-left: 0%;
