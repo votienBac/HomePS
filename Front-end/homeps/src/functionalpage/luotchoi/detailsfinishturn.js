@@ -63,11 +63,11 @@ const DetailsFinishTurn = () => {
                                 <li style={{ marginBottom: '10px' }}>{turn.playStation && turn.playStation.psName}</li>
                                 <li style={{ marginBottom: '10px' }}>{formatTime(turn.timeStart)}</li>
                                 <li style={{ marginBottom: '10px' }}>{formatTime(turn.timeEnd)}</li>
-                                <li style={{ marginBottom: '10px' }}>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
-                                <li style={{ marginBottom: '10px' , fontSize:'25px' , color:'green'  }}>{formatMoney(turn.totalPrice) || 'Không có'}</li>
                                 {turn.orderServices && turn.orderServices.map(orderService => {
                                     sumServiceCost = sumServiceCost + orderService.totalPrice
                                 })}
+                                <li style={{ marginBottom: '10px' }}>{turn.event && turn.event.eventName + ' (giảm ' + calculatePercent(turn.totalPrice - sumServiceCost, turn.totalHourPlayed) + '%)' || 'Không có'} </li>
+                                <li style={{ marginBottom: '10px' , fontSize:'25px' , color:'green'  }}>{formatMoney(turn.totalPrice) || 'Không có'}</li>
                                 <li style={{ marginBottom: '10px' }}>{formatMoney(turn.totalPrice - sumServiceCost) || 'Không có'}</li>
                             </ul>
                         </div>
@@ -84,7 +84,7 @@ const DetailsFinishTurn = () => {
                                         return (
                                             <tr key={orderService.service.serviceId} className='list-turn'>
                                                 <td>{orderService.service.serviceName}</td>
-                                                <td>{formatMoney(orderService.service.price)}</td>
+                                                <td>{formatMoney(parseInt(orderService.totalPrice) / parseInt(orderService.quantity))}</td>
                                                 <td>{orderService.quantity}</td>
                                                 <td>{formatMoney(orderService.totalPrice)}</td>
                                             </tr>
@@ -122,3 +122,13 @@ const DetailsFinishTurn = () => {
     )
 }
 export default DetailsFinishTurn
+
+const calculatePercent = (totalPlay, hourPlay) =>{
+    totalPlay = parseInt(totalPlay);
+    hourPlay = Number(hourPlay);
+    console.log(hourPlay)
+    let base = (totalPlay * 2)/(hourPlay*2);
+    console.log(base)
+    base = (base*100)/30000;
+    return 100 - base;
+}

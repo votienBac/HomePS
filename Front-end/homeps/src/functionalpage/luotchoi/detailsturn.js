@@ -144,7 +144,7 @@ const DetailsTurn = (props) => {
                                         return (
                                             <tr key={orderService.service.serviceId} className='list-turn'>
                                                 <td>{orderService.service.serviceName}</td>
-                                                <td>{formatMoney(orderService.service.price)}</td>
+                                                <td>{formatMoney(orderService.totalPrice / orderService.quantity)}</td>
                                                 <td>{orderService.quantity}</td>
                                                 <td>{formatMoney(orderService.totalPrice)}</td>
                                             </tr>
