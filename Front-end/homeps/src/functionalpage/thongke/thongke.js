@@ -27,7 +27,7 @@ export default function ThongKe(){
     return(
         <div>
             {isQueryNgay? (
-            <div className="queryBox">
+            <div className="queryBox" style={{marginRight:'60%'}}>
                 <label>Bắt đầu </label>
                 <DatePicker className = 'startTime' 
                             selected={dateBegin} 
