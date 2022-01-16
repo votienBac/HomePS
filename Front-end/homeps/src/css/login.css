@@ -14,6 +14,11 @@ form {
     position: relative;
     width: 25%;
 }
+@media all and (max-width: 600px) {
+    .AppLogin form{
+        width: 80%;
+    }
+ }
 .forms{
     width: 35%;
     padding-left: 30%;
