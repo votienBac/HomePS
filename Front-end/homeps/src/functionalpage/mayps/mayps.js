@@ -65,6 +65,7 @@ function ExtraMayPS() {
                     onChange={(e) => {
                         setStatusPS(e.target.value)
                         setChangePageQuery(isQuery)
+                        setData({ ...data, currentPage: 1 })
                     }}>
                     <option value='full'>Không lọc</option>
                     <option value='free'>Máy trống</option>
@@ -160,6 +161,7 @@ function ExtraMayPS() {
                             onChange={(e) => {
                                 setSizePage(e.target.value)
                                 setChangePageQuery(isQuery)
+                                setData({ ...data, currentPage: 1 })
                             }}
                         >
                             <option value={5}>5</option>

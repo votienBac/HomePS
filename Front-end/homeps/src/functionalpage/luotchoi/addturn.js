@@ -124,6 +124,7 @@ const UnusedPsList = () => {
                             value={sizePage}
                             onChange={(e) => {
                                 setSizePage(e.target.value)
+                                setUnusedPs({ ...unusedPs, currentPage: 1 })
                             }}
                         >
                             <option value={5}>5</option>

@@ -127,6 +127,7 @@ const CurrentTurnList = () => {
                         onChange={(e) => {
                             setSizePage(e.target.value)
                             setChangePageQuery(isQuery)
+                            setCurrentTurns({ ...currentTurns, currentPage: 1 })
                         }}
                     >
                         <option value={5}>5</option>

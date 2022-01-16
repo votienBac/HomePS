@@ -136,6 +136,7 @@ function FinishedTurn() {
                             onChange={(e) => {
                                 setSizePage(e.target.value)
                                 setChangePageQuery(isQuery)
+                                setFinishedTurns({ ...finishedTurns, currentPage: 1 })
                             }}
                         >
                             <option value={5}>5</option>

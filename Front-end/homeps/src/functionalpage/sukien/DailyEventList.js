@@ -144,6 +144,7 @@ const DailyEventList = () => {
                             onChange={(e) => {
                                 setSizePage(e.target.value)
                                 setChangePageQuery(isQuery)
+                                setCurrentEvents({ ...currentEvents, currentPage: 1 })
                             }}
                         >
                             <option value={5}>5</option>
