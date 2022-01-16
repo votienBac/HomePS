@@ -54,9 +54,9 @@ const DetailsFinishTurn = () => {
                                 <li style={{ marginBottom: '10px' }}>Thời điểm bắt đầu</li>
                                 <li style={{ marginBottom: '10px' }}>Thời điểm kết thúc</li>
                                 <li style={{ marginBottom: '10px' }}>Sự kiện được áp dụng</li>
-                                <li style={{ marginBottom: '10px' }}>Tổng tiền</li>
-                                <li style={{ marginBottom: '10px' }}>Tổng tiền chơi</li>
-                                {(turn.orderServices.length != 0) && <li>Danh sách dịch vụ</li>}
+                                <li style={{ marginBottom: '10px' , fontSize:'25px', color: 'green'  }}>Tổng tiền</li>
+                                <li style={{ marginBottom: '10px' ,marginLeft:'30px'}}>- Tổng tiền chơi</li>
+                                {(turn.orderServices.length != 0) && <li style={{marginLeft:'30px'}}>- Danh sách dịch vụ</li>}
                             </ul>
                             <ul className="top-bar-details-inf">
                                 <li style={{ marginBottom: '10px' }}>{turn.billId}</li>
@@ -64,14 +64,14 @@ const DetailsFinishTurn = () => {
                                 <li style={{ marginBottom: '10px' }}>{formatTime(turn.timeStart)}</li>
                                 <li style={{ marginBottom: '10px' }}>{formatTime(turn.timeEnd)}</li>
                                 <li style={{ marginBottom: '10px' }}>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
-                                <li style={{ marginBottom: '10px' }}>{formatMoney(turn.totalPrice) || 'Không có'}</li>
+                                <li style={{ marginBottom: '10px' , fontSize:'25px' , color:'green'  }}>{formatMoney(turn.totalPrice) || 'Không có'}</li>
                                 {turn.orderServices && turn.orderServices.map(orderService => {
                                     sumServiceCost = sumServiceCost + orderService.totalPrice
                                 })}
                                 <li style={{ marginBottom: '10px' }}>{formatMoney(turn.totalPrice - sumServiceCost) || 'Không có'}</li>
                             </ul>
                         </div>
-                        {(turn.orderServices.length != 0) && <div className="list-service">
+                        {(turn.orderServices.length != 0) && <div className="list-service" style={{ marginLeft:'30px'}}>
                             <table className='tb' style={{ width: '70%', }}>
                                 <tbody className='t'>
                                     <tr className='table-list'>
