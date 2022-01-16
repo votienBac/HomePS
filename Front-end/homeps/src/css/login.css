@@ -15,7 +15,8 @@ form {
     width: 25%;
 }
 .forms{
-    width: 100%;
+    width: 35%;
+    padding-left: 30%;
 }
 form:after{
     content: '';
@@ -37,8 +38,8 @@ form .form-inner{
     display: block;
     padding: 30px;
     z-index: 2;
-
 }
+
 form .form-inner h2{
     color: rgb(175, 162, 162);
     font-size: 28px;
@@ -102,5 +103,11 @@ form .form-inner input[type="submit"]:hover {
     padding-bottom: 10px;
 }
 .form-inner .submitt {
-    margin-left: 110px;
+    margin-left: 30%;
 }
+@media all and (max-width: 600px) {
+    .forms{
+        width: 100%;
+        padding-left: 0%;
+    }
+ }

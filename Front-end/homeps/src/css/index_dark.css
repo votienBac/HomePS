@@ -122,6 +122,9 @@
   background-color: #303030;
   box-shadow: 0px 0px 3px #b6bbc7, 0px 0px 2px #989ba0;
 }
+.pageMain-dark button:hover{
+  background-color: #4d4c4c;
+}
 .pageMain-dark .table-list{
   background-color: rgb(27, 26, 26);
   box-shadow: 0px 0px 3px #8b95a7, 0px 0px 2px #7081a1;

@@ -31,7 +31,7 @@ export default function TaiKhoan(){
         setPage({page:"change"});
     }
     return(
-        <div className="doimk">
+        <div className="pageBody">
             {(page.page === "change") ? (
                 <ChangePassword setPage={setPage} Logout={Logout}/>
             ) : (
