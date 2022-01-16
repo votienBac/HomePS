@@ -56,6 +56,7 @@ function ExtraMayPS() {
                 isChangePageQuery = {isChangePageQuery}
                 setChangePageQuery = {setChangePageQuery}
                 size={sizePage}
+                status={statusPS}
                 />                
             </div>
             <div className="filter-bar" >

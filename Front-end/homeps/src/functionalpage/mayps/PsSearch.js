@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../../css/luotchoi.css';
-const PsSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, setChangePageQuery, size }) => {
+const PsSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, setChangePageQuery, size, status }) => {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
     myHeaders.append("Content-Type", "application/json");
@@ -19,7 +19,7 @@ const PsSearch = ({ query, setQuery, isQuery, setIsQuery, isChangePageQuery, set
         }
     };
     if(isQuery && isChangePageQuery){
-        fetch(`https://homeps.herokuapp.com/api/ps/search?size=${size}&page=${query.currentPage}&query=${details}`, {
+        fetch(`https://homeps.herokuapp.com/api/ps/search?size=${size}&page=${query.currentPage}&query=${details}&status=${status}`, {
             method: 'GET',
             headers: myHeaders
         })
