@@ -49,7 +49,7 @@ function ChangePassword({setPage,Logout}) {
       }
     return (
       <div className='pageDetail'>
-        <form onSubmit={ submitHandler } className='forms' style={{paddingLeft:'30%'}}>
+        <form onSubmit={ submitHandler } className='forms' >
             <div className="form-inner">
                 <h2>Đổi mật khẩu</h2>
                 <div className="form-group">

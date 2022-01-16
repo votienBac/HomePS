@@ -33,7 +33,15 @@
     display: flex;
     float: right;
 }
-
+.header-luot-choi .filter-bar{
+    display: flex;
+    float: right;
+    margin-right: 1%;
+    height: 100%;
+}
+.header-luot-choi .filterSelect{
+    width: 80%;
+}
 .tb {
     width: 100%;
     margin-bottom: 2%;

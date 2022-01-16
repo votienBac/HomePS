@@ -28,19 +28,20 @@ function ExtraMayPS() {
       totalPage: 3,
     });
     const [sizePage, setSizePage] = useState(10)
+    const [statusPS, setStatusPS] = useState('full')
     const [isQuery, setIsQuery] = useState(false)
     const [isChangePageQuery, setChangePageQuery] = useState(false)
     var psList = data.psList;
     useEffect(() => {
         if(!isQuery)
-            fetch(`https://homeps.herokuapp.com/api/ps?page=${data.currentPage}&size=${sizePage}&status=${'full'}`, {
+            fetch(`https://homeps.herokuapp.com/api/ps?page=${data.currentPage}&size=${sizePage}&status=${statusPS}`, {
            
                 method: 'GET',
                 headers: myHeaders
             })
                 .then(res => res.json())
                 .then(res => { setData(res) })
-        }, [data.currentPage, sizePage, isQuery])
+        }, [data.currentPage, sizePage, statusPS, isQuery])
 
     return (
     <div className="pageBody">
@@ -56,6 +57,19 @@ function ExtraMayPS() {
                 setChangePageQuery = {setChangePageQuery}
                 size={sizePage}
                 />                
+            </div>
+            <div className="filter-bar" >
+                <select id="input" className="filterSelect"
+                    value={statusPS}
+                    onChange={(e) => {
+                        setStatusPS(e.target.value)
+                        setChangePageQuery(isQuery)
+                    }}>
+                    <option value='full'>Không lọc</option>
+                    <option value='free'>Máy trống</option>
+                    <option value = 'busy'>Máy đang dùng</option>
+                    <option value = 'broken'>Máy hỏng</option>
+                </select>
             </div>
             </div>
             {(data.totalPage === 0)? <h2 className="noResult">Không có máy ps nào</h2> :

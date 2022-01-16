@@ -15,7 +15,7 @@ form {
     width: 25%;
 }
 .forms{
-    width: 35%;
+    width: 100%;
 }
 form:after{
     content: '';
