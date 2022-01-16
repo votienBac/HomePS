@@ -57,7 +57,7 @@
 }
 .header .btn-group 
 button:focus,button:visited {
-  color:  #DF5173FF;
+  color:  rgb(71, 204, 137);
   font-weight: 600;
 }
 

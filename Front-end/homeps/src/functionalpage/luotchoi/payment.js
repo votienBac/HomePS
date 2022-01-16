@@ -31,7 +31,7 @@ const Payment = () => {
                         <li style={{ marginBottom: '10px' }}>Thời điểm bắt đầu</li>
                         <li style={{ marginBottom: '10px' }}>Thời điểm kết thúc</li>
                         <li style={{ marginBottom: '10px' }}>Sự kiện được áp dụng</li>
-                        <li style={{ marginBottom: '10px' , fontSize:'25px', color: 'red'  }}>Tổng tiền</li>
+                        <li style={{ marginBottom: '10px' , fontSize:'25px', color: 'green'  }}>Tổng tiền</li>
                         <li style={{ marginBottom: '10px' ,marginLeft:'30px'}}>- Tổng tiền chơi</li>
                         {(turn.orderServices.length != 0) && (<li style={{marginLeft:'30px'}}>- Danh sách dịch vụ</li>)}
                     </ul>
@@ -40,11 +40,11 @@ const Payment = () => {
                         <li style={{ marginBottom: '10px' }}>{turn.playStation && turn.playStation.psName}</li>
                         <li style={{ marginBottom: '10px' }}>{formatTime(turn.timeStart)}</li>
                         <li style={{ marginBottom: '10px' }}>{formatTime(turn.timeEnd)}</li>
-                        <li style={{ marginBottom: '10px' }}>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
-                        <li style={{ marginBottom: '10px', fontSize:'25px' , color:'red'  }}>{formatMoney(turn.totalPrice)  || 'Không có'}</li>
                         {turn.orderServices && turn.orderServices.map(orderService => {
                             sumServiceCost = sumServiceCost + orderService.totalPrice
                         })}
+                        <li style={{ marginBottom: '10px' }}>{turn.event && turn.event.eventName + ' (giảm ' + turn.event.percentDiscount + '%)' || 'Không có'} </li>
+                        <li style={{ marginBottom: '10px', fontSize:'25px' , color:'green'  }}>{formatMoney(turn.totalPrice)  || 'Không có'}</li>
                         <li style={{ marginBottom: '10px' }}>{formatMoney(turn.totalPrice-sumServiceCost)  || 'Không có'}</li>
                     </ul>
                 </div>
@@ -61,7 +61,7 @@ const Payment = () => {
                                 return (
                                     <tr key={orderService.service.serviceId} className='list-turn'>
                                         <td>{orderService.service.serviceName}</td>
-                                        <td>{formatMoney(orderService.service.price)}</td>
+                                        <td>{formatMoney(orderService.totalPrice / orderService.quantity)}</td>
                                         <td>{orderService.quantity}</td>
                                         <td>{formatMoney(orderService.totalPrice)}</td>
                                     </tr>
